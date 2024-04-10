@@ -196,14 +196,17 @@ class _HomePageOneTabContainerPageState
                       height: Get.height * .05,
                     ),
                     Container(
-                      height: Get.height * .05,
+                      height: Get.width * .10,
+                      // color: Colors.red,
+                      // alignment: Alignment.center,
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           // "All" Text
                           Positioned(
                             top: 0,
                             bottom: 0,
-                            right: 330,
+                            // right: Get.width * .50,
                             left: 0,
                             child: GestureDetector(
                               onTap: () {
@@ -255,8 +258,8 @@ class _HomePageOneTabContainerPageState
                           ),
                           // ListView.builder
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 60, bottom: 20),
+                            padding: EdgeInsets.only(
+                                left: Get.width * 0.22, bottom: Get.width * 0.03),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: homeView_controller
@@ -279,10 +282,10 @@ class _HomePageOneTabContainerPageState
                                         FromHomeToCat: true,
                                         selectedTabIndex: selectedTabIndex));
                                   },
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Center(
+                                  child: Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          right: Get.width * .09),
                                       child: Text(
                                         "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
                                         style: TextStyle(
