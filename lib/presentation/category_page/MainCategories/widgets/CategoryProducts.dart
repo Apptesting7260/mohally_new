@@ -21,6 +21,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
       ProductsByCatIdListControllerEnglish();
   HomeView_controller_English homeView_controller =
       HomeView_controller_English();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -34,6 +35,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
   int selectedTabIndex = 0;
   CategoriesByNameControllerEnglish _categoryByName =
       CategoriesByNameControllerEnglish();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +103,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                                 crossAxisCount: 3,
                                 // crossAxisSpacing: 8.0,
                                 // mainAxisSpacing: 3.0,
-                                mainAxisExtent: Get.height * .14,
+                                mainAxisExtent: Get.height * .15,
                               ),
                               itemCount: _categoryByName.userList.value
                                       .seeAllMainCategory?.length ??
@@ -120,14 +122,20 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                                                 submainCatId);
                                         Get.to(ProductsByCategoryScreen());
                                       },
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(38.0),
-                                        child: Image.network(
+                                      // child: ClipRRect(
+                                      //   borderRadius:
+                                      //       BorderRadius.circular(38.0),
+                                      //   child: Image.network(
+                                      //     "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
+                                      //     height: 68,
+                                      //     width: 68,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
+                                      child: CircleAvatar(
+                                        radius: Get.width * 0.08,
+                                        backgroundImage: NetworkImage(
                                           "${_categoryByName.userList.value.seeAllMainCategory?[index].imageUrl.toString()}",
-                                          height: 68,
-                                          width: 68,
-                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
@@ -144,7 +152,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 );
                               },

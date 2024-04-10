@@ -78,9 +78,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
 
   int selectedImageIndex = 0;
   String selectedImageUrl = "";
+
   // HomeLivingModel homeLivingModel = HomeLivingModel();
   EnglishSingleProductViewController productviewcontroller =
       EnglishSingleProductViewController();
+
   // int selectedIndex = 0; // Initialize with -1 to indicate no selection
 
   // EnglishSingleProductViewController _productview =
@@ -351,7 +353,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               shrinkWrap: true,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                mainAxisExtent: Get.height * .14,
+                                mainAxisExtent: Get.height * .15,
                                 crossAxisCount: 4,
                                 mainAxisSpacing: 17.h,
                                 crossAxisSpacing: 15.h,
@@ -365,7 +367,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               itemBuilder: (BuildContext context, int index) {
                                 bool isSelected = index == selectedTabIndex;
                                 return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     GestureDetector(
@@ -393,14 +395,20 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         print(
                                             "RRRRRRRRRRRRRRR$selectedTabIndex");
                                       },
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(38.0),
-                                        child: Image.network(
+                                      // child: ClipRRect(
+                                      //   borderRadius:
+                                      //       BorderRadius.circular(38.0),
+                                      //   child: Image.network(
+                                      //     "${homeView_controller.userList.value.categoryData?[index].imageUrl}",
+                                      //     height: 68,
+                                      //     width: 68,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
+                                      child: CircleAvatar(
+                                        radius: Get.width * 0.08,
+                                        backgroundImage: NetworkImage(
                                           "${homeView_controller.userList.value.categoryData?[index].imageUrl}",
-                                          height: 68,
-                                          width: 68,
-                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
