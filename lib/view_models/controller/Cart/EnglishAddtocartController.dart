@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/Screens/Arabic_cart/arabic_cart.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/EnglishAdd_to_cart_Model/EnglishaddtocartModel.dart';
@@ -37,13 +36,13 @@ class AddToCartcontroller extends GetxController {
 
   Future<void> addtocart_Apihit(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     addIfNotNull(productDetails, 'Color', EnglishAddtocartColor?.toString());
     addIfNotNull(productDetails, 'Size', EnglishAddtocartSize?.toString());
-    addIfNotNull(
-        productDetails, 'Model_id', EnglishAddtocartModelId?.toString());
+    addIfNotNull(productDetails, 'Model', EnglishAddtocartModelId?.toString());
+    addIfNotNull(productDetails, 'Items', EnglishAddtocartModelId?.toString());
 
     loading.value = true;
 

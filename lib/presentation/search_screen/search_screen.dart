@@ -217,7 +217,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Almarai',
+                        fontFamily: 'Jost',
                       ),
                     ),
                   ),
@@ -247,42 +247,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         print('${mainCatId}===${productId}===');
                         _singleproductviewController.Single_ProductApiHit(
                             context, productId, mainCatId);
-                        // setState(() {
-                        //   Englishproductid = productId;
-                        //   EnglishMainCatId = mainCatId;
-                        // });
-                        // print("$Englishproductid==");
-                        // if (mainCatId == "153") {
-                        //   Get.to(SingleProductView());
-                        //   print(
-                        //       "$mainCatId===========Mens Appearl main category id ");
-                        // } else if (mainCatId == "154") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "155") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "156") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "157") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "174") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "166") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "170") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "171") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "172") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "173") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "176") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "177") {
-                        //   Get.to(SingleProductView());
-                        // } else {
-                        //   print('not found ');
-                        // }
+                        Get.to(SingleProductView());
                       },
                     ),
                     trailing:
@@ -376,7 +341,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Text(
                 query,
                 style: TextStyle(
-                  fontFamily: 'Almarai',
+                  fontFamily: 'Jost',
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: Color(0xff8f959e),

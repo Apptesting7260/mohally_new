@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/presentation/category_page/ProductByCategoryScreen/ProductByCategoryScreen.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/CategoryProducts.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/EnglishSearchController/EnglishCategorySearch.dart';
@@ -225,7 +223,6 @@ class _CategorySearchState extends State<CategorySearch> {
                         title: Text(_searchcontroller
                             .products.value.searchMainCat![index].aCategoryName
                             .toString()),
-
                         leading: GestureDetector(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(38.0),
@@ -246,17 +243,6 @@ class _CategorySearchState extends State<CategorySearch> {
                             Get.to(ProductsByCategoryScreen());
                           },
                         ),
-                        // trailing:
-                        //     // Text(
-                        //     //   "${_searchcontroller.products.value.products?[index].averageRating.toString()}",
-                        //     // ),
-                        //     CustomRatingBar(
-                        //   ignoreGestures: true,
-                        //   initialRating: _searchcontroller
-                        //       .products.value.products?[index].averageRating
-                        //       ?.toDouble(),
-                        // ),
-                        // Add more details or customize the UI as needed
                       ),
                       SizedBox(
                         height: Get.height * .02,
@@ -370,8 +356,4 @@ class _CategorySearchState extends State<CategorySearch> {
       ),
     );
   }
-
-  /// Section Widget
-
-  /// Section Widget
 }

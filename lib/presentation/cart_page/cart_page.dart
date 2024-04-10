@@ -318,59 +318,6 @@ class _CartPageState extends State<CartPage> {
                                                 .Single_ProductApiHit(context,
                                                     productId, mainCatId);
                                             Get.to(SingleProductView());
-                                            // setState(() {
-                                            //   Englishproductid = productId;
-                                            //   EnglishMainCatId = cartmainCatId;
-                                            // });
-                                            // print("$Englishproductid==");
-                                            // print("$EnglishMainCatId==");
-                                            // if (cartmainCatId == "153") {
-                                            //   Get.to(SingleProductView());
-                                            //   print(
-                                            //       "$cartmainCatId===========Mens Appearl main category id ");
-                                            // } else if (cartmainCatId == "154") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "155") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "156") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "157") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "174") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "166") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "170") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "171") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "172") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "173") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "176") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (cartmainCatId == "177") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "178") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "179") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "180") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "182") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "183") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "184") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "186") {
-                                            //   Get.to(SingleProductView());
-                                            // } else if (mainCatId == "185") {
-                                            //   Get.to(SingleProductView());
-                                            // } else {
-                                            //   print('not found ');
-                                            // }
                                           },
                                         ),
                                         Padding(
@@ -3046,7 +2993,7 @@ class _CartPageState extends State<CartPage> {
         )));
       } else {
         return Container(
-          height: Get.height * .3,
+          height: Get.height * .4,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
@@ -3087,43 +3034,7 @@ class _CartPageState extends State<CartPage> {
                                   _singleproductviewController
                                       .Single_ProductApiHit(
                                           context, productId, mainCatId);
-
-                                  // setState(() {
-                                  //   Englishproductid = productId;
-                                  //   EnglishMainCatId = mainCatId;
-                                  // });
-                                  // print("$Englishproductid==");
-                                  // if (mainCatId == "153") {
-                                  //   Get.to(SingleProductView());
-                                  //   print(
-                                  //       "$mainCatId===========Mens Appearl main category id ");
-                                  // } else if (mainCatId == "154") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "155") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "156") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "157") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "174") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "166") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "170") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "171") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "172") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "173") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "176") {
-                                  //   Get.to(SingleProductView());
-                                  // } else if (mainCatId == "177") {
-                                  //   Get.to(SingleProductView());
-                                  // } else {
-                                  //   print('not found ');
-                                  // }
+                                  Get.to(SingleProductView());
                                 },
                               ),
                               SizedBox(height: 9.v),
@@ -3197,161 +3108,6 @@ class _CartPageState extends State<CartPage> {
                                       .id
                                       ?.toString();
 
-                                  // setState(() {
-                                  //   mainCatId;
-                                  //   productId;
-                                  //   Englishproductid = productId;
-                                  //   EnglishMainCatId = mainCatId;
-                                  // });
-
-                                  // if (mainCatId == "153") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensShirt(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "154") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensBottoms(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "155") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensJacket(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "156") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensActiveWear(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "157") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensFormals(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "174") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartmensShoes_view(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "166") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartelectronicsPhone(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "170") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartelectronicsLaptop(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "171") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartelectronicsHeadphones(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  //   // }
-                                  //   // });
-                                  // } else if (mainCatId == "172") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartelectronicsCamera(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  //   // }
-                                  //   // });
-                                  // } else if (mainCatId == "173") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartelectronicsWarable(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "176") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartWomensDress(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // } else if (mainCatId == "177") {
-                                  //   productviewcontroller.Single_ProductApiHit(
-                                  //       context);
-
-                                  //   showModalBottomSheet(
-                                  //       context: context,
-                                  //       isScrollControlled: true,
-                                  //       builder: (context) {
-                                  //         return _buildAddtocartwomensTop(
-                                  //             context, mainCatId, productId);
-                                  //       });
-                                  // }
                                   print(mainCatId.toString());
                                 },
                                 child: Container(
@@ -3391,121 +3147,6 @@ class _CartPageState extends State<CartPage> {
         );
       }
     });
-    // Obx(() {
-    //   if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
-    //     return const Scaffold(
-    //       body: Center(child: CircularProgressIndicator()),
-    //     );
-    //   } else {
-    //     return homeView_controller.userList.value.categoryData == null ||
-    //             homeView_controller.userList.value.categoryData?.length == 0
-    //         ? Center(child: Text('Error: ${homeView_controller.error.value}'))
-    //         : Padding(
-    //             padding: const EdgeInsets.only(right: 10),
-    //             child: Container(
-    //               height: Get.height * .3,
-    //               child: ListView.builder(
-    // shrinkWrap: true,
-    // scrollDirection: Axis.horizontal,
-    // physics: BouncingScrollPhysics(),
-    //                 itemCount: homeView_controller
-    //                         .userList.value.recommendedProduct?.length ??
-    //                     0,
-    //                 itemBuilder: (context, index) {
-    //       return Padding(
-    //         padding: EdgeInsets.symmetric(horizontal: 8.0),
-    //         child: Align(
-    //             alignment: Alignment.centerRight,
-    //             child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: [
-    //                   Column(
-    //                     crossAxisAlignment:
-    //                         CrossAxisAlignment.start,
-    //                     children: [
-    //                       CustomImageView(
-    //                         fit: BoxFit.cover,
-    //                         imagePath:
-    //                             "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
-    //                         height: 120.adaptSize,
-    //                         width: 120.adaptSize,
-    //                         radius: BorderRadius.circular(
-    //                           10.h,
-    //                         ),
-    //                       ),
-    //                       SizedBox(height: 9.v),
-    //                       Text(
-    //                         "Luxury Rhinestone....",
-    //                         style: theme.textTheme.labelLarge,
-    //                       ),
-    //                       SizedBox(height: 1.v),
-    //                       Row(
-    //                         children: [
-    //                           Padding(
-    //                             padding: EdgeInsets.symmetric(
-    //                                 vertical: 1.v),
-    //                             child: CustomRatingBar(
-    //                               initialRating: 5,
-    //                             ),
-    //                           ),
-    //                           Padding(
-    //                             padding: EdgeInsets.only(left: 4.h),
-    //                             child: Text(
-    //                               "(120)",
-    //                               style: CustomTextStyles
-    //                                   .labelMediumGray90001,
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       SizedBox(height: 2.v),
-    //                       RichText(
-    //                         text: TextSpan(
-    //                           children: [
-    //                             TextSpan(
-    //                               text: "99",
-    //                               style: CustomTextStyles
-    //                                   .titleSmallPrimarySemiBold,
-    //                             ),
-    //                             TextSpan(
-    //                               text: " ",
-    //                             ),
-    //                             TextSpan(
-    //                               text: "2k+ sold",
-    //                               style: theme.textTheme.bodySmall,
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         textAlign: TextAlign.left,
-    //                       ),
-    //                       SizedBox(height: 6.v),
-    //                       Container(
-    //                         width: 100.h,
-    //                         height: 30.v,
-    //                         decoration: AppDecoration
-    //                             .outlineErrorContainer
-    //                             .copyWith(
-    //                           borderRadius:
-    //                               BorderRadiusStyle.circleBorder35,
-    //                         ),
-    //                         child: Center(
-    //                           child: Text(
-    //                             "Add to Cart",
-    //                             style: TextStyle(
-    //                                 fontSize: 8,
-    //                                 color: Colors.black),
-    //                           ),
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ])),
-    //       );
-    //     },
-    //   ),
-    // ));
-    //   }
-    // });
   }
 
   Widget _buildListRecommended(BuildContext context) {
@@ -3602,42 +3243,6 @@ class _CartPageState extends State<CartPage> {
   }
 
   /// Section Widget
-  Widget _buildCart(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: SizedBox(
-        height: 38.v,
-        child: ListView.separated(
-          padding: EdgeInsets.only(left: 20.h),
-          scrollDirection: Axis.horizontal,
-          separatorBuilder: (
-            context,
-            index,
-          ) {
-            return SizedBox(
-              width: 20.h,
-            );
-          },
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return SizedBox(
-              width: 112.h,
-              height: Get.height,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "مُستَحسَن",
-                  style: theme.textTheme.titleMedium,
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  /// Section Widget
   Widget _buildCart1(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
@@ -3673,43 +3278,7 @@ class _CartPageState extends State<CartPage> {
                         print('${mainCatId}===${productId}===');
                         _singleproductviewController.Single_ProductApiHit(
                             context, productId, mainCatId);
-
-                        // setState(() {
-                        //   Englishproductid = productId;
-                        //   EnglishMainCatId = mainCatId;
-                        // });
-                        // print("$Englishproductid==");
-                        // if (mainCatId == "153") {
-                        //   Get.to(SingleProductView());
-                        //   print(
-                        //       "$mainCatId===========Mens Appearl main category id ");
-                        // } else if (mainCatId == "154") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "155") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "156") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "157") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "174") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "166") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "170") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "171") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "172") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "173") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "176") {
-                        //   Get.to(SingleProductView());
-                        // } else if (mainCatId == "177") {
-                        //   Get.to(SingleProductView());
-                        // } else {
-                        //   print('not found ');
-                        // }
+                        Get.to(SingleProductView());
                       },
                       fit: BoxFit.cover,
                       imagePath:
@@ -3771,7 +3340,7 @@ class _CartPageState extends State<CartPage> {
                       style: TextStyle(
                         fontSize: 8, color: Color(0xffff8300),
                         fontWeight: FontWeight.w600,
-                        // fontFamily: 'Almarai'
+                        // fontFamily: 'Jost'
                       ),
                     ),
                   ),
