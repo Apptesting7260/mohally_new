@@ -70,6 +70,7 @@ class _SingleProductViewState extends State<SingleProductView> {
     'Men\'s clothing',
     'Recommended',
   ];
+
   @override
   void initState() {
     super.initState();
