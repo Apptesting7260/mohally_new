@@ -1738,49 +1738,13 @@ class _SingleProductViewState extends State<SingleProductView> {
                                       .recommendedProduct?[index]
                                       .mainCategoryId!
                                       .toString();
-                                  String? productId = homeView_controller
-                                      .userList
-                                      .value
-                                      .recommendedProduct?[index]
-                                      .id!
+                                  productId = homeView_controller.userList.value
+                                      .recommendedProduct?[index].id!
                                       .toString();
-
-                                  // setState(() {
-                                  //   Englishproductid = productId;
-                                  //   EnglishMainCatId = mainCatId;
-                                  // });
-                                  // print("$Englishproductid==");
-                                  if (mainCatId == "153") {
-                                    Get.to(SingleProductView());
-                                    print(
-                                        "$mainCatId===========Mens Appearl main category id ");
-                                  } else if (mainCatId == "154") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "155") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "156") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "157") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "174") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "166") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "170") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "171") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "172") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "173") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "176") {
-                                    Get.to(SingleProductView());
-                                  } else if (mainCatId == "177") {
-                                    Get.to(SingleProductView());
-                                  } else {
-                                    print('not found ');
-                                  }
+                                  _singleproductviewController
+                                      .Single_ProductApiHit(
+                                          context, productId, mainCatId);
+                                  Get.to(SingleProductView());
                                 },
                                 imagePath:
                                     "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",

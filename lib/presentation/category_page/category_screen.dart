@@ -346,7 +346,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                                       ? 15
                                                                       : 12,
                                                               fontFamily:
-                                                                  'Almarai',
+                                                                  'Jost',
                                                               fontWeight: index ==
                                                                       0
                                                                   ? FontWeight
@@ -510,7 +510,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     title: Text(
                                       "Choose",
                                       style: TextStyle(
-                                          fontFamily: 'League Spartan',
+                                          fontFamily: 'Jost',
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400),
                                     ),
@@ -520,7 +520,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           child: Text(
                                             "Camera",
                                             style: TextStyle(
-                                                fontFamily: 'League Spartan',
+                                                fontFamily: 'Jost',
                                                 color: Colors.white,
                                                 fontSize: 18),
                                           ),
@@ -532,7 +532,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         GestureDetector(
                                           child: Text("Gallery",
                                               style: TextStyle(
-                                                  fontFamily: 'League Spartan',
+                                                  fontFamily: 'Jost',
                                                   color: Colors.white,
                                                   fontSize: 18)),
                                           onTap: () {

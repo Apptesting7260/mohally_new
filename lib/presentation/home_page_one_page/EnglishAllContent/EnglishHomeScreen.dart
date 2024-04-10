@@ -1,9 +1,7 @@
 // ignore_for_file: unused_import
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
@@ -217,7 +215,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
-                                        fontFamily: 'League Spartan'),
+                                        fontFamily: 'Jost'),
                                   ),
                                   Text(
                                     'Time Limited Offer',
@@ -225,7 +223,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey,
-                                        fontFamily: 'League Spartan'),
+                                        fontFamily: 'Jost'),
                                   ),
                                 ],
                               )
@@ -258,7 +256,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
-                                        fontFamily: 'League Spartan'),
+                                        fontFamily: 'Jost'),
                                   ),
                                   Text(
                                     'Within 90 days',
@@ -266,7 +264,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey,
-                                        fontFamily: 'League Spartan'),
+                                        fontFamily: 'Jost'),
                                   ),
                                 ],
                               )
@@ -362,13 +360,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               itemCount: homeView_controller
                                       .userList.value.categoryData?.length ??
                                   0,
-                              // homeView_controller
-                              //     .userList.value.categoryData?.length,
                               itemBuilder: (BuildContext context, int index) {
-                                bool isSelected = index == selectedTabIndex;
                                 return Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     GestureDetector(
                                       onTap: () {
@@ -383,10 +376,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                             .toString();
                                         _categorybynamecontroller
                                             .CategoryByNameApiHit(categoryId);
-                                        // setState(() {
-                                        //   EnglishsubMainCatId = mainCatId;
-                                        // });
-                                        // print("$EnglishsubMainCatId==");
+
                                         Get.to(CategoryScreen(
                                             showAppBar: true,
                                             FromHomeToCat: true,
@@ -395,16 +385,6 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         print(
                                             "RRRRRRRRRRRRRRR$selectedTabIndex");
                                       },
-                                      // child: ClipRRect(
-                                      //   borderRadius:
-                                      //       BorderRadius.circular(38.0),
-                                      //   child: Image.network(
-                                      //     "${homeView_controller.userList.value.categoryData?[index].imageUrl}",
-                                      //     height: 68,
-                                      //     width: 68,
-                                      //     fit: BoxFit.cover,
-                                      //   ),
-                                      // ),
                                       child: CircleAvatar(
                                         radius: Get.width * 0.08,
                                         backgroundImage: NetworkImage(
@@ -418,14 +398,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                       style: TextStyle(
                                         color: Color(0xFF272727),
                                         fontSize: 12,
-                                        fontFamily: 'Almarai',
+                                        fontFamily: 'Jost',
                                         fontWeight: FontWeight.w500,
                                       ),
                                       maxLines: 2,
                                       textAlign: TextAlign.center,
-                                      // theme.textTheme.bodySmall,
-                                      // overflow: TextOverflow.ellipsis,
-                                      // maxLines: 1,
                                     )
                                   ],
                                 );
@@ -600,7 +577,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                       style: TextStyle(
                         fontSize: 8, color: Color(0xffff8300),
                         fontWeight: FontWeight.w600,
-                        // fontFamily: 'Almarai'
+                        // fontFamily: 'Jost'
                       ),
                     ),
                   ),
@@ -1059,7 +1036,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'League Spartan',
+                              fontFamily: 'Jost',
                             ),
                           ),
                         ),
@@ -1075,7 +1052,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                               color: Colors.grey,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'League Spartan',
+                              fontFamily: 'Jost',
                             ),
                           ),
                         ),
@@ -1133,7 +1110,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                               style: TextStyle(
                                                 color: Color(0xffff8300),
                                                 fontSize: 9,
-                                                fontFamily: 'League Spartan',
+                                                fontFamily: 'Jost',
                                               ),
                                             ),
                                           ),
