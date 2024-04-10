@@ -19,7 +19,6 @@ import 'package:mohally/view_models/controller/Home_controller_English/HomeContr
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_bottom_bar.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
-
 import '../../data/app_exceptions.dart';
 import '../../data/response/status.dart';
 import '../../widgets/Internet_exception_widget/internet_exception_widget.dart';
@@ -259,7 +258,8 @@ class _HomePageOneTabContainerPageState
                           // ListView.builder
                           Padding(
                             padding: EdgeInsets.only(
-                                left: Get.width * 0.22, bottom: Get.width * 0.03),
+                                left: Get.width * 0.22,
+                                bottom: Get.width * 0.03),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: homeView_controller

@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/view_models/controller/CancelOrderController/cancelOrderController.dart';
 import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
 import 'package:mohally/view_models/controller/OrderStatusController/orderstatuscontroller.dart';
@@ -9,11 +10,10 @@ import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
 
-RxString orderid = "".obs;
-
 // ignore_for_file: must_be_immutable
 class MyOrdersProcessingPage extends StatefulWidget {
-  const MyOrdersProcessingPage({Key? key})
+  final VoidCallback onCancel;
+  const MyOrdersProcessingPage({Key? key, required this.onCancel})
       : super(
           key: key,
         );
@@ -89,16 +89,18 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
                     ),
                   ],
                 )
-              : Container(
-                  width: double.maxFinite,
-                  decoration: AppDecoration.fillWhiteA,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20.v),
-                      _buildMyProcessingOrders(context),
-                    ],
+              : SingleChildScrollView(
+                  child: Container(
+                    width: double.maxFinite,
+                    decoration: AppDecoration.fillWhiteA,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20.v),
+                        _buildMyProcessingOrders(context),
+                      ],
+                    ),
                   ),
                 );
         }
@@ -231,6 +233,9 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
                           Orderid = id;
                         });
                         _cancelOrderController.orderCancelHit(context);
+                        Get.to(MyOrdersProcessingPage(
+                          onCancel: widget.onCancel,
+                        ));
                       },
                     ),
                     CustomElevatedButton(

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/OrderDetailsModel/orderDetailsModel.dart';
@@ -38,13 +37,14 @@ class OrderDetailsController extends GetxController {
     _api.OrderDetails(data, header).then((value) {
       loading.value = false;
       print(data);
-      setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
-      if (value.status == true) {
-        Get.to(OrderDetails());
-      } else {
-        setRxRequestStatus(Status.ERROR);
-      }
+      setRxRequestStatus(Status.COMPLETED);
+      // if (value.status == true) {
+      //   Get.to(OrderDetails());
+
+      // } else {
+      //   setRxRequestStatus(Status.ERROR);
+      // }
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;

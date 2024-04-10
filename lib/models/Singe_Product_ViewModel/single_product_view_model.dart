@@ -97,20 +97,18 @@ class ProductCatgories {
     this.productCatgorey,
   });
   Tags? tags;
-  List<ProductCatgorey>? productCatgorey;
+  ProductCatgorey? productCatgorey;
 
   ProductCatgories.fromJson(Map<String, dynamic> json) {
     tags = Tags.fromJson(json['tags']);
-    productCatgorey = List.from(json['product_catgorey'])
-        .map((e) => ProductCatgorey.fromJson(e))
-        .toList();
+    productCatgorey = ProductCatgorey.fromJson(json['product_catgorey']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['tags'] = tags!.toJson();
-    _data['product_catgorey'] =
-        productCatgorey!.map((e) => e.toJson()).toList();
+    _data['product_catgorey'] = productCatgorey!.toJson();
+    // productCatgorey!.map((e) => e.toJson()).toList();
     return _data;
   }
 }

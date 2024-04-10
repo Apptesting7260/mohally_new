@@ -40,12 +40,13 @@ class CancelOrderController extends GetxController {
     _api.CancelOrder(data, header).then((value) {
       loading.value = false;
       print(data);
+      setAccountDetails(value);
       rxRequestStatus.value = Status.COMPLETED;
-      if (value.status == true) {
-        Get.off(MyOrdersTabContainerScreen());
-      } else {
-        setRxRequestStatus(Status.ERROR);
-      }
+      // if (value.status == true) {
+      //   Get.off(MyOrdersTabContainerScreen());
+      // } else {
+      //   setRxRequestStatus(Status.ERROR);
+      // }
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;

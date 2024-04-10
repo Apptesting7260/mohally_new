@@ -2,7 +2,12 @@ import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/presentation/OrderDetailsScreen/orderdetails.dart';
+import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
+import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
 import 'package:mohally/view_models/controller/OrderStatusController/orderstatuscontroller.dart';
+import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:mohally/widgets/custom_outlined_button.dart';
 
 // ignore_for_file: must_be_immutable
 class MyOrdersDelivererdPage extends StatefulWidget {
@@ -17,6 +22,8 @@ class MyOrdersDelivererdPage extends StatefulWidget {
 
 class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
     with AutomaticKeepAliveClientMixin<MyOrdersDelivererdPage> {
+  OrderDetailsController _orderDetails = OrderDetailsController();
+
   OrderStatuscontroller _orderStatuscontroller = OrderStatuscontroller();
 
   @override
@@ -86,8 +93,8 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
                   width: double.maxFinite,
                   decoration: AppDecoration.fillWhiteA,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 20.v),
                       _buildMyOrdersList(context),
@@ -142,28 +149,28 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
                     ),
                   ],
                 ),
-                // SizedBox(height: 15.v),
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: Row(
-                //     children: [
-                //       Padding(
-                //         padding: EdgeInsets.only(top: 1.v),
-                //         child: Text(
-                //           "Tracking number",
-                //           style: theme.textTheme.bodyMedium,
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: EdgeInsets.only(left: 5.h),
-                //         child: Text(
-                //           "IW3475453455",
-                //           style: CustomTextStyles.bodyMediumGray90001_1,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                SizedBox(height: 15.v),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 1.v),
+                        child: Text(
+                          "Tracking number",
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 5.h),
+                        child: Text(
+                          "IW3475453455",
+                          style: CustomTextStyles.bodyMediumGray90001_1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 9.v),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -211,21 +218,29 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
                         style: CustomTextStyles.bodyMediumGreen40002,
                       ),
                     ),
-                    // Spacer(),
-                    // CustomOutlinedButton(
-                    //   height: 30.v,
-                    //   width: 80.h,
-                    //   text: "Details",
-                    //   buttonTextStyle: CustomTextStyles.labelLargePrimary,
-                    // ),
-                    // CustomElevatedButton(
-                    //   height: 30.v,
-                    //   width: 80.h,
-                    //   text: "Re Order",
-                    //   margin: EdgeInsets.only(left: 8.h),
-                    //   buttonStyle: CustomButtonStyles.fillPrimaryTL15,
-                    //   buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
-                    // ),
+                    Spacer(),
+                    CustomOutlinedButton(
+                      height: 30.v,
+                      width: 80.h,
+                      text: "Details",
+                      buttonTextStyle: CustomTextStyles.labelLargePrimary,
+                      onPressed: () {
+                        orderid.value = _orderStatuscontroller
+                            .Userlist.value.orders![index].id
+                            .toString();
+                        print(orderid.value);
+                        _orderDetails.ordeDetailsHit(orderid.value);
+                        Get.to(OrderDetails());
+                      },
+                    ),
+                    CustomElevatedButton(
+                      height: 30.v,
+                      width: 80.h,
+                      text: "Re Order",
+                      margin: EdgeInsets.only(left: 8.h),
+                      buttonStyle: CustomButtonStyles.fillPrimaryTL15,
+                      buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
+                    ),
                   ],
                 ),
               ],

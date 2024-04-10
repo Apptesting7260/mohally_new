@@ -9,6 +9,8 @@ import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 
+RxString orderid = "".obs;
+
 class MyOrdersTabContainerScreen extends StatefulWidget {
   const MyOrdersTabContainerScreen({Key? key})
       : super(
@@ -28,6 +30,10 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
   void initState() {
     super.initState();
     tabviewController = TabController(length: 3, vsync: this);
+  }
+
+  void refreshTabContainerScreen() {
+    setState(() {});
   }
 
   @override
@@ -53,7 +59,8 @@ class MyOrdersTabContainerScreenState extends State<MyOrdersTabContainerScreen>
                       controller: tabviewController,
                       children: [
                         MyOrdersDelivererdPage(),
-                        MyOrdersProcessingPage(),
+                        MyOrdersProcessingPage(
+                            onCancel: refreshTabContainerScreen),
                         MyOrdersCancelledPage(),
                       ],
                     ),

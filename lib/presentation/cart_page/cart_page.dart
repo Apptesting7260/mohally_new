@@ -317,6 +317,7 @@ class _CartPageState extends State<CartPage> {
                                             _singleproductviewController
                                                 .Single_ProductApiHit(context,
                                                     productId, mainCatId);
+                                            Get.to(SingleProductView());
                                             // setState(() {
                                             //   Englishproductid = productId;
                                             //   EnglishMainCatId = cartmainCatId;

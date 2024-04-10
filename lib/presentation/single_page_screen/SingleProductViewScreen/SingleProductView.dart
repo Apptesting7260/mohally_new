@@ -31,6 +31,8 @@ class SingleProductView extends StatefulWidget {
 }
 
 class _SingleProductViewState extends State<SingleProductView> {
+  EnglishSingleProductViewController _singleproductviewController =
+      EnglishSingleProductViewController();
   bool SeeAllImage = false;
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
@@ -692,7 +694,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                         // SizedBox(height: 37.v),
                         // _buildListRecommended(context),
                         SizedBox(height: 15.v),
-                        // _buildHomePageSection(context),
+                        _buildHomePageSection(context),
                         SizedBox(height: 15.v),
                       ],
                     ),
@@ -1688,279 +1690,273 @@ class _SingleProductViewState extends State<SingleProductView> {
     );
   }
 
-  // Widget _buildHomePageSection(BuildContext context) {
-  //   return Obx(() {
-  //     if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
-  //       return const Scaffold(
-  //         body: Center(child: CircularProgressIndicator()),
-  //       );
-  //     } else {
-  //       return homeView_controller.userList.value.categoryData == null ||
-  //               homeView_controller.userList.value.categoryData?.length == 0
-  //           ? Center(child: Text('Error: ${homeView_controller.error.value}'))
-  //           : Padding(
-  //               padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-  //               child: GridView.builder(
-  //                 shrinkWrap: true,
-  //                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //                   mainAxisExtent: Get.height * .35,
-  //                   crossAxisCount: 2,
-  //                   // mainAxisSpacing: 20.h,
-  //                   // crossAxisSpacing: 35.h,
-  //                 ),
-  //                 physics: BouncingScrollPhysics(),
-  //                 itemCount: homeView_controller
-  //                         .userList.value.recommendedProduct?.length ??
-  //                     0,
-  //                 itemBuilder: (context, index) {
-  //                   return Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       Container(
-  //                         decoration: BoxDecoration(
-  //                             borderRadius:
-  //                                 BorderRadius.all(Radius.circular(20))),
-  //                         width: Get.width,
-  //                         // padding: EdgeInsets.only(left: 20),
-  //                         height: 170.adaptSize,
-  //                         child: Stack(
-  //                           alignment: Alignment.topRight,
-  //                           children: [
-  //                             CustomImageView(
-  //                               fit: BoxFit.cover,
-  //                               onTap: () {
-  //                                 mainCatId = homeView_controller
-  //                                     .userList
-  //                                     .value
-  //                                     .recommendedProduct?[index]
-  //                                     .mainCategoryId!
-  //                                     .toString();
-  //                                 String? productId = homeView_controller
-  //                                     .userList
-  //                                     .value
-  //                                     .recommendedProduct?[index]
-  //                                     .id!
-  //                                     .toString();
+  Widget _buildHomePageSection(BuildContext context) {
+    return Obx(() {
+      if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else {
+        return homeView_controller.userList.value.categoryData == null ||
+                homeView_controller.userList.value.categoryData?.length == 0
+            ? Center(child: Text('Error: ${homeView_controller.error.value}'))
+            : Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisExtent: Get.height * .35,
+                    crossAxisCount: 2,
+                    // mainAxisSpacing: 20.h,
+                    // crossAxisSpacing: 35.h,
+                  ),
+                  physics: BouncingScrollPhysics(),
+                  itemCount: homeView_controller
+                          .userList.value.recommendedProduct?.length ??
+                      0,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          width: Get.width,
+                          // padding: EdgeInsets.only(left: 20),
+                          height: 170.adaptSize,
+                          child: Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              CustomImageView(
+                                fit: BoxFit.cover,
+                                onTap: () {
+                                  mainCatId = homeView_controller
+                                      .userList
+                                      .value
+                                      .recommendedProduct?[index]
+                                      .mainCategoryId!
+                                      .toString();
+                                  String? productId = homeView_controller
+                                      .userList
+                                      .value
+                                      .recommendedProduct?[index]
+                                      .id!
+                                      .toString();
 
-  //                                 // setState(() {
-  //                                 //   Englishproductid = productId;
-  //                                 //   EnglishMainCatId = mainCatId;
-  //                                 // });
-  //                                 // print("$Englishproductid==");
-  //                                 if (mainCatId == "153") {
-  //                                   Get.to(SingleProductView());
-  //                                   print(
-  //                                       "$mainCatId===========Mens Appearl main category id ");
-  //                                 } else if (mainCatId == "154") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "155") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "156") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "157") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "174") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "166") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "170") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "171") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "172") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "173") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "176") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else if (mainCatId == "177") {
-  //                                   Get.to(SingleProductView());
-  //                                 } else {
-  //                                   print('not found ');
-  //                                 }
-  //                               },
-  //                               imagePath:
-  //                                   "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
-  //                               // ImageConstant.imgRectangle569,
-  //                               height: 160.adaptSize,
-  //                               width: 160.adaptSize,
-  //                               radius: BorderRadius.circular(
-  //                                 10.h,
-  //                               ),
-  //                               alignment: Alignment.center,
-  //                             ),
-  //                             Padding(
-  //                               padding: EdgeInsets.only(
-  //                                 top: 10.v,
-  //                                 right: 20.h,
-  //                               ),
-  //                               child: CustomIconButton(
-  //                                 height: 20.adaptSize,
-  //                                 width: 20.adaptSize,
-  //                                 padding: EdgeInsets.all(5.h),
-  //                                 decoration: IconButtonStyleHelper.fillWhiteA,
-  //                                 alignment: Alignment.topRight,
-  //                                 child: CustomImageView(
-  //                                   imagePath: ImageConstant.imgSearch,
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                       SizedBox(height: 12.v),
-  //                       Padding(
-  //                         padding: const EdgeInsets.only(left: 10),
-  //                         child: Container(
-  //                           height: 16.v,
-  //                           width: 48.h,
-  //                           decoration: BoxDecoration(
-  //                             borderRadius:
-  //                                 BorderRadius.all(Radius.circular(10)),
-  //                             color: Color.fromARGB(71, 228, 193, 204),
-  //                           ),
-  //                           child: Center(
-  //                             child: Text(
-  //                               "10% Off",
-  //                               style: TextStyle(
-  //                                 fontSize: 8,
-  //                                 color: Color(0xffff8300),
-  //                                 fontWeight: FontWeight.w600,
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       SizedBox(height: 5.v),
-  //                       Padding(
-  //                         padding: const EdgeInsets.only(left: 10),
-  //                         child: SizedBox(
-  //                           width: 131.h,
-  //                           child: Text(
-  //                             "${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
-  //                             //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
-  //                             maxLines: 2,
-  //                             overflow: TextOverflow.ellipsis,
-  //                             style: theme.textTheme.labelLarge!.copyWith(
-  //                               height: 1.33,
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       SizedBox(height: 3.v),
-  //                       Padding(
-  //                         padding: const EdgeInsets.only(left: 10),
-  //                         child: Row(
-  //                           children: [
-  //                             Column(
-  //                               crossAxisAlignment: CrossAxisAlignment.start,
-  //                               children: [
-  //                                 Align(
-  //                                   alignment: Alignment.center,
-  //                                   child: Row(
-  //                                     mainAxisAlignment:
-  //                                         MainAxisAlignment.center,
-  //                                     children: [
-  //                                       Text(
-  //                                         "${homeView_controller.userList.value.recommendedProduct?[index].averageRating?.toString()}",
-  //                                         style: theme.textTheme.labelMedium,
-  //                                       ),
-  //                                       Padding(
-  //                                         padding: EdgeInsets.only(left: 3.h),
-  //                                         child: CustomRatingBar(
-  //                                           ignoreGestures: true,
-  //                                           initialRating: homeView_controller
-  //                                               .userList
-  //                                               .value
-  //                                               .recommendedProduct?[index]
-  //                                               .averageRating
-  //                                               ?.toDouble(),
-  //                                         ),
-  //                                       ),
-  //                                     ],
-  //                                   ),
-  //                                 ),
-  //                                 SizedBox(height: 5.v),
-  //                                 RichText(
-  //                                   text: TextSpan(
-  //                                     children: [
-  //                                       TextSpan(
-  //                                         text:
-  //                                             "${homeView_controller.userList.value.recommendedProduct?[index].price.toString()}",
-  //                                         //"99 ",
-  //                                         style: CustomTextStyles
-  //                                             .titleMediumPrimary_2,
-  //                                       ),
-  //                                       TextSpan(
-  //                                         text: "2k+ sold",
-  //                                         style: theme.textTheme.bodySmall,
-  //                                       ),
-  //                                     ],
-  //                                   ),
-  //                                   textAlign: TextAlign.left,
-  //                                 ),
-  //                               ],
-  //                             ),
-  //                             Padding(
-  //                               padding: EdgeInsets.only(
-  //                                 left: 35.h,
-  //                                 top: 5.v,
-  //                               ),
-  //                               child: CustomIconButton(
-  //                                 onTap: () {
-  //                                   mainCatId = homeView_controller
-  //                                       .userList
-  //                                       .value
-  //                                       .recommendedProduct?[index]
-  //                                       .mainCategoryId
-  //                                       .toString();
-  //                                   String? productId = homeView_controller
-  //                                       .userList
-  //                                       .value
-  //                                       .recommendedProduct?[index]
-  //                                       .id
-  //                                       ?.toString();
+                                  // setState(() {
+                                  //   Englishproductid = productId;
+                                  //   EnglishMainCatId = mainCatId;
+                                  // });
+                                  // print("$Englishproductid==");
+                                  if (mainCatId == "153") {
+                                    Get.to(SingleProductView());
+                                    print(
+                                        "$mainCatId===========Mens Appearl main category id ");
+                                  } else if (mainCatId == "154") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "155") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "156") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "157") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "174") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "166") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "170") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "171") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "172") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "173") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "176") {
+                                    Get.to(SingleProductView());
+                                  } else if (mainCatId == "177") {
+                                    Get.to(SingleProductView());
+                                  } else {
+                                    print('not found ');
+                                  }
+                                },
+                                imagePath:
+                                    "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
+                                // ImageConstant.imgRectangle569,
+                                height: 160.adaptSize,
+                                width: 160.adaptSize,
+                                radius: BorderRadius.circular(
+                                  10.h,
+                                ),
+                                alignment: Alignment.center,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: 10.v,
+                                  right: 20.h,
+                                ),
+                                child: CustomIconButton(
+                                  height: 20.adaptSize,
+                                  width: 20.adaptSize,
+                                  padding: EdgeInsets.all(5.h),
+                                  decoration: IconButtonStyleHelper.fillWhiteA,
+                                  alignment: Alignment.topRight,
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.imgSearch,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 12.v),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Container(
+                            height: 16.v,
+                            width: 48.h,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: Color.fromARGB(71, 228, 193, 204),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "10% Off",
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  color: Color(0xffff8300),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5.v),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: SizedBox(
+                            width: 131.h,
+                            child: Text(
+                              "${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
+                              //  "Luxury Rhinestone Quartz Watch Ladies Rome...",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.labelLarge!.copyWith(
+                                height: 1.33,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 3.v),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "${homeView_controller.userList.value.recommendedProduct?[index].averageRating?.toString()}",
+                                          style: theme.textTheme.labelMedium,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 3.h),
+                                          child: CustomRatingBar(
+                                            ignoreGestures: true,
+                                            initialRating: homeView_controller
+                                                .userList
+                                                .value
+                                                .recommendedProduct?[index]
+                                                .averageRating
+                                                ?.toDouble(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.v),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              "${homeView_controller.userList.value.recommendedProduct?[index].price.toString()}",
+                                          //"99 ",
+                                          style: CustomTextStyles
+                                              .titleMediumPrimary_2,
+                                        ),
+                                        TextSpan(
+                                          text: "2k+ sold",
+                                          style: theme.textTheme.bodySmall,
+                                        ),
+                                      ],
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: 35.h,
+                                  top: 5.v,
+                                ),
+                                child: CustomIconButton(
+                                  onTap: () {
+                                    mainCatId = homeView_controller
+                                        .userList
+                                        .value
+                                        .recommendedProduct?[index]
+                                        .mainCategoryId
+                                        .toString();
+                                    productId = homeView_controller.userList
+                                        .value.recommendedProduct?[index].id
+                                        ?.toString();
+                                    _singleproductviewController
+                                        .Single_ProductApiHit(
+                                            context, productId, mainCatId);
+                                    Get.to(SingleProductView());
 
-  //                                   setState(() {
-  //                                     mainCatId;
-  //                                     productId;
-  //                                     Englishproductid = productId;
-  //                                     EnglishMainCatId = mainCatId;
-  //                                   });
+                                    // if (mainCatId == "153") {
+                                    //   productviewcontroller
+                                    //       .Single_ProductApiHit(context);
 
-  //                                   // if (mainCatId == "153") {
-  //                                   //   productviewcontroller
-  //                                   //       .Single_ProductApiHit(context);
-
-  //                                   //   showModalBottomSheet(
-  //                                   //       context: context,
-  //                                   //       isScrollControlled: true,
-  //                                   //       builder: (context) {
-  //                                   //         return _buildAddtocartmensShirt(
-  //                                   //             context, mainCatId, productId);
-  //                                   //       });
-  //                                   // }
-  //                                 },
-  //                                 height: 25.adaptSize,
-  //                                 width: 25.adaptSize,
-  //                                 padding: EdgeInsets.all(6.h),
-  //                                 child: CustomImageView(
-  //                                   imagePath: ImageConstant.imgGroup239533,
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   );
-  //                   //HomepagesectionItemWidget();
-  //                 },
-  //               ),
-  //             );
-  //     }
-  //   });
-  // }
+                                    //   showModalBottomSheet(
+                                    //       context: context,
+                                    //       isScrollControlled: true,
+                                    //       builder: (context) {
+                                    //         return _buildAddtocartmensShirt(
+                                    //             context, mainCatId, productId);
+                                    //       });
+                                    // }
+                                  },
+                                  height: 25.adaptSize,
+                                  width: 25.adaptSize,
+                                  padding: EdgeInsets.all(6.h),
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.imgGroup239533,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                    //HomepagesectionItemWidget();
+                  },
+                ),
+              );
+      }
+    });
+  }
 
   _buildColors(BuildContext context) {
     return Container(
