@@ -7,7 +7,6 @@ import 'package:mohally/presentation/home_page_one_tab_container_page/home_page_
 import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
-import '../../view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 
@@ -96,6 +95,7 @@ class _TabScreenState extends State<TabScreen> {
       setState(
         () {
           pageController!.jumpTo(0);
+          bottomSelectedIndex = 0;
         },
       );
       return false;
@@ -103,6 +103,7 @@ class _TabScreenState extends State<TabScreen> {
       setState(
         () {
           pageController!.jumpTo(1);
+          bottomSelectedIndex = 0;
         },
       );
       return false;
@@ -132,23 +133,24 @@ class _TabScreenState extends State<TabScreen> {
 // import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 // import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 // import '../../widgets/custom_bottom_bar.dart';
-
+// import '../home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
+//
 // class TabScreen extends StatefulWidget {
 //   final int index;
-
+//
 //   const TabScreen({Key? key, required this.index}) : super(key: key);
-
+//
 //   @override
 //   _TabScreenState createState() => _TabScreenState();
 // }
-
+//
 // class _TabScreenState extends State<TabScreen> {
 //   int? bottomSelectedIndex;
 //   PageController? pageController;
 //   DateTime currentBackPressTime = DateTime.now();
 //   final drawerKey = GlobalKey<ScaffoldState>();
 //   final _controller = Get.put(MyAccountController());
-
+//
 //   @override
 //   void initState() {
 //     bottomSelectedIndex = widget.index;
@@ -156,7 +158,9 @@ class _TabScreenState extends State<TabScreen> {
 //     _controller.fetchMyAccountData();
 //     super.initState();
 //   }
-
+//
+//   int selectedTabIndex = 0;
+//
 //   @override
 //   Widget build(BuildContext context) {
 //     return WillPopScope(
@@ -174,9 +178,9 @@ class _TabScreenState extends State<TabScreen> {
 //               children: [
 //                 HomePageOneTabContainerPage(),
 //                 CategoryScreen(
-//                     // FromHomeToCat: true,
-//                     // selectedTabIndex: 0,
-//                     ),
+//                   // FromHomeToCat: true,
+//                   selectedTabIndex: selectedTabIndex,
+//                 ),
 //                 WishlistPage(),
 //                 CartPage(),
 //                 MyProfilePage(),
@@ -191,23 +195,26 @@ class _TabScreenState extends State<TabScreen> {
 //       ),
 //     );
 //   }
-
+//
 //   void bottomTapped(int index) {
 //     setState(
 //       () {
 //         bottomSelectedIndex = index;
+//         if (index == 1) {
+//           categoryId = "id_for_all_cat";
+//         }
 //         pageController!.animateToPage(index,
 //             duration: const Duration(microseconds: 1), curve: Curves.ease);
 //       },
 //     );
 //   }
-
+//
 //   void pageChanged(int index) {
 //     setState(() {
 //       bottomSelectedIndex = index;
 //     });
 //   }
-
+//
 //   Future<bool> _onWillPop() async {
 //     if (bottomSelectedIndex != 1) {
 //       setState(
@@ -233,7 +240,7 @@ class _TabScreenState extends State<TabScreen> {
 //     }
 //     return true;
 //   }
-
+//
 //   void goAtLikeTab() {
 //     pageController!.animateToPage(1,
 //         duration: const Duration(microseconds: 1), curve: Curves.ease);
