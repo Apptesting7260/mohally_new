@@ -734,9 +734,11 @@ class _SingleProductViewState extends State<SingleProductView> {
   /// Section Widget
   Widget _buildStackSixtyNine(BuildContext context) {
     return Container(
-      height: 502.v,
+      height: 514.v,
+      // height: Get.height * 0.59,
       width: double.maxFinite,
       decoration: AppDecoration.fillGray10003,
+      // color: Colors.red,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -772,7 +774,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                             // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
                             "$imageUrl",
                         // "${productviewcontroller.userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
-                        height: 504.v,
+                        height: 500.v,
                         width: Get.width,
                         alignment: Alignment.center,
                       );
@@ -792,7 +794,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                         fit: BoxFit.fill,
                         imagePath:
                             "${productviewcontroller.userlist.value.productView?.imageUrl}",
-                        height: 504.v,
+                        height: 500.v,
                         width: Get.width,
                         alignment: Alignment.center,
                       );
@@ -818,7 +820,7 @@ class _SingleProductViewState extends State<SingleProductView> {
                       //     ? selectedImageUrl
 
                       "${productviewcontroller.userlist.value.productView?.galleryUrl?[index] ?? ''}",
-                  height: 504.v,
+                  height: 500.v,
                   width: Get.width,
                   alignment: Alignment.center,
                 );
