@@ -114,7 +114,7 @@ class _WishlistPageState extends State<WishlistPage> {
             body: SafeArea(
           child: Center(
               child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(

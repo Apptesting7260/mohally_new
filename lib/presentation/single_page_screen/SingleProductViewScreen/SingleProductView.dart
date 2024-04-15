@@ -556,10 +556,16 @@ class _SingleProductViewState extends State<SingleProductView> {
                         SizedBox(height: 29.v),
                         _buildShoppingSecurity(context),
 
-                        // // if (productviewcontroller
-                        // //         .userlist.value.productReview !=
-                        // //     null)
-                        // //   _buildReview(context),
+                        if (productviewcontroller.userlist.value.productReview
+                                    ?.productReviewDetails !=
+                                null ||
+                            productviewcontroller.userlist.value.productReview
+                                    ?.productReviewDetails !=
+                                [] ||
+                            productviewcontroller.userlist.value.productReview
+                                    ?.productReviewDetails?.length !=
+                                0)
+                          _buildReview(context),
                         // // SizedBox(height: 30.v),
                         // // // _buildRowFollow(context),
                         SizedBox(height: 27.v),

@@ -107,23 +107,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
         } else {
           return _productbycatid_controller.userlist.value.productByCategory ==
                   null
-              ? Center(
-                  child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/no_product.png',
-                      color: Color(0xffff8300),
-                    ),
-                    SizedBox(
-                      height: Get.height * .03,
-                    ),
-                    Text(
-                      "Page Not Found",
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.normal, fontSize: 18),
-                    ),
-                  ],
-                ))
+              ? NoProductFound()
               : SingleChildScrollView(
                   child: Column(
                     children: [

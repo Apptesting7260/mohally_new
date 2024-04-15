@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/OrderDetailsScreen/orderdetails.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/view_models/controller/CancelOrderController/cancelOrderController.dart';
 import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
@@ -246,12 +247,13 @@ class MyOrdersProcessingPageState extends State<MyOrdersProcessingPage>
                       buttonStyle: CustomButtonStyles.fillPrimaryTL15,
                       buttonTextStyle: CustomTextStyles.labelLargeWhiteA70002_1,
                       onPressed: () {
-                        orderid.value = _orderStatuscontroller
+                        orderdetailId.value = _orderStatuscontroller
                             .Userlist.value.orders![index].id
                             .toString();
 
-                        _orderDetails.ordeDetailsHit(orderid.value);
-                        print("orderrrrrrrr${orderid}");
+                        _orderDetails.ordeDetailsHit(orderdetailId.value);
+                        Get.to(OrderDetails());
+                        print("Order detail Id =====> ${orderdetailId}");
                       },
                     ),
                   ],
