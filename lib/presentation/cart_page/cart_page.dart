@@ -126,6 +126,7 @@ class _CartPageState extends State<CartPage> {
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
@@ -168,10 +169,12 @@ class _CartPageState extends State<CartPage> {
                         children: [
                           Image.asset(
                             'assets/images/nocart.png',
-                            width: 150,
+                            width: Get.width * 0.42,
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(70, 0, 40, 0),
+                            // padding: const EdgeInsets.fromLTRB(70, 0, 40, 0),
+                            padding: EdgeInsets.fromLTRB(
+                                Get.width * 0.2, 0, Get.width * 0.11, 0),
                             child: Text(
                               "Your cart is currently empty.\n Start adding items to your cart and make your shopping experience even better!",
                               style: theme.textTheme.headlineMedium?.copyWith(
@@ -3189,7 +3192,8 @@ class _CartPageState extends State<CartPage> {
       child: SizedBox(
         height: 32.0, // Adjust this height as needed
         child: ListView.separated(
-          padding: EdgeInsets.only(left: 20.0), // Adjust this padding as needed
+          padding: EdgeInsets.only(left: 20.0),
+          // Adjust this padding as needed
           scrollDirection: Axis.horizontal,
           separatorBuilder: (context, index) {
             return SizedBox(

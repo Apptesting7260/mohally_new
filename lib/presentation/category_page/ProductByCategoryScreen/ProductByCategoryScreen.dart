@@ -44,6 +44,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
   RxInt selectedSizeIndex = (-1).obs;
   EnglishSingleProductViewController productviewcontroller =
       EnglishSingleProductViewController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -58,13 +59,17 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
       ProductsByCatIdListControllerEnglish();
   HomeView_controller_English homeView_controller =
       HomeView_controller_English();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.showAppBar
           ? AppBar(
               leading: Padding(
-                padding: const EdgeInsets.only(top: 11, left: 10),
+                padding: EdgeInsets.only(
+                    // top: 11, left: 10,
+                    top: Get.height * 0.015,
+                    left: Get.width * 0.027),
                 child: CustomIconButton(
                     onTap: () {
                       Get.back();
@@ -128,7 +133,11 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 10, top: 20),
+                        padding: EdgeInsets.only(
+                            // right: 10,
+                            // top: 20,
+                            right: Get.width * 0.027,
+                            top: Get.height * 0.027),
                         child: GridView.builder(
                           shrinkWrap: true,
                           gridDelegate:
@@ -148,7 +157,10 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                               children: [
                                 Container(
                                   width: Get.width,
-                                  padding: EdgeInsets.only(left: 10),
+                                  padding: EdgeInsets.only(
+                                    // left: 10,
+                                      left: Get.width*0.027
+                                  ),
                                   //    width: 170.adaptSize,
                                   child: Stack(
                                     alignment: Alignment.topRight,
@@ -227,7 +239,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 12.v),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding:  EdgeInsets.only(left: Get.width*0.027),
                                   child: Container(
                                     height: 16.v,
                                     width: 48.h,
@@ -250,7 +262,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 5.v),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding:  EdgeInsets.only(left: Get.width*0.027),
                                   child: SizedBox(
                                     width: 131.h,
                                     child: Text(
@@ -267,7 +279,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 3.v),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding:  EdgeInsets.only(left: Get.width*0.027),
                                   child: Row(
                                     children: [
                                       Column(

@@ -9,10 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class EnglishSingleProductViewController extends GetxController {
   final _api = AuthRepository();
   final rxRequestStatus = Status.LOADING.obs;
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   final userlist = SingleProductViewModel().obs;
+
   // final userList = Rx<dynamic>(null);
   RxString error = ''.obs;
+
   void setAccountDetails(SingleProductViewModel value) =>
       userlist.value = value;
 

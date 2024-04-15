@@ -26,6 +26,7 @@ class AboutUsScreen extends StatefulWidget {
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
   late Future<String> AboutUs;
+
   @override
   void initState() {
     super.initState();
@@ -70,7 +71,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                       child: Column(children: [
                         HtmlWidget(
                           '''
-          <!-- Your HTML content goes here -->
          $htmlresponse
                     ''',
                         ),
@@ -134,12 +134,12 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //                 //               child: Html(data: snapshot.data.toString()),
 //                 //             ),
 //                 //             SizedBox(height: 20),
-                            
+
 //                 //           ]
 //                 //         );
 //                 //     }
 //                 //     }))
-                
+
 //                 // ),
 //                   SizedBox(height: Get.height*.02,),
 //                 Padding(
@@ -224,7 +224,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //                            ,style:TextStyle(
 //                           fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey, fontFamily:'League Spartan ',  )
 //                           ),
-                        
+
 //                       ],
 //                     ),
 //                   ),
@@ -239,8 +239,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //     );
 //   }
 
- 
-  
 //   Widget _buildContainer(BuildContext context) {
 //   return Container(
 //     alignment: Alignment.center,
@@ -401,7 +399,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 //             ),
 //             ),
 //             ),
-     
+
 //             ],
 //     ),
 //   );

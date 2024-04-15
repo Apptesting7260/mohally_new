@@ -82,9 +82,10 @@ class _CustomerSupportState extends State<CustomerSupport> {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      leadingWidth: 60,
+      // leadingWidth: 60,
+      leadingWidth: Get.width*0.15,
       leading: Padding(
-        padding: const EdgeInsets.only(top: 5, left: 10),
+        padding:  EdgeInsets.only(top: 5,  left: Get.width*0.027),
         child: CustomIconButton(
             onTap: () {
               Get.back();

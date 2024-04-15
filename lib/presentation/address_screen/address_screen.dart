@@ -44,7 +44,9 @@ class _AddressScreenState extends State<AddressScreen> {
             width: Get.width,
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                padding: EdgeInsets.only(top: Get.height*0.02, left: Get.width*0.05, right: Get.width*0.05),
+
+                // padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Column(
                   children: [
                     Align(

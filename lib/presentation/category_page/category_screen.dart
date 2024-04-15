@@ -239,8 +239,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           ),
                           Positioned(
-                              top: 20,
-                              left: 240,
+                              top: Get.height * 0.0266,
+                              left: Get.width * 0.66,
+                              // top: 20,
+                              // left: 240,
                               child: GestureDetector(
                                   onTap: () {
                                     _buildOncameraclick(context);
@@ -269,7 +271,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           children: [
                             Container(
                               color: const Color.fromARGB(36, 158, 158, 158),
-                              width: 120,
+                              // width: 120,
+                              width: Get.width * 0.34,
                               child: Column(
                                 children: [
                                   Container(
@@ -306,8 +309,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  height: 60,
-                                                  width: 120,
+                                                  // height: 60,
+                                                  // width: 120,
+                                                  height: Get.height * 0.08,
+                                                  width: Get.width * 0.34,
                                                   color: selectedTabIndex ==
                                                           index
                                                       ? Colors.white
@@ -316,7 +321,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        height: 60,
+                                                        // height: 60,
+                                                        height:
+                                                            Get.height * 0.08,
                                                         width: 4,
                                                         color:
                                                             selectedTabIndex ==
@@ -326,7 +333,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                                 : null,
                                                       ),
                                                       Container(
-                                                        width: 100,
+                                                        // width: 100,
+                                                        width: Get.width * 0.28,
                                                         child: Padding(
                                                           padding:
                                                               const EdgeInsets
@@ -375,7 +383,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                             Expanded(
                                 child: Padding(
-                              padding: const EdgeInsets.only(bottom: 50),
+                              padding: EdgeInsets.only(
+                                  // bottom: 50,
+                                  bottom: Get.height * 0.067),
                               child: Container(
                                 child:
                                     // PageView(
@@ -456,7 +466,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return CustomAppBar(
       title: AppbarTitle(
         text: "Categories",
-        margin: EdgeInsets.only(left: 20),
+        margin: EdgeInsets.only(
+          // left: 20,
+            left: Get.width*0.055
+        ),
       ),
     );
   }

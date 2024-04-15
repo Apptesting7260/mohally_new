@@ -275,7 +275,10 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                     ),
                     SizedBox(height: 29.v),
                     Padding(
-                      padding: EdgeInsets.only(right: 15, left: 15),
+                      // padding: EdgeInsets.only(right: 15, left: 15),
+                      padding: EdgeInsets.only(
+                          right: Get.width * 0.042, left: Get.width * 0.042),
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -325,7 +328,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                 0
                         ? Center(
                             child: Padding(
-                            padding: const EdgeInsets.only(top: 150),
+                            // padding: const EdgeInsets.only(top: 150),
+                            padding: EdgeInsets.only(top: Get.height * 0.2),
                             child: Column(
                               children: [
                                 Image.asset(
@@ -346,7 +350,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                             ),
                           ))
                         : Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            // padding: const EdgeInsets.only(right: 20, left: 20),
+                            padding: EdgeInsets.only(
+                                right: Get.width * 0.055,
+                                left: Get.width * 0.055),
+
                             child: GridView.builder(
                               shrinkWrap: true,
                               gridDelegate:
@@ -483,7 +491,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
   Widget _buildHomePageSection(BuildContext context) {
     //  super.build(context);
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      // padding: const EdgeInsets.only(right: 10),
+      padding: EdgeInsets.only(right: Get.width * 0.027),
+
       child: GridView.builder(
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -513,8 +523,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                         productId = homeView_controller
                             .userList.value.recommendedProduct?[index].id!
                             .toString();
-                        _singleproductviewController.Single_ProductApiHit(
-                            context, productId, mainCatId);
+                        // _singleproductviewController.Single_ProductApiHit(
+                        //     context, productId, mainCatId);
                         Get.to(SingleProductView());
                       },
                       fit: BoxFit.cover,
@@ -563,7 +573,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
               ),
               SizedBox(height: 12.v),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                // padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: Get.width * 0.027),
                 child: Container(
                   height: 16.v,
                   width: 48.h,
@@ -585,7 +596,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
               ),
               SizedBox(height: 5.v),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                // padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: Get.width * 0.027),
+
                 child: SizedBox(
                   width: 131.h,
                   child: Text(
@@ -601,7 +614,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
               ),
               SizedBox(height: 3.v),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                // padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: Get.width * 0.027),
+
                 child: Row(
                   children: [
                     Column(
@@ -724,7 +739,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 10),
+          // padding: const EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: Get.width * 0.027),
+
           child: Container(
             height: 20.v,
             width: 41.h,
@@ -751,7 +768,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
   ) {
     if (productviewcontroller.rxRequestStatus.value == Status.ERROR) {
       return Container(
-          constraints: BoxConstraints(maxHeight: 400),
+          constraints: BoxConstraints(
+              // maxHeight: 400
+              maxHeight: Get.height * 0.54),
           child: Container(
               height: double.infinity,
               constraints: BoxConstraints.expand(),
@@ -807,7 +826,9 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                   ])));
     } else {
       return Container(
-        constraints: BoxConstraints(maxHeight: 700),
+        constraints: BoxConstraints(
+            // maxHeight: 700
+            maxHeight: Get.height * 0.93),
         child: Container(
           height: double.infinity,
           constraints: BoxConstraints.expand(),

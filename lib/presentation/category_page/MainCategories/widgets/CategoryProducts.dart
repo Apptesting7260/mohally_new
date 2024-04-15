@@ -69,7 +69,10 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                         0
                 ? Center(
                     child: Padding(
-                    padding: const EdgeInsets.only(top: 150),
+                    padding: EdgeInsets.only(
+
+                        // top: 150
+                        top: Get.height * 0.2),
                     child: Column(
                       children: [
                         Image.asset(

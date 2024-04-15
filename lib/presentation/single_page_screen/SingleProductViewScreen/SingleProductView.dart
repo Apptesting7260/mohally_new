@@ -1743,10 +1743,16 @@ class _SingleProductViewState extends State<SingleProductView> {
                                   productId = homeView_controller.userList.value
                                       .recommendedProduct?[index].id!
                                       .toString();
-                                  _singleproductviewController
-                                      .Single_ProductApiHit(
-                                          context, productId, mainCatId);
-                                  Get.to(SingleProductView());
+                                  // _singleproductviewController
+                                  //     .Single_ProductApiHit(
+                                  //         context, productId, mainCatId);
+                                  // Get.to(SingleProductView());
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SingleProductView()),
+                                  );
                                 },
                                 imagePath:
                                     "${homeView_controller.userList.value.recommendedProduct?[index].imageUrl.toString()}",
@@ -1886,11 +1892,16 @@ class _SingleProductViewState extends State<SingleProductView> {
                                     productId = homeView_controller.userList
                                         .value.recommendedProduct?[index].id
                                         ?.toString();
-                                    _singleproductviewController
-                                        .Single_ProductApiHit(
-                                            context, productId, mainCatId);
-                                    Get.to(SingleProductView());
-
+                                    // _singleproductviewController
+                                    //     .Single_ProductApiHit(
+                                    //         context, productId, mainCatId);
+                                    // Get.to(SingleProductView());
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SingleProductView()),
+                                    );
                                     // if (mainCatId == "153") {
                                     //   productviewcontroller
                                     //       .Single_ProductApiHit(context);
