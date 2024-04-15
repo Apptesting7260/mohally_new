@@ -3,12 +3,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
-import 'package:mohally/presentation/my_orders_one_page/MyOrder_Processing.dart';
+import 'package:mohally/data/response/status.dart';
+import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
+import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
+import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key}) : super(key: key);
@@ -18,53 +22,95 @@ class OrderDetails extends StatefulWidget {
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
+  EnglishSingleProductViewController _singleproductviewController =
+      EnglishSingleProductViewController();
   OrderDetailsController _orderDetailsController = OrderDetailsController();
   @override
   void initState() {
     super.initState();
-    _orderDetailsController.ordeDetailsHit(orderid.value);
+    _orderDetailsController.ordeDetailsHit(orderdetailId.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() {
+      if (_orderDetailsController.rxRequestStatus.value == Status.LOADING) {
+        return Center(child: CircularProgressIndicator());
+      } else if (_orderDetailsController.rxRequestStatus.value ==
+          Status.ERROR) {
+        return Scaffold(
+            appBar: AppBar(
+              leading: Padding(
+                padding: const EdgeInsets.only(top: 11, left: 10),
+                child: CustomIconButton(
+                    onTap: () {
+                      Get.back();
+                    },
+                    height: 40.adaptSize,
+                    width: 40.adaptSize,
+                    decoration: IconButtonStyleHelper.fillGrayTL20,
+                    child: Center(
+                        child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ))),
+              ),
+            ),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Order Details',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Almarai')),
-                SizedBox(
-                  height: Get.height * .03,
+                Image.asset(
+                  'assets/images/error2.png',
                 ),
-                _buildOrderItemInfo(context),
-                SizedBox(
-                  height: Get.height * .03,
+                Text(
+                  "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                      color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
                 ),
-                Text('Order Details',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Almarai')),
-                SizedBox(
-                  height: Get.height * .03,
-                ),
-                _buildOrderInfo(context)
               ],
+            ));
+      } else {
+        return Scaffold(
+          appBar: _buildAppBar(context),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Order Details',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Almarai')),
+                    SizedBox(
+                      height: Get.height * .03,
+                    ),
+                    _buildOrderItemInfo(context),
+                    SizedBox(
+                      height: Get.height * .03,
+                    ),
+                    Text('Order Details',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Almarai')),
+                    SizedBox(
+                      height: Get.height * .03,
+                    ),
+                    _buildOrderInfo(context)
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      }
+    });
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -118,55 +164,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomImageView(
-                    // onTap: () {
-                    //   mainCatId = homeView_controller.userList.value
-                    //       .recommendedProduct?[index].mainCategoryId!
-                    //       .toString();
-                    //   String? productId = homeView_controller.userList
-                    //       .value.recommendedProduct?[index].id!
-                    //       .toString();
-
-                    //   setState(() {
-                    //     Englishproductid = productId;
-                    //     EnglishMainCatId = mainCatId;
-                    //   });
-                    //   print("$Englishproductid==");
-                    //   if (mainCatId == "153") {
-                    //     Get.to(ShirtsandTopsSingleView());
-                    //     print(
-                    //         "$mainCatId===========Mens Appearl main category id ");
-                    //   } else if (mainCatId == "154") {
-                    //     Get.to(SinglePageScreen_Bottoms());
-                    //   } else if (mainCatId == "155") {
-                    //     Get.to(SinglePageScreen_mens_Jacket());
-                    //   } else if (mainCatId == "156") {
-                    //     Get.to(SinglePageScreen_mens_activewear());
-                    //   } else if (mainCatId == "157") {
-                    //     Get.to(SinglePageScreen_Mens_Formals());
-                    //   } else if (mainCatId == "174") {
-                    //     Get.to(SinglePageScreen_Mens_Shoes());
-                    //   } else if (mainCatId == "166") {
-                    //     Get.to(
-                    //         SinglePageScreen_Electronics_Smartphones());
-                    //   } else if (mainCatId == "170") {
-                    //     Get.to(
-                    //         SinglePageScreen_Electronics_Laptops());
-                    //   } else if (mainCatId == "171") {
-                    //     Get.to(
-                    //         SinglePageScreen_Electronics_AudioHeadphones());
-                    //   } else if (mainCatId == "172") {
-                    //     Get.to(SinglePageScreen_Electronics_Camera());
-                    //   } else if (mainCatId == "173") {
-                    //     Get.to(
-                    //         SinglePageScreen_Electronics_wearable());
-                    //   } else if (mainCatId == "176") {
-                    //     Get.to(Womens_Dress_SingleView());
-                    //   } else if (mainCatId == "177") {
-                    //     Get.to(Womens_Tops_SingleView());
-                    //   } else {
-                    //     Get.to(NoProductFound());
-                    //   }
-                    // },
+                    onTap: () {
+                      mainCatId = _orderDetailsController.userlist.value
+                          .orderItemInformation?[index].categoryId!
+                          .toString();
+                      productId = _orderDetailsController
+                          .userlist.value.orderItemInformation?[index].id!
+                          .toString();
+                      _singleproductviewController.Single_ProductApiHit(
+                          context, productId, mainCatId);
+                      Get.to(SingleProductView());
+                    },
                     fit: BoxFit.cover,
                     imagePath:
                         "${_orderDetailsController.userlist.value.orderItemInformation?[index].image.toString()}",
@@ -191,6 +199,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   //     ),
                   //   ],
                   // ),
+
                   Padding(
                       padding: EdgeInsets.only(left: 10.h),
                       child: Column(
@@ -429,32 +438,36 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
           ),
           SizedBox(height: 15.v),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 1.v),
-                  child: Text(
-                    "Shipping Date:",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                        fontFamily: 'Almarai',
-                        fontSize: 16,
-                        color: Colors.black),
+          if (_orderDetailsController
+                  .userlist.value.orderInformation?.shipingDate
+                  .toString() !=
+              null.toString())
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.v),
+                    child: Text(
+                      "Shipping Date:",
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                          fontFamily: 'Almarai',
+                          fontSize: 16,
+                          color: Colors.black),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 5.h),
-                  child: Text(
-                    "${_orderDetailsController.userlist.value.orderInformation?.shipingDate.toString()}",
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(fontFamily: 'Almarai', fontSize: 16),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.h),
+                    child: Text(
+                      "${_orderDetailsController.userlist.value.orderInformation?.shipingDate.toString()}",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(fontFamily: 'Almarai', fontSize: 16),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           Divider(
             thickness: 1,
           ),
@@ -485,32 +498,35 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
           ),
           SizedBox(height: 15.v),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 1.v),
-                  child: Text(
-                    "Discount:",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                        fontFamily: 'Almarai',
-                        fontSize: 16,
-                        color: Colors.black),
+          if (_orderDetailsController
+                  .userlist.value.orderInformation?.discunt !=
+              null.toString())
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.v),
+                    child: Text(
+                      "Discount:",
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                          fontFamily: 'Almarai',
+                          fontSize: 16,
+                          color: Colors.black),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 5.h),
-                  child: Text(
-                    "${_orderDetailsController.userlist.value.orderInformation?.discunt.toString()}",
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(fontFamily: 'Almarai', fontSize: 16),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.h),
+                    child: Text(
+                      "${_orderDetailsController.userlist.value.orderInformation?.discunt.toString()}",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(fontFamily: 'Almarai', fontSize: 16),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           Divider(
             thickness: 1,
           ),

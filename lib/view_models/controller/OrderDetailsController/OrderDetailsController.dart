@@ -39,12 +39,6 @@ class OrderDetailsController extends GetxController {
       print(data);
       setUserList(value);
       setRxRequestStatus(Status.COMPLETED);
-      // if (value.status == true) {
-      //   Get.to(OrderDetails());
-
-      // } else {
-      //   setRxRequestStatus(Status.ERROR);
-      // }
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;

@@ -3,8 +3,6 @@ import 'package:mohally/Arabic/Arabic_Models/ArabicSubCategoryModel/ArabicSubcat
 import 'package:mohally/Arabic/Arabic_Models/ArabicViewCartModel/Arabic_viewCartModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/Arabic_ProductViewModel/ArabicSingleProductView/ArabicSingleviewModel.dart';
 import 'package:mohally/Arabic/Arabic_Models/SearchMainCategoryModel/arabicSearchmaincatModel.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_productbycategoryListController.dart';
-import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
 import 'package:mohally/app_url/url.dart';
 import 'package:mohally/data/network/network_api_services.dart';
 import 'package:mohally/models/Add_Remove_Wishlist_Model/add_remove_wishlish_model.dart';

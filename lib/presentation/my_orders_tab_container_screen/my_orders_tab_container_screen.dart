@@ -1,15 +1,16 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/MyOrder_Widgets/My_Order_Deliver.dart';
 import 'package:mohally/presentation/my_orders_one_page/MyOrder_Processing.dart';
 import 'package:mohally/presentation/my_orders_two_page/my_orders_two_page.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 
-RxString orderid = "".obs;
+RxString orderdetailId = "".obs;
 
 class MyOrdersTabContainerScreen extends StatefulWidget {
   const MyOrdersTabContainerScreen({Key? key})

@@ -225,11 +225,11 @@ class MyOrdersDelivererdPageState extends State<MyOrdersDelivererdPage>
                       text: "Details",
                       buttonTextStyle: CustomTextStyles.labelLargePrimary,
                       onPressed: () {
-                        orderid.value = _orderStatuscontroller
+                        orderdetailId.value = _orderStatuscontroller
                             .Userlist.value.orders![index].id
                             .toString();
-                        print(orderid.value);
-                        _orderDetails.ordeDetailsHit(orderid.value);
+                        print(orderdetailId);
+                        _orderDetails.ordeDetailsHit(orderdetailId.value);
                         Get.to(OrderDetails());
                       },
                     ),
