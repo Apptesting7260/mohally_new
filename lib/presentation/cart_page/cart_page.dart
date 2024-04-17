@@ -494,6 +494,34 @@ class _CartPageState extends State<CartPage> {
                                               SizedBox(
                                                 height: Get.height * .02,
                                               ),
+                                              /// container added for size and color
+                                              Container(
+                                                height: Get.height*0.035,
+                                                width: Get.width*0.3,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.4),
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        25)),
+                                                child: Center(
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                        '${_viewcartcontroller.userList.value.viewCart?[index].productDetails.toString()}',
+                                                        style: TextStyle(
+                                                            color: Colors.black),
+                                                      ),
+                                                    )),
+                                              ),
+                                              ///
+
+                                              /// sizedBox added
+
+                                              SizedBox(
+                                                height: Get.height * .01,
+                                              ),
+
+                                              ///
                                               SizedBox(
                                                 width: 221.h,
                                                 child: Row(

@@ -73,7 +73,7 @@ class ViewCart {
     userId = json['user_id'];
     productId = json['product_id'];
     categoryId = json['category_id'];
-    productDetails = null;
+    productDetails = json['product_details'];
     totalQuantity = json['total_quantity'];
     price = json['price'];
     totalPrice = json['total_price'];

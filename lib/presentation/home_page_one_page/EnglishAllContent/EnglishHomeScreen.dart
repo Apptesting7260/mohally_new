@@ -813,6 +813,7 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                       children: [
                         Image.asset(
                           'assets/images/error2.png',
+                          height: Get.height * 0.3,
                         ),
                         Text(
                           "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
@@ -1152,7 +1153,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                     ?.productDetails?.details!.color?.length !=
                                 0)
                           Container(
-                            height: Get.height * .16,
+                            // height: Get.height * .16,
+                            height: Get.height * .18,
                             child: ListView.builder(
                                 itemCount: 1,
                                 physics: NeverScrollableScrollPhysics(),
@@ -1222,7 +1224,8 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                         child: Align(
                                           alignment: Alignment.centerRight,
                                           child: Container(
-                                            height: Get.height * .13,
+                                            // height: Get.height * .13,
+                                            height: Get.height * .14,
                                             child: ListView.separated(
                                               // padding: EdgeInsets.only(left: 20.h),
                                               scrollDirection: Axis.horizontal,
@@ -1401,7 +1404,16 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                             height: Get.height * .14,
                             child: ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
-                              itemCount: 1,
+                              // itemCount: 1,
+                              itemCount: productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details
+                                      ?.size
+                                      ?.length ??
+                                  0,
                               itemBuilder: (BuildContext context, int index) {
                                 size1 = productviewcontroller
                                     .userlist

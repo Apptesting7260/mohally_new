@@ -1942,7 +1942,8 @@ class _SingleProductViewState extends State<SingleProductView> {
 
   _buildColors(BuildContext context) {
     return Container(
-      height: Get.height * .16,
+      // height: Get.height * .16,
+      height: Get.height * .17,
       child: ListView.builder(
           itemCount: 1,
           physics: NeverScrollableScrollPhysics(),
@@ -1991,7 +1992,8 @@ class _SingleProductViewState extends State<SingleProductView> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      height: Get.height * .13,
+                      // height: Get.height * .13,
+                      height: Get.height * .14,
                       child: ListView.separated(
                         // padding: EdgeInsets.only(left: 20.h),
                         scrollDirection: Axis.horizontal,
@@ -2077,8 +2079,10 @@ class _SingleProductViewState extends State<SingleProductView> {
                                 },
                                 child: Obx(
                                   () => Container(
-                                      height: 100,
-                                      width: 70,
+                                      // height: 100,
+                                      // width: 70,
+                                      height: Get.height*0.14,
+                                      width: Get.width*0.2,
                                       decoration: BoxDecoration(
                                           border: AselectedcolorIndex.value ==
                                                   index
@@ -2092,8 +2096,10 @@ class _SingleProductViewState extends State<SingleProductView> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            height: 80,
-                                            width: 70,
+                                            // height: 80,
+                                            // width: 70,
+                                            height: Get.height*0.11,
+                                            width: Get.width*0.2,
                                             child: Center(
                                               child: CustomImageView(
                                                 fit: BoxFit.cover,
@@ -2154,7 +2160,8 @@ class _SingleProductViewState extends State<SingleProductView> {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: SizedBox(
-                    height: 35.v,
+                    // height: 35.v,
+                    height: 40.v,
                     child: ListView.separated(
                       // padding: EdgeInsets.only(left: 20.h),
                       scrollDirection: Axis.horizontal,
