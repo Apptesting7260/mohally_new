@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_contactUsController.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/theme/custom_text_style.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 
 class ContactUs_arabic extends StatefulWidget {
@@ -86,33 +89,29 @@ class _ContactUs_arabicState extends State<ContactUs_arabic> {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        "اتصل بنا",
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Almarai',
-        ),
-      ),
+    return CustomAppBar(
+      leadingWidth: 80,
       leading: Padding(
         padding: const EdgeInsets.only(
-          top: 15,
+          top: 5,
         ),
-        child: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Container(
-              width: Get.width * .07,
-              height: Get.height * .03,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color.fromARGB(90, 158, 158, 158)),
-              child: Icon(
-                Icons.arrow_back,
-              )),
-        ),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+              // Get.offAll(TabScreen(index: 0));
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
+      ),
+      title: AppbarSubtitle(
+        text: "اتصل بنا",
+        // margin: EdgeInsets.only(left: 10),
       ),
     );
   }

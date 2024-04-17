@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_order_detailController.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
-import 'package:mohally/view_models/controller/OrderDetailsController/OrderDetailsController.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 
-class OrderDetails extends StatefulWidget {
-  const OrderDetails({Key? key}) : super(key: key);
+class ArabicOrderDetailsScreen extends StatefulWidget {
+  const ArabicOrderDetailsScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderDetails> createState() => _OrderDetailsState();
+  State<ArabicOrderDetailsScreen> createState() =>
+      _ArabicOrderDetailsScreenState();
 }
 
-class _OrderDetailsState extends State<OrderDetails> {
+class _ArabicOrderDetailsScreenState extends State<ArabicOrderDetailsScreen> {
   EnglishSingleProductViewController _singleproductviewController =
       EnglishSingleProductViewController();
-  OrderDetailsController _orderDetailsController = OrderDetailsController();
+  ArabicOrderDetailsController _orderDetailsController =
+      ArabicOrderDetailsController();
   @override
   void initState() {
     super.initState();

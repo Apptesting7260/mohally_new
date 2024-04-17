@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/Notifications/no_more_notification.dart';
 import 'package:mohally/presentation/cart_page/cart_page.dart';
+import 'package:mohally/presentation/category_page/ProductByCategoryScreen/ProductByCategoryScreen.dart';
 import 'package:mohally/presentation/category_page/category_screen.dart';
 import 'package:mohally/presentation/drawer_draweritem/drawer_draweritem.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
@@ -15,6 +16,7 @@ import 'package:mohally/presentation/my_profile_page/my_profile_page.dart';
 import 'package:mohally/presentation/wishlist_page/wishlist_page.dart';
 import 'package:mohally/routes/app_routes.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishCategoriesByNameController.dart';
+import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_bottom_bar.dart';
@@ -33,6 +35,8 @@ class HomePageOneTabContainerPage extends StatefulWidget {
 
 class _HomePageOneTabContainerPageState
     extends State<HomePageOneTabContainerPage> {
+  ProductsByCatIdListControllerEnglish _productbycatlistcontroller =
+      ProductsByCatIdListControllerEnglish();
   HomeView_controller_English homeView_controller =
       HomeView_controller_English();
   List<String> title = [
@@ -268,19 +272,26 @@ class _HomePageOneTabContainerPageState
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    selectedTabIndex = index;
-                                    print(selectedTabIndex);
-                                    categoryId = homeView_controller
+                                    submainCatId = homeView_controller
                                         .userList.value.categoryData?[index].id!
                                         .toString();
-                                    print("${categoryId}============");
+                                    _productbycatlistcontroller
+                                        .ProductByCatId_apiHit(submainCatId);
+                                    Get.to(ProductsByCategoryScreen());
 
-                                    _categoryByName.CategoryByNameApiHit(
-                                        categoryId);
-                                    Get.to(CategoryScreen(
-                                        showAppBar: true,
-                                        FromHomeToCat: true,
-                                        selectedTabIndex: selectedTabIndex));
+                                    // selectedTabIndex = index;
+                                    // print(selectedTabIndex);
+                                    // categoryId = homeView_controller
+                                    //     .userList.value.categoryData?[index].id!
+                                    //     .toString();
+                                    // print("${categoryId}============");
+
+                                    // _categoryByName.CategoryByNameApiHit(
+                                    //     categoryId);
+                                    // Get.to(CategoryScreen(
+                                    //     showAppBar: true,
+                                    //     FromHomeToCat: true,
+                                    //     selectedTabIndex: selectedTabIndex));
                                   },
                                   child: Center(
                                     child: Padding(

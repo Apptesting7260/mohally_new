@@ -267,9 +267,12 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
             margin: EdgeInsets.only(left: 16),
           ),
           SizedBox(
-            width: Get.width * .3,
+            width: Get.width * .4,
           ),
           CustomElevatedButton(
+            onPressed: () {
+              Get.back();
+            },
             height: 28.v,
             width: 56.h,
             text: "يحرر",
@@ -281,33 +284,20 @@ class _MyAccountScreen_arabicState extends State<MyAccountScreen_arabic> {
                 width: 12.adaptSize,
               ),
             ),
-            onPressed: () {
-              Get.off(UpdateProfileScreen_arabic());
-            },
             buttonTextStyle: CustomTextStyles.bodySmallWhiteA70002,
           ),
         ],
       ),
-      leading: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            Get.back();
-            // Get.off(MyProfilePage_arabic());
-          },
-          child: Container(
-              width: Get.width * .07,
-              height: Get.height * .03,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color.fromARGB(90, 158, 158, 158)),
+      leading: CustomIconButton(
+          onTap: () {},
+          height: 40.adaptSize,
+          width: 40.adaptSize,
+          decoration: IconButtonStyleHelper.fillGrayTL20,
+          child: Center(
               child: Icon(
-                Icons.arrow_back,
-              )),
-        ),
-      ),
+            Icons.arrow_back,
+            color: Colors.black,
+          ))),
     );
   }
 }

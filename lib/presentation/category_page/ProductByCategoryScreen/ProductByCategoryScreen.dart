@@ -3,14 +3,13 @@ import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/CategoryProducts.dart';
+// import 'package:mohally/presentation/category_page/MainCategories/widgets/CategoryProducts.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
-import 'package:mohally/view_models/controller/ProductPriceChngeByAtrributeController/productpricechangebyattributecontroller.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
@@ -34,8 +33,8 @@ class ProductsByCategoryScreen extends StatefulWidget {
 
 class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
   List<bool> tappedList = List.generate(200, (index) => false);
-  ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
-      ProductPriceChngeByAttribute();
+  // ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
+  //     ProductPriceChngeByAttribute();
   final AddToCartcontrollerin = Get.put(AddToCartcontroller());
   RxInt selectedImageIndex = 0.obs;
   RxString selectedImageUrl = ''.obs;
@@ -142,9 +141,8 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 Container(
                                   width: Get.width,
                                   padding: EdgeInsets.only(
-                                    // left: 10,
-                                      left: Get.width*0.027
-                                  ),
+                                      // left: 10,
+                                      left: Get.width * 0.027),
                                   //    width: 170.adaptSize,
                                   child: Stack(
                                     alignment: Alignment.topRight,
@@ -223,7 +221,8 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 12.v),
                                 Padding(
-                                  padding:  EdgeInsets.only(left: Get.width*0.027),
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.027),
                                   child: Container(
                                     height: 16.v,
                                     width: 48.h,
@@ -246,7 +245,8 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 5.v),
                                 Padding(
-                                  padding:  EdgeInsets.only(left: Get.width*0.027),
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.027),
                                   child: SizedBox(
                                     width: 131.h,
                                     child: Text(
@@ -263,7 +263,8 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                 ),
                                 SizedBox(height: 3.v),
                                 Padding(
-                                  padding:  EdgeInsets.only(left: Get.width*0.027),
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.027),
                                   child: Row(
                                     children: [
                                       Column(
@@ -336,13 +337,13 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
                                                     .productByCategory?[index]
                                                     .mainCategoryId
                                                     .toString();
-                                            String? productId =
-                                                _productbycatid_controller
-                                                    .userlist
-                                                    .value
-                                                    .productByCategory?[index]
-                                                    .id
-                                                    ?.toString();
+                                            // String? productId =
+                                            //     _productbycatid_controller
+                                            //         .userlist
+                                            //         .value
+                                            //         .productByCategory?[index]
+                                            //         .id
+                                            //         ?.toString();
 
                                             // setState(() {
                                             //   mainCatId;

@@ -267,7 +267,9 @@ class Color {
     id = json['id'];
     value = json['value'];
     featureImage = json['feature_image'];
-    gallery = List.castFrom<dynamic, String>(json['gallery']);
+    gallery = json['gallery'] != null
+        ? List.castFrom<dynamic, String>(json['gallery'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

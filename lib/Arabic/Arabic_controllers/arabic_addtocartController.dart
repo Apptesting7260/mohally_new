@@ -13,6 +13,8 @@ String? ArabicAddtocartColor;
 String? ArabicAddtocartSize;
 String? ArabicAddtocartprice;
 String? ArabicAddtocartModelId;
+String? ArabicAddtocartItemlId;
+
 Map<String, String> productDetails = {};
 
 class arabic_addtocart_controller extends GetxController {
@@ -32,19 +34,18 @@ class arabic_addtocart_controller extends GetxController {
 
   Future<void> addtocart_Apihit(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     addIfNotNull(productDetails, 'Color', ArabicAddtocartColor?.toString());
     addIfNotNull(productDetails, 'Size', ArabicAddtocartSize?.toString());
-    addIfNotNull(
-        productDetails, 'Model_id', ArabicAddtocartModelId?.toString());
-
+    addIfNotNull(productDetails, 'Model', ArabicAddtocartModelId?.toString());
+    addIfNotNull(productDetails, 'Items', ArabicAddtocartItemlId?.toString());
     loading.value = true;
 
     Map<String, dynamic> data = {
       'product_id': Arabiccartproductid.toString(),
-      'total_quantity': 1.toString(),
+      'total_quantity': ArabicAddtocartquantity.toString(),
       'price': ArabicAddtocartprice.toString(),
       'coupon': "".toString(),
       'product_details': json.encode(productDetails), // Encode the map to JSON

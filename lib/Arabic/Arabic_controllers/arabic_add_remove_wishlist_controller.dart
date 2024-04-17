@@ -28,17 +28,9 @@ class ArabicAdd_remove_wishlistController extends GetxController {
 
     _api.AddRemoveWishlistApi(data, header).then((value) {
       print("ADD remove wishlist successful");
-      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
 
-      // Check the status key in the response
-      if (value.status == true) {
-        // Product successfully added to wishlist
-        setUserList(value);
-      } else {
-        // Handle the case where the status is false
-        setError("Failed to add product to wishlist");
-        // You might want to perform additional actions based on your requirements
-      }
+      setRxRequestStatus(Status.COMPLETED);
 
       print('printing UserAddress View Value ');
       print(value);

@@ -27,7 +27,7 @@ class CartProductQtyIncrementCartcontroller extends GetxController {
   Future<void> QtyUpdate_Apihit(
       BuildContext context, int index, String quantityUpdateAction) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     loading.value = true;

@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
-import 'package:mohally/theme/theme_helper.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_outlined_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -380,21 +376,28 @@ class _ArabicLanguageSwitchState extends State<ArabicLanguageSwitch> {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      leadingWidth: 60,
-      leading: AppbarLeadingIconbuttonTwo(
-        onTap: () {
-          Get.back();
-        },
-        imagePath: ImageConstant.imgBack,
-        margin: EdgeInsets.only(
-          left: 20,
-          top: 8,
-          bottom: 8,
+      leadingWidth: 80,
+      leading: Padding(
+        padding: const EdgeInsets.only(
+          top: 5,
         ),
+        child: CustomIconButton(
+            onTap: () {
+              Get.back();
+              // Get.offAll(TabScreen(index: 0));
+            },
+            height: 40.adaptSize,
+            width: 40.adaptSize,
+            decoration: IconButtonStyleHelper.fillGrayTL20,
+            child: Center(
+                child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ))),
       ),
       title: AppbarSubtitle(
         text: "لغة",
-        margin: EdgeInsets.only(left: 16),
+        // margin: EdgeInsets.only(left: 10),
       ),
     );
   }

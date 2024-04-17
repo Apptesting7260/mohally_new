@@ -3,20 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_CategoryBynameController.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_ProductPrceChnageByAttribute.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/ArabicSingleView/ArabicSingleProductView.dart';
 import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/ArabicCategoryScreen.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/view_models/controller/Home_Banner_Controller/home_banner_controller.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/ArabicHomeController.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 var arabicProductId;
 var arabicMainCatId;
@@ -34,10 +31,11 @@ class ArabicHomeScreen extends StatefulWidget {
 }
 
 class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   ArabiccategorybyNameController _categorybynamecontroller =
       ArabiccategorybyNameController();
-  ArabicProductPriceChngeByAttribute _productpricechangebyattributecontroller =
-      ArabicProductPriceChngeByAttribute();
+
   List<bool> tappedList = List.generate(200, (index) => false);
 
   int selectedIndex = 0;
@@ -143,323 +141,348 @@ class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
           ],
         ));
       } else {
-        return Container(
-          height: Get.height,
-          child: SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(
-                height: Get.height * .02,
-              ),
-              // CarouselSlider(
-              //   items: carouselImages.map((String imageUrl) {
-              //     return Builder(
-              //       builder: (BuildContext context) {
-              //         return Container(
-              //           width: MediaQuery.of(context).size.width,
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             image: DecorationImage(
-              //               image: AssetImage(imageUrl),
-              //               fit: BoxFit.fill,
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     );
-              //   }).toList(),
-              //   options: CarouselOptions(
-              //     autoPlay: true,
-              //     aspectRatio: 2.0,
-              //     enlargeCenterPage: true,
-              //   ),
-              // ),
+        return SmartRefresher(
+          enablePullDown: true,
+          onRefresh: () async {
+            homeBanner_controller.homeBanner_apihit();
+            homeView_controller.homeview_apihit();
+            await Future.delayed(
+                Duration(seconds: 1)); // Adjust the duration as needed
+            _refreshController.refreshCompleted();
+          },
+          enablePullUp: false,
+          controller: _refreshController,
+          child: Container(
+            height: Get.height,
+            child: SingleChildScrollView(
+              child: Column(children: [
+                SizedBox(
+                  height: Get.height * .02,
+                ),
+                // CarouselSlider(
+                //   items: carouselImages.map((String imageUrl) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return Container(
+                //           width: MediaQuery.of(context).size.width,
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.all(Radius.circular(10)),
+                //             image: DecorationImage(
+                //               image: AssetImage(imageUrl),
+                //               fit: BoxFit.fill,
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //     );
+                //   }).toList(),
+                //   options: CarouselOptions(
+                //     autoPlay: true,
+                //     aspectRatio: 2.0,
+                //     enlargeCenterPage: true,
+                //   ),
+                // ),
 
-              CarouselSlider(
-                items:
-                    //carouselItems,
-                    List.generate(
-                  homeBanner_controller.userList.value.homeBanner?.bannerUrl ==
-                          null
-                      ? 0
-                      : homeBanner_controller
-                          .userList.value.homeBanner!.bannerUrl!.length,
-                  (index) => Image.network(
+                CarouselSlider(
+                  items:
+                      //carouselItems,
+                      List.generate(
                     homeBanner_controller
-                            .userList.value.homeBanner?.bannerUrl?[index]
-                            .toString() ??
-                        "",
+                                .userList.value.homeBanner?.bannerUrl ==
+                            null
+                        ? 0
+                        : homeBanner_controller
+                            .userList.value.homeBanner!.bannerUrl!.length,
+                    (index) => Image.network(
+                      homeBanner_controller
+                              .userList.value.homeBanner?.bannerUrl?[index]
+                              .toString() ??
+                          "",
+                    ),
+                  ),
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
                   ),
                 ),
-                options: CarouselOptions(
-                  autoPlay: true,
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
+
+                //           CarouselSlider(
+                //             items: carouselImages.map((String imageUrl) {
+                //        return Builder(
+                //          builder: (BuildContext context) {
+                //            return Container(
+                //              width: MediaQuery.of(context).size.width,
+
+                //              decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.all(Radius.circular(10)
+                //               ),
+                //               image: DecorationImage(image: AssetImage(  imageUrl,),
+                //                fit: BoxFit.fill,
+                //               )
+                //              ),
+
+                //            );
+                //          },
+                //        );
+                //      }).toList(),
+                //         // items: List.generate(
+                //         //   homeBanner_controller.userList.value.homeBanner?.bannerUrl == null
+                //         //       ? 0
+                //         //       : homeBanner_controller.userList.value.homeBanner!.bannerUrl!.length,
+                //         //   (index) => Image.network(
+                //         //     homeBanner_controller.userList.value.homeBanner?.bannerUrl?[index].toString() ?? "",
+                //         //   ),
+                //         // ),
+                //         options: CarouselOptions(
+                // autoPlay: true,
+                // aspectRatio: 2.0,
+                // enlargeCenterPage: true,
+
+                // reverse: false
+
+                //         ),
+
+                //             ),
+
+                SizedBox(
+                  height: Get.height * .04,
                 ),
-              ),
-
-              //           CarouselSlider(
-              //             items: carouselImages.map((String imageUrl) {
-              //        return Builder(
-              //          builder: (BuildContext context) {
-              //            return Container(
-              //              width: MediaQuery.of(context).size.width,
-
-              //              decoration: BoxDecoration(
-              //               borderRadius: BorderRadius.all(Radius.circular(10)
-              //               ),
-              //               image: DecorationImage(image: AssetImage(  imageUrl,),
-              //                fit: BoxFit.fill,
-              //               )
-              //              ),
-
-              //            );
-              //          },
-              //        );
-              //      }).toList(),
-              //         // items: List.generate(
-              //         //   homeBanner_controller.userList.value.homeBanner?.bannerUrl == null
-              //         //       ? 0
-              //         //       : homeBanner_controller.userList.value.homeBanner!.bannerUrl!.length,
-              //         //   (index) => Image.network(
-              //         //     homeBanner_controller.userList.value.homeBanner?.bannerUrl?[index].toString() ?? "",
-              //         //   ),
-              //         // ),
-              //         options: CarouselOptions(
-              // autoPlay: true,
-              // aspectRatio: 2.0,
-              // enlargeCenterPage: true,
-
-              // reverse: false
-
-              //         ),
-
-              //             ),
-
-              SizedBox(
-                height: Get.height * .04,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: Get.height * .1,
-                    width: Get.width * .4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color.fromARGB(136, 235, 215, 215),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: Get.height * .08,
+                      width: Get.width * .4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color.fromARGB(136, 235, 215, 215),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            "assets/images/return.png",
+                          ),
+                          SizedBox(
+                            width: Get.width * .01,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'إرجاع مجاني',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontFamily: 'Almarai'),
+                              ),
+                              Text(
+                                'في غضون 90 يوما',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey,
+                                    fontFamily: 'Almarai'),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          "assets/images/return.png",
-                        ),
-                        SizedBox(
-                          width: Get.width * .01,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'إرجاع مجاني',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: 'Almarai'),
-                            ),
-                            Text(
-                              'في غضون 90 يوما',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                  fontFamily: 'Almarai'),
-                            ),
-                          ],
-                        )
-                      ],
+                    Container(
+                      height: Get.height * .08,
+                      width: Get.width * .4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color.fromARGB(135, 236, 213, 213),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            "assets/images/ship.png",
+                          ),
+                          SizedBox(
+                            width: Get.width * .01,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'ًالشحن مجانا',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontFamily: 'Almarai'),
+                              ),
+                              Text(
+                                'وقت محدود العرض',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey,
+                                    fontFamily: 'Almarai'),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: Get.height * .1,
-                    width: Get.width * .4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color.fromARGB(135, 236, 213, 213),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          "assets/images/ship.png",
-                        ),
-                        SizedBox(
-                          width: Get.width * .01,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'ًالشحن مجانا',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: 'Almarai'),
-                            ),
-                            Text(
-                              'وقت محدود العرض',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                  fontFamily: 'Almarai'),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Get.height * .04,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'فئات',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontFamily: 'Almarai'),
-                  ),
-                  SizedBox(
-                    width: Get.width * .4,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(CategoryScreen_arabic());
-                    },
-                    child: Text(
-                      'اظهار الكل',
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height * .04,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'فئات',
                       style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xffff8300),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                           fontFamily: 'Almarai'),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Get.height * .04,
-              ),
-              homeView_controller.userList.value.categoryData == null ||
-                      homeView_controller.userList.value.categoryData?.length ==
-                          0
-                  ? Center(
-                      child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/no_product.png',
-                          color: Color(0xffff8300),
-                        ),
-                        SizedBox(
-                          height: Get.height * .03,
-                        ),
-                        Text(
-                          "الصفحة غير موجودة",
-                          style: theme.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                              fontFamily: 'Almarai'),
-                        ),
-                      ],
-                    ))
-                  : Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: Get.height * .14,
-                          crossAxisCount: 4,
-                          // mainAxisSpacing: 17.h,
-                          // crossAxisSpacing: 15.h,
-                        ),
-                        physics: BouncingScrollPhysics(),
-                        itemCount: homeView_controller
-                                .userList.value.categoryData?.length ??
-                            0,
-                        // homeView_controller
-                        //     .userList.value.categoryData?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  arabiccategoryId = homeView_controller
-                                      .userList.value.categoryData?[index].id!
-                                      .toString();
+                    SizedBox(
+                      width: Get.width * .4,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        selectedTabIndex = 0;
+                        arabiccategoryId = homeView_controller
+                            .userList.value.categoryData?[0].id!
+                            .toString();
+                        _categorybynamecontroller.CategoryByNameApiHit(
+                            arabiccategoryId);
 
-                                  selectedTabIndex = index;
-                                  print(selectedTabIndex);
+                        Get.to(CategoryScreen_arabic(
+                            showAppBar: true,
+                            FromHomeToCat: true,
+                            arabicselectedTabIndex: selectedTabIndex));
+                      },
+                      child: Text(
+                        'اظهار الكل',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xffff8300),
+                            fontFamily: 'Almarai'),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height * .04,
+                ),
+                homeView_controller.userList.value.categoryData == null ||
+                        homeView_controller
+                                .userList.value.categoryData?.length ==
+                            0
+                    ? Center(
+                        child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/no_product.png',
+                            color: Color(0xffff8300),
+                          ),
+                          SizedBox(
+                            height: Get.height * .03,
+                          ),
+                          Text(
+                            "الصفحة غير موجودة",
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                fontFamily: 'Almarai'),
+                          ),
+                        ],
+                      ))
+                    : Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisExtent: Get.height * .17,
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 17.h,
+                            crossAxisSpacing: 15.h,
+                          ),
+                          physics: BouncingScrollPhysics(),
+                          itemCount: homeView_controller
+                                  .userList.value.categoryData?.length ??
+                              0,
+                          // homeView_controller
+                          //     .userList.value.categoryData?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    arabiccategoryId = homeView_controller
+                                        .userList.value.categoryData?[index].id!
+                                        .toString();
 
-                                  arabiccategoryId = homeView_controller
-                                      .userList.value.categoryData?[index].id!
-                                      .toString();
-                                  _categorybynamecontroller
-                                      .CategoryByNameApiHit(arabiccategoryId);
-                                  // setState(() {
-                                  //   EnglishsubMainCatId = mainCatId;
-                                  // });
-                                  // print("$EnglishsubMainCatId==");
-                                  Get.to(CategoryScreen_arabic(
-                                      showAppBar: true,
-                                      FromHomeToCat: true,
-                                      arabicselectedTabIndex:
-                                          selectedTabIndex));
-                                },
-                                child: Center(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(38.0),
-                                    child: Image.network(
-                                      "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
-                                      height: 68,
-                                      width: 68,
-                                      fit: BoxFit.cover,
+                                    selectedTabIndex = index;
+                                    print(selectedTabIndex);
+
+                                    arabiccategoryId = homeView_controller
+                                        .userList.value.categoryData?[index].id!
+                                        .toString();
+                                    _categorybynamecontroller
+                                        .CategoryByNameApiHit(arabiccategoryId);
+
+                                    Get.to(CategoryScreen_arabic(
+                                        showAppBar: true,
+                                        FromHomeToCat: true,
+                                        arabicselectedTabIndex:
+                                            selectedTabIndex));
+                                  },
+                                  child: Center(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(38.0),
+                                      child: Image.network(
+                                        "${homeView_controller.userList.value.categoryData?[index].imageUrl.toString()}",
+                                        height: 68,
+                                        width: 68,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 5.v),
-                              Center(
-                                child: Text(
-                                  "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
-                                  style: TextStyle(
-                                    color: Color(0xFF272727),
-                                    fontSize: 12,
-                                    fontFamily: 'Almarai',
-                                    fontWeight: FontWeight.w500,
+                                SizedBox(height: 5.v),
+                                Center(
+                                  child: Text(
+                                    "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
+                                    style: TextStyle(
+                                      color: Color(0xFF272727),
+                                      fontSize: 12,
+                                      fontFamily: 'Almarai',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          );
-                        },
+                                )
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                    ),
-              SizedBox(
-                height: Get.height * .05,
-              ),
+                SizedBox(
+                  height: Get.height * .05,
+                ),
 
-              _buildHomePageSection(context),
-            ]),
+                _buildHomePageSection(context),
+              ]),
+            ),
           ),
         );
       }
@@ -512,7 +535,7 @@ class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
                                 .toString();
                             productviewcontroller.Single_ProductApiHit(
                                 arabicMainCatId, arabicProductId);
-                            Get.to(ArabicMensSingleShirtViewScreen());
+                            Get.to(ArabicMensSingleViewScreen());
                           },
                           height: 190.adaptSize,
                           width: 190.adaptSize,
@@ -529,7 +552,6 @@ class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
                           ),
                           child: CustomIconButton(
                             onTap: () {
-                              //
                               Arabic_Add_remove_productid = homeView_controller
                                   .userList.value.recommendedProduct![index].id!
                                   .toString();
@@ -537,8 +559,6 @@ class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
                                   .AddRemoveWishlish_apihit();
 
                               setState(() {
-                                // Add_remove_productidd;
-                                //  isButtonTapped = !isButtonTapped;
                                 isButtonTappedList[index] =
                                     !isButtonTappedList[index];
                               });
@@ -659,9 +679,9 @@ class _ArabicHomeScreenState extends State<ArabicHomeScreen> {
                           arabicMainCatId = homeView_controller.userList.value
                               .recommendedProduct?[index].mainCategoryId
                               .toString();
-                          String? arproductId = homeView_controller
-                              .userList.value.recommendedProduct?[index].id
-                              ?.toString();
+                          // String? arproductId = homeView_controller
+                          //     .userList.value.recommendedProduct?[index].id
+                          //     ?.toString();
                         },
                         height: 30.adaptSize,
                         width: 30.adaptSize,

@@ -55,8 +55,8 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  EnglishCategorySearchController _searchcontroller =
-      EnglishCategorySearchController();
+  // EnglishCategorySearchController _searchcontroller =
+  //     EnglishCategorySearchController();
   CategoriesByNameControllerEnglish _categoryByName =
       CategoriesByNameControllerEnglish();
 
@@ -467,9 +467,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: AppbarTitle(
         text: "Categories",
         margin: EdgeInsets.only(
-          // left: 20,
-            left: Get.width*0.055
-        ),
+            // left: 20,
+            left: Get.width * 0.055),
       ),
     );
   }

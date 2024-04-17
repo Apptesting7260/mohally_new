@@ -19,13 +19,17 @@ import 'package:mohally/presentation/choose_language_screen/choose_language_scre
 import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/presentation/splash_screen/splash_screen.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore_for_file: must_be_immutable
 class MyProfilePage_arabic extends StatefulWidget {
-  const MyProfilePage_arabic({Key? key})
+  final bool showAppBar;
+
+  const MyProfilePage_arabic({Key? key, this.showAppBar = false})
       : super(
           key: key,
         );
@@ -79,39 +83,38 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "ملفي",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Almarai',
+      appBar: widget.showAppBar
+          ? CustomAppBar(
+              leadingWidth: 80,
+              leading: Padding(
+                padding: const EdgeInsets.only(
+                  top: 5,
+                ),
+                child: CustomIconButton(
+                    onTap: () {
+                      Get.back();
+                      // Get.offAll(TabScreen(index: 0));
+                    },
+                    height: 40.adaptSize,
+                    width: 40.adaptSize,
+                    decoration: IconButtonStyleHelper.fillGrayTL20,
+                    child: Center(
+                        child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ))),
               ),
-            )),
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Get.offAll(arabic_TabScreen(
-                index: 0,
-              ));
-            },
-            child: Container(
-                width: Get.width * .07,
-                height: Get.height * .03,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(90, 158, 158, 158)),
-                child: Icon(
-                  Icons.arrow_back,
-                )),
-          ),
-        ),
-      ),
+              title: AppbarSubtitle(
+                text: "ملفي",
+                // margin: EdgeInsets.only(left: 10),
+              ),
+            )
+          : CustomAppBar(
+              title: AppbarSubtitle(
+                text: "ملفي",
+                margin: EdgeInsets.only(right: 20),
+              ),
+            ),
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -144,81 +147,15 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
                             child: SizedBox(
                               height: 100.adaptSize,
                               width: 100.adaptSize,
-                              child: Stack(
-                                alignment: Alignment.bottomLeft,
-                                children: [
-                                  Container(
-                                    height: height * .2,
-                                    width: width * .3,
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: NetworkImage(
-                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                  CustomIconButton(
-                                    height: 30.adaptSize,
-                                    width: 30.adaptSize,
-                                    padding: EdgeInsets.all(8.h),
-                                    alignment: Alignment.bottomLeft,
-                                    child: CustomImageView(
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                backgroundColor:
-                                                    Color(0xFFFF8300),
-                                                title: Text(
-                                                  "يختار",
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontFamily: 'Almarai',
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                                content: Row(
-                                                  children: [
-                                                    GestureDetector(
-                                                      child: Text(
-                                                        "آلة تصوير",
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'Almarai',
-                                                            color: Colors.white,
-                                                            fontSize: 16),
-                                                      ),
-                                                      onTap: () {
-                                                        openCameraa(
-                                                            ImageSource.camera);
-                                                      },
-                                                    ),
-                                                    SizedBox(width: 80),
-                                                    GestureDetector(
-                                                      child: Text("صالة عرض",
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Almarai',
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 16)),
-                                                      onTap: () {
-                                                        openCameraa(ImageSource
-                                                            .gallery);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      imagePath:
-                                          ImageConstant.imgCamera1WhiteA70002,
-                                    ),
-                                  ),
-                                ],
+                              child: Container(
+                                height: height * .2,
+                                width: width * .3,
+                                child: CircleAvatar(
+                                  radius: 30.0,
+                                  backgroundImage: NetworkImage(_controller
+                                      .MyAccount.value.userDetails?.imageUrl),
+                                  backgroundColor: Colors.transparent,
+                                ),
                               ),
                             ),
                           ),
@@ -404,7 +341,7 @@ class _MyProfilePage_arabicState extends State<MyProfilePage_arabic> {
         ),
         Padding(
           padding: EdgeInsets.only(
-            left: 10.h,
+            right: 10.h,
             top: 5.v,
             bottom: 2.v,
           ),

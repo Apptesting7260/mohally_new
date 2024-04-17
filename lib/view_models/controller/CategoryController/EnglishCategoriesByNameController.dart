@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/SubCategories/subcategoriesModel.dart';
-import 'package:mohally/presentation/category_page/MainCategories/widgets/CategoryProducts.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

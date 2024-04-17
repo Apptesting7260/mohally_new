@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/presentation/tab_screen/tab_bar.dart';
-import 'package:mohally/theme/theme_helper.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';

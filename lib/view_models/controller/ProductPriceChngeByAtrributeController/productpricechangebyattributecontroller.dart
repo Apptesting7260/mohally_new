@@ -32,7 +32,7 @@ class ProductPriceChngeByAttribute extends GetxController {
 
   Future<void> ProductPriceChangeByAttribute(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     addIfNotNull(productDetails, 'Color', productColor?.toString());

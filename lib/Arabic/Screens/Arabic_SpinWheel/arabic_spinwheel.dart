@@ -14,6 +14,7 @@ import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 // ignore_for_file: unused_local_variable
 
 class SpinTheWheelOneScreen_arabic extends StatefulWidget {
@@ -82,35 +83,29 @@ class _SpinTheWheelOneScreen_arabicState
     ];
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'تدور العجلة',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Almarai',
-                ),
-              )),
+        appBar: CustomAppBar(
+          leadingWidth: 80,
           leading: Padding(
             padding: const EdgeInsets.only(
-              top: 15,
+              top: 5,
             ),
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                  width: Get.width * .07,
-                  height: Get.height * .03,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color.fromARGB(90, 158, 158, 158)),
-                  child: Icon(
-                    Icons.arrow_back,
-                  )),
-            ),
+            child: CustomIconButton(
+                onTap: () {
+                  Get.back();
+                  // Get.offAll(TabScreen(index: 0));
+                },
+                height: 40.adaptSize,
+                width: 40.adaptSize,
+                decoration: IconButtonStyleHelper.fillGrayTL20,
+                child: Center(
+                    child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ))),
+          ),
+          title: AppbarSubtitle(
+            text: "تدور العجلة",
+            // margin: EdgeInsets.only(left: 10),
           ),
         ),
         body: Container(

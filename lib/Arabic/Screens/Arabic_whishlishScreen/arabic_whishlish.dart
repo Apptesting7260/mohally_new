@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_Add_whishlistProduct.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_viewwishlistController.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/ArabicSingleProductView.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/core/utils/image_constant.dart';
 import 'package:mohally/core/utils/size_utils.dart';
 import 'package:mohally/data/response/status.dart';
@@ -17,6 +14,8 @@ import 'package:mohally/theme/custom_button_style.dart';
 import 'package:mohally/theme/custom_text_style.dart';
 import 'package:mohally/theme/theme_helper.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/ArabicHomeController.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_image_view.dart';
@@ -25,7 +24,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore_for_file: must_be_immutable
 class WishlistPage_arabic extends StatefulWidget {
-  const WishlistPage_arabic({Key? key})
+  final bool showAppBar;
+
+  const WishlistPage_arabic({Key? key, this.showAppBar = false})
       : super(
           key: key,
         );
@@ -106,10 +107,40 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
         );
       } else {
         return Scaffold(
+          appBar: widget.showAppBar
+              ? CustomAppBar(
+                  leadingWidth: 80,
+                  leading: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 5,
+                    ),
+                    child: CustomIconButton(
+                        onTap: () {
+                          Get.back();
+                          // Get.offAll(TabScreen(index: 0));
+                        },
+                        height: 40.adaptSize,
+                        width: 40.adaptSize,
+                        decoration: IconButtonStyleHelper.fillGrayTL20,
+                        child: Center(
+                            child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ))),
+                  ),
+                  title: AppbarSubtitle(
+                    text: "قائمة الرغبات",
+                    // margin: EdgeInsets.only(left: 10),
+                  ),
+                )
+              : null,
           body: SmartRefresher(
             enablePullDown: true,
             onRefresh: () async {
               viewWishlistcontroller.ViewWishlish_apihit();
+              await Future.delayed(
+                  Duration(seconds: 1)); // Adjust the duration as needed
+              _refreshController.refreshCompleted();
             },
             enablePullUp: false,
             controller: _refreshController,
@@ -288,8 +319,11 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
                                   arabicMainCatId =
                                       wishlistProduct.categoryId.toString();
 
-                                  String? ProductId =
+                                  arabicProductId =
                                       wishlistProduct.id!.toString();
+                                  productviewcontroller.Single_ProductApiHit(
+                                      arabicMainCatId, arabicProductId);
+                                  Get.to(ArabicMensSingleViewScreen());
                                 },
                                 height: 190.adaptSize,
                                 width: 190.adaptSize,
@@ -430,8 +464,8 @@ class _WishlistPage_arabicState extends State<WishlistPage_arabic> {
                                 onTap: () async {
                                   arabicMainCatId =
                                       wishlistProduct.categoryId.toString();
-                                  String? arproductId =
-                                      wishlistProduct.id?.toString();
+                                  // String? arproductId =
+                                  //     wishlistProduct.id?.toString();
                                 },
                               ),
                             ),

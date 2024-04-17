@@ -3,7 +3,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 // import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mohally/theme/theme_helper.dart';
+// import 'package:mohally/theme/theme_helper.dart';
 
 class AboutUsScreen_arabic extends StatefulWidget {
   const AboutUsScreen_arabic({Key? key})

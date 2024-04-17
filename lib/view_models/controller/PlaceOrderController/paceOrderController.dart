@@ -48,7 +48,7 @@ class PlaceOrdercontroller extends GetxController {
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
     loading.value = true;
     Map data = {

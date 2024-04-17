@@ -6,8 +6,6 @@ import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/ArabicSubCategory/A
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/category_page/ProductByCategoryScreen/ProductByCategoryScreen.dart';
-import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/view_models/controller/CategoryController/EnglishproductByCategoryListController.dart';
 
 class SubCategoryScreen extends StatefulWidget {
@@ -28,8 +26,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
     _categoryByName.CategoryByNameApiHit(arabiccategoryId);
   }
 
-  PageController _pageController =
-      PageController(initialPage: 0); // Set initial page to 0
+  // PageController _pageController =
+  //     PageController(initialPage: 0); // Set initial page to 0
   bool showPageView = false;
   int selectedTabIndex = 0;
   ArabiccategorybyNameController _categoryByName =
@@ -99,9 +97,9 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
-                                // crossAxisSpacing: 8.0,
-                                // mainAxisSpacing: 3.0,
-                                mainAxisExtent: Get.height * .14,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 3.0,
+                                mainAxisExtent: Get.height * .17,
                               ),
                               itemCount: _categoryByName.userList.value
                                       .seeAllMainCategory?.length ??
@@ -146,7 +144,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                         textAlign: TextAlign.center,
-                                        maxLines: 2,
+                                        maxLines: 3,
                                       ),
                                     )
                                   ],

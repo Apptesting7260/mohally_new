@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
-import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_login_screen.dart';
+// import 'package:mohally/Arabic/Screens/Welcome_screens/arabic_login_screen.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/Sign_Up_Model/sign_up_model.dart';

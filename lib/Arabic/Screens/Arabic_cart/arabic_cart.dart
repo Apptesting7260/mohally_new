@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_ViewCartController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_deleteCart.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_placeorderController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
+import 'package:mohally/Arabic/Screens/ArabicSingleView/ArabicSingleProductView.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
 import 'package:mohally/Arabic/Screens/Address/arabic_address.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/arabic_order_confirmed.dart';
@@ -15,6 +15,7 @@ import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/view_models/controller/ApplyCouponCodeController/applycouponcodecontroller.dart';
+import 'package:mohally/view_models/controller/Cart/ProductQtyUpdateController/arabicCartProductQuantityupdateController.dart';
 import 'package:mohally/view_models/controller/Cart/ProductQtyUpdateController/cartproductqtyUpdateController.dart';
 import 'package:mohally/view_models/controller/CouponController/couponcodeController.dart';
 import 'package:mohally/view_models/controller/Home_controller.dart/ArabicHomeController.dart';
@@ -23,7 +24,7 @@ import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:mohally/widgets/custom_text_form_field.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 RxString arabiccouponcodeee = "".obs;
 String? sizeid;
@@ -42,6 +43,8 @@ class CartPage_arabic extends StatefulWidget {
 }
 
 class _CartPage_arabicState extends State<CartPage_arabic> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   ArabicSingleProductViewController productviewcontroller =
       ArabicSingleProductViewController();
 
@@ -54,14 +57,14 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
       ArabicPlaceOrdercontroller();
 
   CouponCodeController _couponCodeController = CouponCodeController();
-  List<bool> isSelectedList = List.generate(100, (index) => false);
+  List<bool> isSelectedList = List.generate(200, (index) => false);
 
   final DeleteCartCartControlleri = Get.put(ArabicDeleteCartCartController());
 
   ArabicViewCart _viewcartcontroller = ArabicViewCart();
   List<bool> tappedList = List.generate(200, (index) => false);
 
-  List<bool> isButtonTappedList = List.generate(20, (index) => false);
+  List<bool> isButtonTappedList = List.generate(200, (index) => false);
   String selectedSize22 = "Dark Blue/M(38)";
   int counter = 1;
   int counter2 = 1;
@@ -95,7 +98,6 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
   @override
   void initState() {
     super.initState();
-    setInitialLocale();
     homeView_controller.homeview_apihit();
     // productviewcontroller.Single_ProductApiHit();
     _viewcartcontroller.Viewcart_apihit();
@@ -141,493 +143,895 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
             //   ),
             // ),
           ),
-          body: Obx(() {
-            if (_viewcartcontroller.rxRequestStatus.value == Status.LOADING) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
-              );
-            } else if (_viewcartcontroller.rxRequestStatus.value ==
-                Status.ERROR) {
-              return Scaffold(
-                  body: Center(
-                      child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/error2.png',
-                  ),
-                  Text(
-                    "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                        color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
-                  ),
-                ],
-              )));
-            } else {
-              return _viewcartcontroller.userList.value.viewCart == null ||
-                      _viewcartcontroller.userList.value.viewCart!.length == 0
-                  // _viewcartcontroller.home_living_userlist.value
-                  //         .productView?.length ==
-                  //     0
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/nocart.png',
-                          width: 150,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(40, 0, 70, 0),
-                          child: Text(
-                            "سلة التسوق الخاصة بك فارغة حاليًا.\n ابدأ بإضافة عناصر إلى سلة التسوق الخاصة بك واجعل تجربة التسوق الخاصة بك أفضل!",
-                            style: theme.textTheme.headlineMedium?.copyWith(
-                                color: const Color.fromARGB(73, 0, 0, 0),
-                                fontSize: 15,
-                                fontFamily: 'Almarai'),
+          body: SmartRefresher(
+            enablePullDown: true,
+            onRefresh: () async {
+              homeView_controller.homeview_apihit();
+
+              _viewcartcontroller.Viewcart_apihit();
+              _couponCodeController.fetchMycouponData();
+              await Future.delayed(
+                  Duration(seconds: 1)); // Adjust the duration as needed
+              _refreshController.refreshCompleted();
+            },
+            enablePullUp: false,
+            controller: _refreshController,
+            child: Obx(() {
+              if (_viewcartcontroller.rxRequestStatus.value == Status.LOADING) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              } else if (_viewcartcontroller.rxRequestStatus.value ==
+                  Status.ERROR) {
+                return Scaffold(
+                    body: Center(
+                        child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/error2.png',
+                    ),
+                    Text(
+                      "Oops! Our servers are having trouble connecting.\nPlease check your internet connection and try again",
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                          color: Color.fromARGB(73, 0, 0, 0), fontSize: 12),
+                    ),
+                  ],
+                )));
+              } else {
+                return _viewcartcontroller.userList.value.viewCart == null ||
+                        _viewcartcontroller.userList.value.viewCart!.length == 0
+                    // _viewcartcontroller.home_living_userlist.value
+                    //         .productView?.length ==
+                    //     0
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/nocart.png',
+                            width: 150,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40, 0, 70, 0),
+                            child: Text(
+                              "سلة التسوق الخاصة بك فارغة حاليًا.\n ابدأ بإضافة عناصر إلى سلة التسوق الخاصة بك واجعل تجربة التسوق الخاصة بك أفضل!",
+                              style: theme.textTheme.headlineMedium?.copyWith(
+                                  color: const Color.fromARGB(73, 0, 0, 0),
+                                  fontSize: 15,
+                                  fontFamily: 'Almarai'),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: SizedBox(
+                          width: double.maxFinite,
+                          child: ListView(
+                            children: [
+                              SizedBox(height: 7.v),
+
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 10.h),
+                                  child: Text(
+                                    "${_viewcartcontroller.userList.value.viewCartTotal.toString()} أغراض ! ",
+                                    style: CustomTextStyles.bodyLargeGray50001_3
+                                        ?.copyWith(
+                                      fontFamily: 'Almarai',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 6.v),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 10.h),
+                                        child: Text(
+                                          "في العربة",
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  fontFamily: 'Almarai',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                    CustomIconButton(
+                                        onTap: () {
+                                          // if (isSelectedList[index]) {
+
+                                          // }
+                                          ArabicDeleteCartCartController()
+                                              .deleteCartApiHit(
+                                                  DeleteCartCartControlleri
+                                                      .selectedCartIds);
+                                        },
+                                        height: 40.adaptSize,
+                                        width: 40.adaptSize,
+                                        decoration:
+                                            IconButtonStyleHelper.fillGrayTL20,
+                                        child: Center(
+                                            child: Icon(
+                                          Icons.delete,
+                                          color: Colors.grey,
+                                        ))),
+                                  ],
+                                ),
+                              ),
+
+                              SizedBox(height: 27.v),
+
+                              _buildFreeShippingAnd(context),
+                              SizedBox(height: 29.v),
+
+                              ListView.separated(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _viewcartcontroller
+                                        .userList.value.viewCart?.length ??
+                                    0,
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    height: 15.v,
+                                  );
+                                },
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    // width: Get.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomImageView(
+                                          imagePath:
+                                              "${_viewcartcontroller.userList.value.viewCart?[index].image.toString()}",
+                                          height: 100.adaptSize,
+                                          width: 100.adaptSize,
+                                          radius: BorderRadius.circular(
+                                            10.h,
+                                          ),
+                                          onTap: () {
+                                            arabicMainCatId =
+                                                _viewcartcontroller
+                                                    .userList
+                                                    .value
+                                                    .viewCart?[index]
+                                                    .categoryId!
+                                                    .toString();
+                                            arabicProductId =
+                                                _viewcartcontroller
+                                                    .userList
+                                                    .value
+                                                    .viewCart?[index]
+                                                    .productId!
+                                                    .toString();
+                                            productviewcontroller
+                                                .Single_ProductApiHit(
+                                                    arabicMainCatId,
+                                                    arabicProductId);
+                                            Get.to(
+                                                ArabicMensSingleViewScreen());
+                                          },
+                                          // margin: EdgeInsets.only(bottom: 15.v),
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * .04,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: Get.width * .4,
+                                                  // color: Colors.amberAccent,
+                                                  child: Text(
+                                                    "${_viewcartcontroller.userList.value.viewCart?[index].name.toString()}",
+                                                    style: theme
+                                                        .textTheme.titleSmall
+                                                        ?.copyWith(
+                                                            fontSize: 10),
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                SizedBox(width: Get.width * .1),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      isSelectedList[index] =
+                                                          !isSelectedList[
+                                                              index];
+                                                    });
+                                                    // DeleteCartCartControlleri.selectedCartIds.addIf()
+
+                                                    if (!DeleteCartCartControlleri
+                                                            .selectedCartIds
+                                                            .contains(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString()) ||
+                                                        !placeordercontroller
+                                                            .selectedCartIds
+                                                            .contains(
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart?[
+                                                                        index]
+                                                                    .id
+                                                                    .toString())) {
+                                                      placeordercontroller
+                                                          .selectedCartIds
+                                                          .add(
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
+                                                      DeleteCartCartControlleri
+                                                          .selectedCartIds
+                                                          .add(
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
+                                                      print(
+                                                          DeleteCartCartControlleri
+                                                              .selectedCartIds);
+                                                    } else {
+                                                      placeordercontroller
+                                                          .selectedCartIds
+                                                          .remove(
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
+                                                      DeleteCartCartControlleri
+                                                          .selectedCartIds
+                                                          .remove(
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart?[
+                                                                      index]
+                                                                  .id
+                                                                  .toString());
+                                                      print(
+                                                          DeleteCartCartControlleri
+                                                              .selectedCartIds);
+                                                    }
+                                                    // // deleteCartId = _viewcartcontroller
+                                                    // //     .userList.value.viewCart?[index].id
+                                                    // //     .toString();
+
+                                                    // print(deleteCartId);
+                                                    // DeleteCartCartController().deleteCartApiHit();
+                                                  },
+                                                  child: Container(
+                                                    height: Get.height * .03,
+                                                    width: Get.width * .05,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        width: 2,
+                                                        color:
+                                                            Color(0xffff8300),
+                                                      ),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: isSelectedList[index]
+                                                        ? Center(
+                                                            child: Container(
+                                                              height:
+                                                                  Get.height *
+                                                                      .02,
+                                                              width: Get.width *
+                                                                  .03,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: Color(
+                                                                    0xffff8300),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : null,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * .02,
+                                            ),
+                                            SizedBox(
+                                              width: 221.h,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 1.v),
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        children: [
+                                                          TextSpan(
+                                                            text:
+                                                                "${_viewcartcontroller.userList.value.viewCart?[index].price.toString()}",
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleMedium,
+                                                          ),
+                                                          TextSpan(
+                                                            text: " ",
+                                                          ),
+                                                          // TextSpan(
+                                                          //   text:
+                                                          //       "${_viewcartcontroller.userList.value.viewCart?[index].totalPrice.toString()}",
+                                                          //   style: CustomTextStyles
+                                                          //       .titleSmallGray50001
+                                                          //       .copyWith(
+                                                          //     decoration:
+                                                          //         TextDecoration
+                                                          //             .lineThrough,
+                                                          //   ),
+                                                          // ),
+                                                        ],
+                                                      ),
+                                                      textAlign: TextAlign.left,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: Get.width * .2,
+                                                    height: Get.height * .04,
+                                                    decoration: AppDecoration
+                                                        .fillPrimary
+                                                        .copyWith(
+                                                      borderRadius:
+                                                          BorderRadiusStyle
+                                                              .circleBorder30,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            arabicCartId =
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart![
+                                                                        index]
+                                                                    .id
+                                                                    .toString();
+                                                            // Check if the current quantity is greater than 1 before decrementing
+                                                            if (_viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart![
+                                                                        index]
+                                                                    .totalQuantity >
+                                                                1) {
+                                                              // Decrement the counter
+                                                              _viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart![
+                                                                      index]
+                                                                  .totalQuantity -= 1;
+                                                              print(_viewcartcontroller
+                                                                  .userList
+                                                                  .value
+                                                                  .viewCart![
+                                                                      index]
+                                                                  .totalQuantity);
+                                                              arabicCartProductQtyIncrementCartcontroller()
+                                                                  .QtyUpdate_Apihit(
+                                                                      context,
+                                                                      index,
+                                                                      "decrement");
+                                                            } else {
+                                                              // If quantity is already 1 or less, do nothing or show a message
+                                                              // You can add a toast, snackbar, or any other UI feedback here
+                                                            }
+                                                            // Force the widget to rebuild to reflect the new quantity
+                                                            setState(() {});
+                                                          },
+                                                          child: Icon(
+                                                            Icons.remove,
+                                                            color: Colors.white,
+                                                            size: 15,
+                                                          ),
+                                                        ),
+                                                        Center(
+                                                          child: Text(
+                                                            _viewcartcontroller
+                                                                .userList
+                                                                .value
+                                                                .viewCart![
+                                                                    index]
+                                                                .totalQuantity
+                                                                .toString(),
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium
+                                                                ?.copyWith(
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            arabicCartId =
+                                                                _viewcartcontroller
+                                                                    .userList
+                                                                    .value
+                                                                    .viewCart![
+                                                                        index]
+                                                                    .id
+                                                                    .toString();
+                                                            // Increment the counter when "+" is pressed
+                                                            _viewcartcontroller
+                                                                .userList
+                                                                .value
+                                                                .viewCart![
+                                                                    index]
+                                                                .totalQuantity += 1;
+                                                            print(_viewcartcontroller
+                                                                .userList
+                                                                .value
+                                                                .viewCart![
+                                                                    index]
+                                                                .totalQuantity);
+
+                                                            CartProductQtyIncrementCartcontroller()
+                                                                .QtyUpdate_Apihit(
+                                                                    context,
+                                                                    index,
+                                                                    "increment");
+                                                            // Force the widget to rebuild to reflect the new quantity
+                                                            setState(() {});
+                                                          },
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 15,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+
+                              // _buildCartProduct(context),
+
+                              SizedBox(height: 30.v),
+                              _buildTwentyNine(context),
+                              SizedBox(height: 29.v),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'عنوان التسليم',
+                                    style: TextStyle(
+                                        fontFamily: 'Almarai',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black,
+                                        fontSize: 18),
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => addresses_arabic());
+                                      },
+                                      child: Icon(
+                                        Icons.keyboard_arrow_left,
+                                        color: Colors.black,
+                                      )),
+                                ],
+                              ),
+                              SizedBox(height: 14.v),
+                              _buildAddress(context),
+                              SizedBox(height: 29.v),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     Text(
+                              //       'طريقة الدفع او السداد',
+                              //       style: TextStyle(
+                              //           fontFamily: 'Almarai',
+                              //           fontWeight: FontWeight.w600,
+                              //           color: Colors.black,
+                              //           fontSize: 18),
+                              //     ),
+                              //     GestureDetector(
+                              //         onTap: () {
+                              //           Get.to(Payment_Screen_arabic());
+                              //         },
+                              //         child: Icon(
+                              //           Icons.keyboard_arrow_left,
+                              //           color: Colors.black,
+                              //         )),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 15.v),
+                              // _buildVisaClassic(context),
+                              SizedBox(height: 29.v),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 10.h),
+                                      child: Text(
+                                        "رمز الكوبون",
+                                        style: theme.textTheme.titleMedium
+                                            ?.copyWith(fontFamily: 'Almarai'),
+                                      ),
+                                    ),
+                                  ),
+                                  // SizedBox(width: Get.width*.09,),
+                                  // Container(
+                                  //   height: 30.v,
+                                  //   width: 140.h,
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius:
+                                  //           BorderRadius.all(Radius.circular(20)),
+                                  //       border: Border.all(color: Colors.black)),
+                                  //   margin: EdgeInsets.only(left: 23.h),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.center,
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.center,
+                                  //     children: [
+                                  //       Text(
+                                  //         'رمز القسيمة الخاص بك',
+                                  //         style: theme.textTheme.titleMedium
+                                  //             ?.copyWith(fontSize: 10),
+                                  //       ),
+                                  //       GestureDetector(
+                                  //           onTap: () {
+                                  //             showModalBottomSheet(
+                                  //                 context: context,
+                                  //                 builder: (context) {
+                                  //                   return _buildYourcouponcode(
+                                  //                       context);
+                                  //                 });
+                                  //           },
+                                  //           child: Icon(
+                                  //             Icons.keyboard_arrow_up_sharp,
+                                  //             weight: 8,
+                                  //           ))
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                              SizedBox(height: 20.v),
+                              _buildCouponCode(context),
+                              SizedBox(height: 28.v),
+                              _buildItemTotal(context),
+                              SizedBox(height: 15.v),
+                              if (discountprice != null)
+                                Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Item(s) discount:",
+                                          style: theme.textTheme.titleMedium!
+                                              .copyWith(
+                                            color: appTheme.gray90001,
+                                          ),
+                                        ),
+                                        Text(
+                                          discountprice.toString(),
+                                          style: CustomTextStyles
+                                              .titleMediumPrimary_1
+                                              .copyWith(
+                                            color: theme.colorScheme.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+
+                              SizedBox(height: 15.v),
+                              if (totalpriceafterdiscount != null)
+                                Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Estimated total",
+                                          style: theme.textTheme.titleMedium!
+                                              .copyWith(
+                                            color: appTheme.gray90001,
+                                          ),
+                                        ),
+                                        Text(
+                                          totalpriceafterdiscount.toString(),
+                                          style: CustomTextStyles
+                                              .titleMediumPrimary_1
+                                              .copyWith(
+                                            color: theme.colorScheme.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              SizedBox(height: 17.v),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Container(
+                                    height: 40.v,
+                                    width: 100.h,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffff8300),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        border: Border.all(
+                                            color: Color(0xffff8300))),
+                                    // margin: EdgeInsets.only(left: 23.h),
+                                    child: Center(
+                                        child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          arabiccouponid = couponidforcheckout;
+                                          arabicaddress_id =
+                                              arabicaddressIndexId.toString();
+                                          arabicitemdiscountAmount =
+                                              discountprice;
+                                          arabicsubtotalamount =
+                                              _viewcartcontroller
+                                                  .userList.value.subTotalPrice
+                                                  .toString();
+                                          arabictotalamount =
+                                              _viewcartcontroller
+                                                  .userList.value.totalPrice
+                                                  .toString();
+                                        });
+
+                                        placeordercontroller.Placeorderapihit(
+                                            placeordercontroller
+                                                .selectedCartIds,
+                                            context);
+                                      },
+                                      child: Text('الدفع',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                              fontFamily: 'Almarai')),
+                                    ))),
+                              ),
+                              SizedBox(height: 29.v),
+                              // Align(
+                              //   alignment: Alignment.centerRight,
+                              //   child: Padding(
+                              //     padding: EdgeInsets.only(left: 20.h),
+                              //     child: Text(
+                              //       "استكشف اهتماماتك",
+                              //       style: theme.textTheme.titleMedium
+                              //           ?.copyWith(fontFamily: 'Almarai'),
+                              //     ),
+                              //   ),
+                              // ),
+                              // SizedBox(height: 19.v),
+                              // _buildAddToCart(context),
+                              // SizedBox(height: 19.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.h),
+                                  child: Row(
+                                    children: [
+                                      CustomImageView(
+                                        imagePath:
+                                            ImageConstant.imgMaskGroup16x16,
+                                        height: 16.adaptSize,
+                                        width: 16.adaptSize,
+                                        margin: EdgeInsets.only(bottom: 2.v),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.h),
+                                        child: Text(
+                                          "خيارات الدفع الآمنة",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xffff8300),
+                                              fontFamily: 'Almarai'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  width: 318.h,
+                                  margin: EdgeInsets.only(
+                                    left: 20.h,
+                                    right: 36.h,
+                                  ),
+                                  child: Text(
+                                    "وريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في الصناعة منذ القرن السادس عشر، عندما أخذت طابعة غير معروفة لوح الكتابة وخلطته لصنع نموذج كتاب.",
+                                    maxLines: 6,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey,
+                                        fontFamily: 'Almarai'),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 24.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.h),
+                                  child: Row(
+                                    children: [
+                                      CustomImageView(
+                                        imagePath: ImageConstant.imgMaskGroup2,
+                                        height: 16.adaptSize,
+                                        width: 16.adaptSize,
+                                        margin: EdgeInsets.only(bottom: 2.v),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.h),
+                                        child: Text(
+                                          "تأمين الخصوصية",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xffff8300),
+                                              fontFamily: 'Almarai'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  width: 318.h,
+                                  margin: EdgeInsets.only(
+                                    left: 20.h,
+                                    right: 36.h,
+                                  ),
+                                  child: Text(
+                                    "لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة.",
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey,
+                                        fontFamily: 'Almarai'),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 24.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.h),
+                                  child: Row(
+                                    children: [
+                                      CustomImageView(
+                                        imagePath: ImageConstant.imgMaskGroup3,
+                                        height: 16.adaptSize,
+                                        width: 16.adaptSize,
+                                        margin: EdgeInsets.only(bottom: 2.v),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 7.h),
+                                        child: Text(
+                                          "محلّي حماية الشراء",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xffff8300),
+                                              fontFamily: 'Almarai'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10.v),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  width: 318.h,
+                                  margin: EdgeInsets.only(
+                                    left: 20.h,
+                                    right: 36.h,
+                                  ),
+                                  child: Text(
+                                    "لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة.",
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey,
+                                        fontFamily: 'Almarai'),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 30.v),
+                              // _buildListRecommended(context),
+                              // // _buildCart(context),
+                              // SizedBox(height: 15.v),
+                              _buildHomePageSection(context),
+                              SizedBox(height: 15.v),
+                            ],
                           ),
                         ),
-                      ],
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(
-                        width: double.maxFinite,
-                        child: ListView(
-                          children: [
-                            SizedBox(height: 7.v),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.h),
-                                child: Text(
-                                  " تحتوي سلة التسوق الخاصة بك الآن على ",
-                                  style: theme.textTheme.titleLarge?.copyWith(
-                                      fontFamily: 'Almarai',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 6.v),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.h),
-                                child: Text(
-                                  "${_viewcartcontroller.userList.value.viewCartTotal.toString()} أغراض ! ",
-                                  style: CustomTextStyles.bodyLargeGray50001_3
-                                      ?.copyWith(
-                                    fontFamily: 'Almarai',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 27.v),
-                            _buildFreeShippingAnd(context),
-                            SizedBox(height: 29.v),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // if (isSelectedList[index]) {
-
-                                    // }
-                                    ArabicDeleteCartCartController()
-                                        .deleteCartApiHit(
-                                            DeleteCartCartControlleri
-                                                .selectedCartIds);
-                                  },
-                                  child: Icon(
-                                    Icons.delete_forever,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            _buildCartProduct(context),
-
-                            SizedBox(height: 30.v),
-                            _buildTwentyNine(context),
-                            SizedBox(height: 29.v),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'عنوان التسليم',
-                                  style: TextStyle(
-                                      fontFamily: 'Almarai',
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                      fontSize: 18),
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.to(() => addresses_arabic());
-                                    },
-                                    child: Icon(
-                                      Icons.keyboard_arrow_left,
-                                      color: Colors.black,
-                                    )),
-                              ],
-                            ),
-                            SizedBox(height: 14.v),
-                            _buildAddress(context),
-                            SizedBox(height: 29.v),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Text(
-                            //       'طريقة الدفع او السداد',
-                            //       style: TextStyle(
-                            //           fontFamily: 'Almarai',
-                            //           fontWeight: FontWeight.w600,
-                            //           color: Colors.black,
-                            //           fontSize: 18),
-                            //     ),
-                            //     GestureDetector(
-                            //         onTap: () {
-                            //           Get.to(Payment_Screen_arabic());
-                            //         },
-                            //         child: Icon(
-                            //           Icons.keyboard_arrow_left,
-                            //           color: Colors.black,
-                            //         )),
-                            //   ],
-                            // ),
-                            // SizedBox(height: 15.v),
-                            // _buildVisaClassic(context),
-                            SizedBox(height: 29.v),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 10.h),
-                                    child: Text(
-                                      "رمز الكوبون",
-                                      style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontFamily: 'Almarai'),
-                                    ),
-                                  ),
-                                ),
-                                // SizedBox(width: Get.width*.09,),
-                                // Container(
-                                //   height: 30.v,
-                                //   width: 140.h,
-                                //   decoration: BoxDecoration(
-                                //       borderRadius:
-                                //           BorderRadius.all(Radius.circular(20)),
-                                //       border: Border.all(color: Colors.black)),
-                                //   margin: EdgeInsets.only(left: 23.h),
-                                //   child: Row(
-                                //     mainAxisAlignment: MainAxisAlignment.center,
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.center,
-                                //     children: [
-                                //       Text(
-                                //         'رمز القسيمة الخاص بك',
-                                //         style: theme.textTheme.titleMedium
-                                //             ?.copyWith(fontSize: 10),
-                                //       ),
-                                //       GestureDetector(
-                                //           onTap: () {
-                                //             showModalBottomSheet(
-                                //                 context: context,
-                                //                 builder: (context) {
-                                //                   return _buildYourcouponcode(
-                                //                       context);
-                                //                 });
-                                //           },
-                                //           child: Icon(
-                                //             Icons.keyboard_arrow_up_sharp,
-                                //             weight: 8,
-                                //           ))
-                                //     ],
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                            SizedBox(height: 20.v),
-                            _buildCouponCode(context),
-                            SizedBox(height: 28.v),
-                            _buildItemTotal(context),
-                            SizedBox(height: 15.v),
-                            if (discountprice != null)
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 20.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Item(s) discount:",
-                                        style: theme.textTheme.titleMedium!
-                                            .copyWith(
-                                          color: appTheme.gray90001,
-                                        ),
-                                      ),
-                                      Text(
-                                        discountprice.toString(),
-                                        style: CustomTextStyles
-                                            .titleMediumPrimary_1
-                                            .copyWith(
-                                          color: theme.colorScheme.primary,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-
-                            SizedBox(height: 15.v),
-                            if (totalpriceafterdiscount != null)
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 20.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Estimated total",
-                                        style: theme.textTheme.titleMedium!
-                                            .copyWith(
-                                          color: appTheme.gray90001,
-                                        ),
-                                      ),
-                                      Text(
-                                        totalpriceafterdiscount.toString(),
-                                        style: CustomTextStyles
-                                            .titleMediumPrimary_1
-                                            .copyWith(
-                                          color: theme.colorScheme.primary,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            SizedBox(height: 17.v),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Container(
-                                  height: 40.v,
-                                  width: 100.h,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffff8300),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      border:
-                                          Border.all(color: Color(0xffff8300))),
-                                  // margin: EdgeInsets.only(left: 23.h),
-                                  child: Center(
-                                      child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        arabiccouponid = couponidforcheckout;
-                                        arabicaddress_id =
-                                            arabicaddressIndexId.toString();
-                                        arabicitemdiscountAmount =
-                                            discountprice;
-                                        arabicsubtotalamount =
-                                            _viewcartcontroller
-                                                .userList.value.subTotalPrice
-                                                .toString();
-                                        arabictotalamount = _viewcartcontroller
-                                            .userList.value.totalPrice
-                                            .toString();
-                                      });
-
-                                      placeordercontroller.Placeorderapihit(
-                                          placeordercontroller.selectedCartIds,
-                                          context);
-                                    },
-                                    child: Text('الدفع',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
-                                            fontFamily: 'Almarai')),
-                                  ))),
-                            ),
-                            SizedBox(height: 29.v),
-                            // Align(
-                            //   alignment: Alignment.centerRight,
-                            //   child: Padding(
-                            //     padding: EdgeInsets.only(left: 20.h),
-                            //     child: Text(
-                            //       "استكشف اهتماماتك",
-                            //       style: theme.textTheme.titleMedium
-                            //           ?.copyWith(fontFamily: 'Almarai'),
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(height: 19.v),
-                            // _buildAddToCart(context),
-                            // SizedBox(height: 19.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.h),
-                                child: Row(
-                                  children: [
-                                    CustomImageView(
-                                      imagePath:
-                                          ImageConstant.imgMaskGroup16x16,
-                                      height: 16.adaptSize,
-                                      width: 16.adaptSize,
-                                      margin: EdgeInsets.only(bottom: 2.v),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.h),
-                                      child: Text(
-                                        "خيارات الدفع الآمنة",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffff8300),
-                                            fontFamily: 'Almarai'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                width: 318.h,
-                                margin: EdgeInsets.only(
-                                  left: 20.h,
-                                  right: 36.h,
-                                ),
-                                child: Text(
-                                  "وريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في الصناعة منذ القرن السادس عشر، عندما أخذت طابعة غير معروفة لوح الكتابة وخلطته لصنع نموذج كتاب.",
-                                  maxLines: 6,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      fontFamily: 'Almarai'),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 24.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.h),
-                                child: Row(
-                                  children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgMaskGroup2,
-                                      height: 16.adaptSize,
-                                      width: 16.adaptSize,
-                                      margin: EdgeInsets.only(bottom: 2.v),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.h),
-                                      child: Text(
-                                        "تأمين الخصوصية",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffff8300),
-                                            fontFamily: 'Almarai'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                width: 318.h,
-                                margin: EdgeInsets.only(
-                                  left: 20.h,
-                                  right: 36.h,
-                                ),
-                                child: Text(
-                                  "لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة.",
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      fontFamily: 'Almarai'),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 24.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.h),
-                                child: Row(
-                                  children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgMaskGroup3,
-                                      height: 16.adaptSize,
-                                      width: 16.adaptSize,
-                                      margin: EdgeInsets.only(bottom: 2.v),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 7.h),
-                                      child: Text(
-                                        "محلّي حماية الشراء",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xffff8300),
-                                            fontFamily: 'Almarai'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.v),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                width: 318.h,
-                                margin: EdgeInsets.only(
-                                  left: 20.h,
-                                  right: 36.h,
-                                ),
-                                child: Text(
-                                  "لوريم إيبسوم هو ببساطة نص وهمي من صناعة الطباعة والتنضيد. لقد كان لوريم إيبسوم هو النص الوهمي القياسي في هذه الصناعة.",
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      fontFamily: 'Almarai'),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 21.v),
-                            // _buildListRecommended(context),
-                            // // _buildCart(context),
-                            // SizedBox(height: 15.v),
-                            _buildHomePageSection(context),
-                            SizedBox(height: 15.v),
-                          ],
-                        ),
-                      ),
-                    );
-            }
-          }),
+                      );
+              }
+            }),
+          ),
         ),
       ),
     );
@@ -734,240 +1138,6 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
     );
   }
 
-  /// Section Widget
-  Widget _buildCartProduct(BuildContext context) {
-    return Container(
-      // width: Get.width,
-      height: Get.height * .3,
-      child: ListView.builder(
-        physics: ScrollPhysics(),
-        itemCount: _viewcartcontroller.userList.value.viewCart?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          _viewcartcontroller.userList.value.viewCart![index].totalQty.value =
-              _viewcartcontroller.userList.value.viewCart![index].totalQuantity;
-
-          return Padding(
-            padding: EdgeInsets.all(8),
-            child: Container(
-              width: Get.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomImageView(
-                    imagePath:
-                        "${_viewcartcontroller.userList.value.viewCart?[index].image.toString()}",
-                    height: 100.adaptSize,
-                    width: 100.adaptSize,
-                    radius: BorderRadius.circular(
-                      10.h,
-                    ),
-                    // margin: EdgeInsets.only(bottom: 15.v),
-                  ),
-                  SizedBox(
-                    width: Get.width * .04,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: Get.width * .4,
-                            // color: Colors.amberAccent,
-                            child: Text(
-                              "${_viewcartcontroller.userList.value.viewCart?[index].name.toString()}",
-                              style: theme.textTheme.titleSmall
-                                  ?.copyWith(fontSize: 10),
-                              maxLines: 2,
-                            ),
-                          ),
-                          SizedBox(width: Get.width * .1),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isSelectedList[index] = !isSelectedList[index];
-                              });
-                              // DeleteCartCartControlleri.selectedCartIds.addIf()
-
-                              if (!DeleteCartCartControlleri.selectedCartIds
-                                      .contains(_viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString()) ||
-                                  !placeordercontroller.selectedCartIds
-                                      .contains(_viewcartcontroller
-                                          .userList.value.viewCart?[index].id
-                                          .toString())) {
-                                placeordercontroller.selectedCartIds.add(
-                                    _viewcartcontroller
-                                        .userList.value.viewCart?[index].id
-                                        .toString());
-                                DeleteCartCartControlleri.selectedCartIds.add(
-                                    _viewcartcontroller
-                                        .userList.value.viewCart?[index].id
-                                        .toString());
-                                print(
-                                    DeleteCartCartControlleri.selectedCartIds);
-                              } else {
-                                placeordercontroller.selectedCartIds.remove(
-                                    _viewcartcontroller
-                                        .userList.value.viewCart?[index].id
-                                        .toString());
-                                DeleteCartCartControlleri.selectedCartIds
-                                    .remove(_viewcartcontroller
-                                        .userList.value.viewCart?[index].id
-                                        .toString());
-                                print(
-                                    DeleteCartCartControlleri.selectedCartIds);
-                              }
-                              // // deleteCartId = _viewcartcontroller
-                              // //     .userList.value.viewCart?[index].id
-                              // //     .toString();
-
-                              // print(deleteCartId);
-                              // DeleteCartCartController().deleteCartApiHit();
-                            },
-                            child: Container(
-                              height: Get.height * .03,
-                              width: Get.width * .05,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 2,
-                                  color: Color(0xffff8300),
-                                ),
-                                color: Colors.white,
-                              ),
-                              child: isSelectedList[index]
-                                  ? Center(
-                                      child: Container(
-                                        height: Get.height * .02,
-                                        width: Get.width * .03,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color(0xffff8300),
-                                        ),
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: Get.height * .02,
-                      ),
-                      SizedBox(
-                        width: 221.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 1.v),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          "${_viewcartcontroller.userList.value.viewCart?[index].price.toString()}",
-                                      style: theme.textTheme.titleMedium,
-                                    ),
-                                    TextSpan(
-                                      text: " ",
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          "${_viewcartcontroller.userList.value.viewCart?[index].totalPrice.toString()}",
-                                      style: CustomTextStyles
-                                          .titleSmallGray50001
-                                          .copyWith(
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                            Container(
-                              width: Get.width * .2,
-                              height: Get.height * .04,
-                              decoration: AppDecoration.fillPrimary.copyWith(
-                                borderRadius: BorderRadiusStyle.circleBorder30,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      CartId = _viewcartcontroller
-                                          .userList.value.viewCart![index].id
-                                          .toString();
-                                      // Decrement the counter when "-" is pressed
-                                      _viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value -= 1;
-                                      print(_viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value);
-
-                                      CartProductQtyIncrementCartcontroller()
-                                          .QtyUpdate_Apihit(
-                                              context, index, "decrement");
-                                    },
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                  Center(
-                                      child: Text(
-                                    _viewcartcontroller.userList.value
-                                        .viewCart![index].totalQty.value
-                                        .toString(),
-                                    style: theme.textTheme.bodyMedium
-                                        ?.copyWith(color: Colors.white),
-                                  )),
-                                  GestureDetector(
-                                    onTap: () {
-                                      CartId = _viewcartcontroller
-                                          .userList.value.viewCart![index].id
-                                          .toString();
-                                      // Increment the counter when "+" is pressed
-                                      _viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value += 1;
-                                      print(_viewcartcontroller.userList.value
-                                          .viewCart![index].totalQty.value);
-
-                                      CartProductQtyIncrementCartcontroller()
-                                          .QtyUpdate_Apihit(
-                                              context, index, "increment");
-                                    },
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  /// Section Widget
   Widget _buildVector(BuildContext context) {
     return CustomTextFormField(
       readOnly: true,
@@ -1051,7 +1221,7 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
       if (arabicaddressname.value == "" || arabicaddressIndexId == null) {
         return Center(
             child: Text(
-          'Please Go and Select Address',
+          'يرجى الذهاب واختيار العنوان',
           style: TextStyle(color: Colors.red),
         ));
       } else {
@@ -1246,7 +1416,7 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                     controller: group166Controller,
                     hintText: arabiccouponcodeee.value.isNotEmpty
                         ? arabiccouponcodeee.value
-                        : "Enter coupon code here",
+                        : "أدخل رمز القسيمة هنا",
                     hintStyle: CustomTextStyles.bodyLargeOnError_1,
                     readOnly: true,
                   ),
@@ -1291,12 +1461,15 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                           });
                     }
                   },
-                  child: Text(
-                    arabiccouponcodeee.value.isNotEmpty ? "Applied" : "Apply",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xffff8300),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 15, right: 10),
+                    child: Text(
+                      arabiccouponcodeee.value.isNotEmpty ? "مُطبَّق" : "يتقدم",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xffff8300),
+                      ),
                     ),
                   ),
                 ),
@@ -2059,7 +2232,7 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
   /// Section Widget
   Widget _buildHomePageSection(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10, left: 10),
+      padding: const EdgeInsets.only(right: 10),
       child: Container(
         child: GridView.builder(
           shrinkWrap: true,
@@ -2070,14 +2243,15 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
             crossAxisSpacing: 10.h,
           ),
           physics: BouncingScrollPhysics(),
-          itemCount: 6,
+          itemCount:
+              homeView_controller.userList.value.recommendedProduct?.length ??
+                  0,
           itemBuilder: (context, index) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: Get.width,
-                  // padding: EdgeInsets.only(right: 10, left: 10),
+                  width: Get.width, padding: EdgeInsets.only(left: 20),
                   // height: 160.adaptSize,
                   // width: 160.adaptSize,
                   // height: Get.height*.2,
@@ -2097,9 +2271,12 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                             arabicMainCatId = homeView_controller.userList.value
                                 .recommendedProduct![index].mainCategoryId!
                                 .toString();
-                            String? ProductId = homeView_controller
+                            arabicProductId = homeView_controller
                                 .userList.value.recommendedProduct![index].id!
                                 .toString();
+                            productviewcontroller.Single_ProductApiHit(
+                                arabicMainCatId, arabicProductId);
+                            Get.to(ArabicMensSingleViewScreen());
                           },
                           height: 190.adaptSize,
                           width: 190.adaptSize,
@@ -2116,7 +2293,6 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                           ),
                           child: CustomIconButton(
                             onTap: () {
-                              //
                               Arabic_Add_remove_productid = homeView_controller
                                   .userList.value.recommendedProduct![index].id!
                                   .toString();
@@ -2124,8 +2300,6 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                                   .AddRemoveWishlish_apihit();
 
                               setState(() {
-                                // Add_remove_productidd;
-                                //  isButtonTapped = !isButtonTapped;
                                 isButtonTappedList[index] =
                                     !isButtonTappedList[index];
                               });
@@ -2169,7 +2343,7 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                 //   width: 48.h,
                 //   text: "10% Off",
                 //   buttonTextStyle:
-                //       theme.textTheme.labelSmall!.copyWith(color: Colors.white).copyWith(backgroundColor: Color.fromARGB(214, 252, 204, 220)),
+                //       theme.textTheme.labelSmall!.copyWith(color: Colors.white).copyWith(backgroundلون: Color.fromARGB(214, 252, 204, 220)),
                 // ),
                 SizedBox(height: 5.v),
                 SizedBox(
@@ -2177,13 +2351,10 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                   child: Text(
                     "${homeView_controller.userList.value.recommendedProduct?[index].title.toString()}",
                     // "ساعة كوارتز حجر الراين الفاخرة السيدات روما...",
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.labelLarge!
-                        .copyWith(
-                          height: 1.33,
-                        )
-                        .copyWith(fontFamily: 'Almarai'),
+                        .copyWith(height: 1.33, fontFamily: 'Almarai'),
                   ),
                 ),
                 SizedBox(height: 3.v),
@@ -2246,9 +2417,9 @@ class _CartPage_arabicState extends State<CartPage_arabic> {
                           arabicMainCatId = homeView_controller.userList.value
                               .recommendedProduct?[index].mainCategoryId
                               .toString();
-                          String? arproductId = homeView_controller
-                              .userList.value.recommendedProduct?[index].id
-                              ?.toString();
+                          // String? arproductId = homeView_controller
+                          //     .userList.value.recommendedProduct?[index].id
+                          //     ?.toString();
                         },
                         height: 30.adaptSize,
                         width: 30.adaptSize,

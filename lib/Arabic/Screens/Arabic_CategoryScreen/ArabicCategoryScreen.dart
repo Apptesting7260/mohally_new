@@ -74,178 +74,7 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
       ArabiccategorybyNameController();
   ArabicHomeView_controller homeView_controller = ArabicHomeView_controller();
   TextEditingController searchController = TextEditingController();
-  int selectedTabIndex = 0;
-  int selectedIndex = 0;
 
-  int pagesCount = 4;
-  // @override
-  // Widget build(BuildContext context) {
-  //   final height = MediaQuery.of(context).size.height;
-  //   // mediaQueryData = MediaQuery.of(context);
-  //   return Obx(() {
-  //     if (homeView_controller.rxRequestStatus.value == Status.LOADING) {
-  //       return const Scaffold(
-  //         body: Center(child: CircularProgressIndicator()),
-  //       );
-  //     } else {
-  //       return SafeArea(
-  //         child: Directionality(
-  //           textDirection: TextDirection.rtl,
-  //           child: Scaffold(
-  //             resizeToAvoidBottomInset: false,
-  //             appBar: _buildAppBar(context),
-  //             body: RefreshIndicator(
-  //               onRefresh: _refreshData,
-  //               child: ListView(
-  //                 physics: NeverScrollableScrollPhysics(),
-  //                 // crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Center(
-  //                       child:
-  // Stack(children: [
-  //                     CustomSearchView_arabic(
-  //                       hintText: 'يبحث',
-  //                       hintStyle: TextStyle(
-  //                           fontSize: 16,
-  //                           fontWeight: FontWeight.w600,
-  //                           color: Colors.grey),
-  //                       readOnly: true,
-  //                       enableTap: true,
-  //                     ),
-  //                     // Positioned(
-  //                     //     top: 20,
-  //                     //     right: 240,
-  //                     //     child: GestureDetector(
-  //                     //         onTap: () {
-  //                     //           _buildOncameraclick(context);
-  //                     //         },
-  //                     //         child:
-  //                     //             Image.asset('assets/images/greycamera.png'))),
-  //                   ])),
-  //                   Gap(15),
-  //                   Row(
-  //                     // mainAxisAlignment: MainAxisAlignment.end,
-  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     children: [
-  //                       Padding(
-  //                         padding: EdgeInsets.all(8),
-  //                         child: Align(
-  //                           alignment: Alignment.topRight,
-  //                           child: Text(
-  //                             "متميز",
-  //                             style: theme.textTheme.titleMedium,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       Padding(
-  //                         padding: const EdgeInsets.only(left: 45.0),
-  //                         child: Align(
-  //                           alignment: Alignment.topLeft,
-  //                           child: Text(
-  //                             "تسوق حسب الاقسام",
-  //                             style: theme.textTheme.titleLarge
-  //                                 ?.copyWith(fontFamily: 'Almarai'),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   Container(
-  //                     width: double.infinity,
-  //                     height: height,
-  //                     child: Align(
-  //                       alignment: Alignment.bottomLeft,
-  //                       child: Row(
-  //                         children: [
-  //                           SizedBox(
-  //                             width: 120,
-  //                             child: ListView.separated(
-  //                               itemCount: pagesCount,
-  //                               itemBuilder: (context, int index) {
-  //                                 return SizedBox(
-  //                                   height: 5,
-  //                                 );
-  //                               },
-  //                               separatorBuilder: (context, int index) {
-  //                                 return GestureDetector(
-  //                                   onTap: () {
-  //                                     pagecontroller.animateToPage(index,
-  //                                         duration: Duration(milliseconds: 500),
-  //                                         curve: Curves.ease);
-  //                                   },
-  //                                   child: Container(
-  //                                     child: Row(
-  //                                       children: [
-  //                                         AnimatedContainer(
-  //                                           duration:
-  //                                               Duration(milliseconds: 500),
-  //                                           height: (selectedIndex == index)
-  //                                               ? 50
-  //                                               : 0,
-  //                                           color: Color(0xffFF8300),
-  //                                         ),
-  //                                         Expanded(
-  //                                             child: AnimatedContainer(
-  //                                           duration:
-  //                                               Duration(milliseconds: 500),
-  //                                           height: 50,
-  //                                           alignment: Alignment.center,
-  //                                           color: (selectedIndex == index)
-  //                                               ? Colors.orange.shade200
-  //                                                   .withOpacity(0.2)
-  //                                               : Colors.transparent,
-  //                                           child: Padding(
-  //                                             padding:
-  //                                                 const EdgeInsets.symmetric(
-  //                                                     vertical: 10.0,
-  //                                                     horizontal: 5),
-  //                                             child: Text(
-  //                                               featured_text[index],
-  //                                               style: TextStyle(
-  //                                                   fontFamily: 'Almarai'),
-  //                                             ),
-  //                                           ),
-  //                                         ))
-  //                                       ],
-  //                                     ),
-  //                                   ),
-  //                                 );
-  //                               },
-  //                             ),
-  //                           ),
-  //                           Expanded(
-  //                               child: Padding(
-  //                             padding: const EdgeInsets.all(8.0),
-  //                             child: Container(
-  //                               child: PageView(
-  //                                 physics: NeverScrollableScrollPhysics(),
-  //                                 controller: pagecontroller,
-  //                                 onPageChanged: (index) {
-  //                                   setState(() {
-  //                                     selectedTabIndex = index;
-  //                                   });
-  //                                 },
-  //                                 children: [
-  //                                   //  for (var i = 0; i <= pagesCount; i++)
-  //                                 ],
-  //                               ),
-  //                             ),
-  //                           ))
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }
-  //   });
-  // }
-
-  // int pagesCount = homeView_controller.userList.value.categoryData!.length;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -289,130 +118,28 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                 child: ListView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(horizontal: 20.h),
-                    //   child: Center(
-                    //     child:
-                    // Stack(
-                    //   children: [
-                    //     // CustomSearchView(
-                    //     //   readOnly: true,
-                    //     //   enableTap: true,
-                    //     //   controller: searchController,
-                    //     //   hintText: "search",
-                    //     // ),
-                    //     SizedBox(
-                    //       width: Get.width * .9,
-                    //       //  width ?? double.maxFinite,
-                    //       child: TextFormField(
-                    //         onTap: () {
-                    //           Get.to(CategorySearch());
-                    //         },
-                    //         style: CustomTextStyles.bodyLargeOnError_1,
-                    //         readOnly: true,
-                    //         decoration: InputDecoration(
-                    //           hintText: 'Search',
-                    //           hintStyle: CustomTextStyles.bodyLargeOnError_1,
-                    //           // prefixIcon: Padding(
-                    //           //   padding: EdgeInsets.all(
-                    //           //     15.h,
-                    //           //   ),
-                    //           //   child: Icon(
-                    //           //     Icons.search,
-                    //           //     color: Colors.grey.shade600,
-                    //           //   ),
-                    //           // ),
-                    //           // prefixIconConstraints: BoxConstraints(
-                    //           //   maxHeight: 50.v,
-                    //           // ),
-                    //           suffixIcon: Container(
-                    //             padding: EdgeInsets.all(15.h),
-                    //             margin: EdgeInsets.only(
-                    //               left: 30.h,
-                    //             ),
-                    //             decoration: BoxDecoration(
-                    //               color: theme.colorScheme.primary,
-                    //               borderRadius: BorderRadius.horizontal(
-                    //                 right: Radius.circular(
-                    //                   55.h,
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //             child: CustomImageView(
-                    //               imagePath:
-                    //                   ImageConstant.imgSearchWhiteA70002,
-                    //               height: 30.adaptSize,
-                    //               width: 20.adaptSize,
-                    //             ),
-                    //           ),
-                    //           suffixIconConstraints: BoxConstraints(
-                    //             maxHeight: 60.v,
-                    //           ),
-                    //           isDense: true,
-                    //           contentPadding: EdgeInsets.only(
-                    //             left: 16.h,
-                    //             top: 17.v,
-                    //             bottom: 17.v,
-                    //           ),
-                    //           fillColor: appTheme.gray100,
-                    //           filled: true,
-                    //           border: OutlineInputBorder(
-                    //             borderRadius: BorderRadius.circular(30.h),
-                    //             borderSide: BorderSide(
-                    //               color: appTheme.gray300,
-                    //               width: 1,
-                    //             ),
-                    //           ),
-                    //           enabledBorder: OutlineInputBorder(
-                    //             borderRadius: BorderRadius.circular(30.h),
-                    //             borderSide: BorderSide(
-                    //               color: appTheme.gray300,
-                    //               width: 1,
-                    //             ),
-                    //           ),
-                    //           focusedBorder: OutlineInputBorder(
-                    //             borderRadius: BorderRadius.circular(30.h),
-                    //             borderSide: BorderSide(
-                    //               color: appTheme.gray300,
-                    //               width: 1,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Positioned(
-                    //         top: 20,
-                    //         left: 240,
-                    //         child: GestureDetector(
-                    //             onTap: () {
-                    //               _buildOncameraclick(context);
-                    //             },
-                    //             child: Image.asset(
-                    //                 'assets/images/greycamera.png'))),
-                    //   ],
-                    // ),
-                    //   ),
-                    // ),
-                    Stack(children: [
-                      CustomSearchView_arabic(
-                        hintText: 'يبحث',
-                        hintStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey),
-                        readOnly: true,
-                        enableTap: true,
-                      ),
-                      // Positioned(
-                      //     top: 20,
-                      //     right: 240,
-                      //     child: GestureDetector(
-                      //         onTap: () {
-                      //           _buildOncameraclick(context);
-                      //         },
-                      //         child:
-                      //             Image.asset('assets/images/greycamera.png'))),
-                    ]),
+                    Center(
+                      child: Stack(children: [
+                        CustomSearchView_arabic(
+                          hintText: 'يبحث',
+                          hintStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey),
+                          readOnly: true,
+                          enableTap: true,
+                        ),
+                        Positioned(
+                            top: 20,
+                            right: 270,
+                            child: GestureDetector(
+                                onTap: () {
+                                  _buildOncameraclick(context);
+                                },
+                                child: Image.asset(
+                                    'assets/images/greycamera.png'))),
+                      ]),
+                    ),
                     SizedBox(
                       height: Get.height * .04,
                     ),
@@ -429,22 +156,25 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                     ),
                     Obx(
                       () => Container(
+                        // color: Colors.greenAccent,
                         width: double.infinity,
-                        height:
-                            widget.FromHomeToCat ? Get.height : height * .69,
+                        height: widget.FromHomeToCat
+                            ? Get.height * .7
+                            : height * .69,
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Row(
                             children: [
                               Container(
                                 // color: const Color.fromARGB(36, 158, 158, 158),
-                                width: 120,
+                                width: Get.width * .3,
                                 child: Column(
                                   children: [
                                     Container(
+                                      // color: Color.fromARGB(255, 95, 35, 82),
                                       height: widget.FromHomeToCat
-                                          ? Get.height * .77
-                                          : Get.height * .62,
+                                          ? Get.height * .7
+                                          : Get.height * .67,
                                       child: ListView.builder(
                                         itemCount: homeView_controller.userList
                                             .value.categoryData!.length,
@@ -453,7 +183,7 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                           return GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                selectedTabIndex = index;
+                                                arabicselectedTabIndex = index;
                                                 arabiccategoryId =
                                                     homeView_controller
                                                         .userList
@@ -466,7 +196,7 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                                     .CategoryByNameApiHit(
                                                         arabiccategoryId);
                                                 pagecontroller.animateToPage(
-                                                    selectedTabIndex,
+                                                    arabicselectedTabIndex,
                                                     duration: Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.ease);
@@ -478,11 +208,12 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                                   Container(
                                                     height: Get.height * .08,
                                                     width: Get.width * .3,
-                                                    color: selectedTabIndex ==
-                                                            index
-                                                        ? Colors.white
-                                                        : Color.fromARGB(
-                                                            36, 158, 158, 158),
+                                                    color:
+                                                        arabicselectedTabIndex ==
+                                                                index
+                                                            ? Colors.white
+                                                            : Color.fromARGB(36,
+                                                                158, 158, 158),
                                                     child: Row(
                                                       children: [
                                                         Container(
@@ -491,7 +222,7 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                                           width:
                                                               Get.width * .02,
                                                           color:
-                                                              selectedTabIndex ==
+                                                              arabicselectedTabIndex ==
                                                                       index
                                                                   ? Color(
                                                                       0xffFF8300)
@@ -540,54 +271,16 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                                   child: Padding(
                                 padding: const EdgeInsets.only(bottom: 50),
                                 child: Container(
-                                  child:
-                                      // PageView(
-                                      //   physics: NeverScrollableScrollPhysics(),
-                                      //   controller: pagecontroller,
-                                      //   onPageChanged: (index) {
-                                      //     categoryId = homeView_controller
-                                      //         .userList.value.categoryData?[index].id!
-                                      //         .toString();
-
-                                      //     // setState(() {
-                                      //     //   widget.FromHomeToCat
-                                      //     //       ? selectedTabIndex
-                                      //     //       : selectedTabIndex = index;
-                                      //     //   _categoryByName.CategoryByNameApiHit(
-                                      //     //       categoryId);
-                                      //     // });
-                                      //     setState(() {
-                                      //       widget.FromHomeToCat
-                                      //           ? selectedTabIndex
-                                      //           : selectedTabIndex = index;
-                                      //       _categoryByName.CategoryByNameApiHit(
-                                      //           categoryId);
-                                      //       // Rebuild the PageView
-                                      //       pagecontroller = PageController(
-                                      //           initialPage: selectedTabIndex);
-                                      //     });
-                                      //   },
-                                      //   children: [
-                                      //     Container(
-                                      //       child: Center(
-                                      //           child: FeaturedCategoryScreen()),
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                      PageView.builder(
+                                  child: PageView.builder(
                                     physics: NeverScrollableScrollPhysics(),
                                     controller: pagecontroller,
                                     itemCount: homeView_controller
                                         .userList.value.categoryData!.length,
                                     onPageChanged: (index) {
-                                      // categoryId = homeView_controller
-                                      //     .userList.value.categoryData?[index].id!
-                                      //     .toString();
-
                                       setState(() {
                                         widget.FromHomeToCat
-                                            ? selectedTabIndex
-                                            : selectedTabIndex = index;
+                                            ? arabicselectedTabIndex
+                                            : arabicselectedTabIndex = index;
                                         _categoryByName.CategoryByNameApiHit(
                                             arabiccategoryId);
                                       });
@@ -815,78 +508,5 @@ class _CategoryScreen_arabicState extends State<CategoryScreen_arabic> {
                 ],
               ));
         });
-  }
-
-  void _navigateaftertapped(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 5:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 6:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 7:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      case 8:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NoProductFound02()),
-        );
-        break;
-      // Add more cases for other indices and screens
-      // ...
-    }
-  }
-
-  Future<void> _refreshData() async {
-    // Implement the logic to refresh your data
-    // You can make API calls or perform any other necessary operations
-    // For now, let's simulate a delay using Future.delayed
-    await Future.delayed(Duration(seconds: 2));
-
-    // Update the UI or reload data
-    setState(() {
-      // Update any state variables or reload data here
-    });
   }
 }

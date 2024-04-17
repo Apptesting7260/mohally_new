@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/models/SearchModel/EnglishSearchModel.dart';
 import 'package:mohally/models/Search_mainCategoryModel/searchMainCategorymodel.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_AllProductCategoryController.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
@@ -146,10 +144,10 @@ class _arabicAllProductViewState extends State<arabicAllProductView> {
                                         .allProductList?[index]
                                         .mainCategoryId!
                                         .toString();
-                                    String? allProductId =
-                                        _allProduct_controller.userList.value
-                                            .allProductList?[index].id
-                                            .toString();
+                                    // String? allProductId =
+                                    //     _allProduct_controller.userList.value
+                                    //         .allProductList?[index].id
+                                    //         .toString();
                                   },
 
                                   fit: BoxFit.cover,
@@ -315,10 +313,10 @@ class _arabicAllProductViewState extends State<arabicAllProductView> {
                                             .allProductList?[index]
                                             .mainCategoryId!
                                             .toString();
-                                        String? allProductId =
-                                            _allProduct_controller.userList
-                                                .value.allProductList?[index].id
-                                                .toString();
+                                        // String? allProductId =
+                                        //     _allProduct_controller.userList
+                                        //         .value.allProductList?[index].id
+                                        //         .toString();
                                       },
                                     ),
                                   ),

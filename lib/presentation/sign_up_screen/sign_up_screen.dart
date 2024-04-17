@@ -31,25 +31,8 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final RxInt countdown = 30.obs;
   final RxBool isCountingDown = false.obs;
+  // ignore: unused_field
   late Timer _timer;
-
-  void _startCountdown() {
-    isCountingDown.value = true;
-    countdown.value = 30;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (countdown.value > 0) {
-        countdown.value--;
-      } else {
-        isCountingDown.value = false;
-        timer.cancel();
-        verifyemailOTP_controller.pinController.value
-            .clear(); // Clear pin controller
-        verifyemail_controller.Verifyeusermail_apihit(email); // Call API
-        Utils.snackBar(
-            context, 'Success', 'OTP Resent Successfully'); // Show snackbar
-      }
-    });
-  }
 
   // void _PhonestartCountdown() {
   //   isCountingDown.value = true;

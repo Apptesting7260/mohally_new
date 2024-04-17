@@ -6,7 +6,7 @@ import 'package:mohally/core/utils/Utils.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/ProductAddReviewModel/productAddreviewModel.dart';
 import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
-import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
+// import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var response;
@@ -16,7 +16,7 @@ String? AddreviewProductid;
 class AddReviewController extends GetxController {
   final namecontroller = TextEditingController().obs;
   final descriptioncontroller = TextEditingController().obs;
-  final AuthRepository _api = AuthRepository();
+  // final AuthRepository _api = AuthRepository();
   final rxRequestStatus = Status.LOADING.obs;
   final userList = ProductAddReviewModel().obs;
   RxString error = ''.obs;

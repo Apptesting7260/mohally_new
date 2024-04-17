@@ -3,7 +3,6 @@ import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
 import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
-import 'package:mohally/presentation/tab_screen/tab_bar.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/English_Viewwishlist_Controller/english_view_wishlistController.dart';
@@ -1908,11 +1907,11 @@ class _WishlistPageState extends State<WishlistPage> {
                                             onTap: () {
                                               if (colorId != null &&
                                                   sizeid != null) {
-                                                int totalQuantity = int.tryParse(
-                                                        _productpricechangebyattributecontroller
-                                                            .totalQuantity
-                                                            .value) ??
-                                                    0;
+                                                // int totalQuantity = int.tryParse(
+                                                //         _productpricechangebyattributecontroller
+                                                //             .totalQuantity
+                                                //             .value) ??
+                                                //     0;
                                                 if (quantity > 1)
                                                   setState(() {
                                                     quantity--;

@@ -1,18 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mohally/Arabic/Screens/Arabic_CategoryScreen/arabic_no_data_found.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/presentation/home_page_one_page/EnglishAllContent/EnglishHomeScreen.dart';
-import 'package:mohally/presentation/single_page_screen/SingleProductViewScreen/SingleProductView.dart';
 import 'package:mohally/view_models/controller/Add_remove_wishlistController/English_wishlish_addandRemove_controller.dart';
 import 'package:mohally/view_models/controller/Cart/EnglishAddtocartController.dart';
 import 'package:mohally/view_models/controller/EnglishAllproductviewController/english_allproductviewcontroller.dart';
 import 'package:mohally/view_models/controller/Home_controller_English/HomeControllerEnglish.dart';
-import 'package:mohally/view_models/controller/ProductPriceChngeByAtrributeController/productpricechangebyattributecontroller.dart';
 import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
@@ -41,8 +35,7 @@ class _AllProductViewEnglishState extends State<AllProductViewEnglish> {
 
   EnglishSingleProductViewController _singleproductviewController =
       EnglishSingleProductViewController();
-  ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
-      ProductPriceChngeByAttribute();
+
   List<bool> tappedList = List.generate(200, (index) => false);
   final AddToCartcontrollerin = Get.put(AddToCartcontroller());
   // EnglishViewCart _viewcartcontroller = EnglishViewCart();
@@ -375,10 +368,10 @@ class _AllProductViewEnglishState extends State<AllProductViewEnglish> {
                                           .mainCategoryId!
                                           .toString();
 
-                                      String? allProductId =
-                                          _allProduct_controller.userList.value
-                                              .allProductList?[index].id!
-                                              .toString();
+                                      // String? allProductId =
+                                      //     _allProduct_controller.userList.value
+                                      //         .allProductList?[index].id!
+                                      //         .toString();
 
                                       // setState(() {
                                       //   mainCatId;

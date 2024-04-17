@@ -83,7 +83,7 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
                 child: CircleAvatar(
                   radius: 30.0,
                   backgroundImage: NetworkImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                      _controller.MyAccount.value.userDetails?.imageUrl),
                   backgroundColor: Colors.transparent,
                 ),
               ),
@@ -136,7 +136,9 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
               SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => MyProfilePage_arabic());
+                  Get.to(() => MyProfilePage_arabic(
+                        showAppBar: true,
+                      ));
                 },
                 child: Row(
                   children: [
@@ -226,7 +228,9 @@ class _DrawerDraweritem_arabicState extends State<DrawerDraweritem_arabic> {
               SizedBox(height: 20.v),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => WishlistPage_arabic());
+                  Get.to(() => WishlistPage_arabic(
+                        showAppBar: true,
+                      ));
                 },
                 child: Row(
                   children: [

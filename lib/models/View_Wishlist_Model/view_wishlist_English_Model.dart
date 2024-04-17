@@ -17,7 +17,7 @@ class English_WishlistViewModel {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['wishlist_view_list'] =
-        wishlistViewList!.map((e) => e!.toJson()).toList();
+        wishlistViewList!.map((e) => e.toJson()).toList();
     return _data;
   }
 }

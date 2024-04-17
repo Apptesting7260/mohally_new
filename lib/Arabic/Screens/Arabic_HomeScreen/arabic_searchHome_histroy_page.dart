@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabicSearchController.dart';
-import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/presentation/search_screen/widgets/vectorchipview_item_widget.dart';
-import 'package:mohally/view_models/controller/SingleProduct_View_Controller/single_product_view_controller.dart';
 import 'package:mohally/widgets/custom_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
@@ -43,13 +41,13 @@ class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
 
   FocusNode _searchFocusNode = FocusNode();
   ArabicSearchController _searchcontroller = ArabicSearchController();
-  @override
-  void _loadSearchHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      searchHistory = prefs.getStringList('searchHistory')?.toSet() ?? {};
-    });
-  }
+  // @override
+  // void _loadSearchHistory() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     searchHistory = prefs.getStringList('searchHistory')?.toSet() ?? {};
+  //   });
+  // }
 
   void _saveSearchHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,6 +56,7 @@ class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
 
   TextEditingController _searchController = TextEditingController();
   Set<String> searchHistory = {};
+  // ignore: unused_field
   String _typedText = '';
 
   void _onKeyPressed(String keyPressed) {
@@ -280,9 +279,9 @@ class _SearchHistoryArabicState extends State<SearchHistoryArabic> {
                           arabicMainCatId = _searchcontroller
                               .products.value.products?[index].mainCategoryId!
                               .toString();
-                          String? productId = _searchcontroller
-                              .products.value.products?[index].id!
-                              .toString();
+                          // String? productId = _searchcontroller
+                          //     .products.value.products?[index].id!
+                          //     .toString();
                         },
                       ),
                       trailing:

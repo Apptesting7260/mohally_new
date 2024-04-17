@@ -29,8 +29,8 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
     _categoryByName.CategoryByNameApiHit(categoryId);
   }
 
-  PageController _pageController =
-      PageController(initialPage: 0); // Set initial page to 0
+  // PageController _pageController =
+  //     PageController(initialPage: 0); // Set initial page to 0
   bool showPageView = false;
   int selectedTabIndex = 0;
   CategoriesByNameControllerEnglish _categoryByName =

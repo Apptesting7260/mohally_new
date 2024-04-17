@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/core/utils/image_constant.dart';
-import 'package:mohally/presentation/my_account/my_account_screen.dart';
 import 'package:mohally/view_models/UodateProfile/updateProfile_controller.dart';
 import 'package:mohally/view_models/controller/MyAccount_controller/myAccount_controller.dart';
 import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';

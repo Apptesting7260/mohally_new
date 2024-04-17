@@ -19,7 +19,8 @@ class ArabicProductPriceChngeByAttribute extends GetxController {
   RxBool loading = false.obs;
   RxString statusOfApi = ''.obs;
   RxString error = ''.obs;
-
+  RxString productPrice = ''.obs;
+  RxString totalQuantity = ''.obs;
   final userlist = ProductPriceChangeByAttributeModel().obs;
   final rxRequestStatus = Status.LOADING.obs;
 
@@ -32,7 +33,7 @@ class ArabicProductPriceChngeByAttribute extends GetxController {
 
   Future<void> ProductPriceChangeByAttribute(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     addIfNotNull(productDetails, 'Color', arabicproductColor?.toString());
@@ -60,9 +61,10 @@ class ArabicProductPriceChngeByAttribute extends GetxController {
       print(data);
       print("Message: ${response.message}");
       if (response.status == true) {
-        // Get.back();
-
-        Utils.snackBar(context, 'Success', response.message.toString());
+        productPrice.value = response.data?.price ?? ''; // Store price
+        totalQuantity.value =
+            response.data?.totalQuantity ?? ''; // Store quantity
+        // Utils.snackBar(context, 'Success', response.message.toString());
       } else {
         Utils.snackBar(context, 'Failed', response.message.toString());
       }

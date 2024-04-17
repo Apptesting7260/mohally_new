@@ -3,7 +3,7 @@ import 'package:mohally/core/app_export.dart';
 
 // ignore: must_be_immutable
 class CustomBottomBar_arabic extends StatefulWidget {
-  final int bottomSelectedIndex;
+  int bottomSelectedIndex;
   final Function bottomTapped;
   CustomBottomBar_arabic(
       {this.onChanged,
@@ -17,7 +17,7 @@ class CustomBottomBar_arabic extends StatefulWidget {
 }
 
 class CustomBottomBar_arabicState extends State<CustomBottomBar_arabic> {
-  int selectedIndex = 0;
+  // int selectedIndex = 0;
 
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(
@@ -81,7 +81,7 @@ class CustomBottomBar_arabicState extends State<CustomBottomBar_arabic> {
           showUnselectedLabels: false,
           selectedFontSize: 0,
           elevation: 0,
-          currentIndex: selectedIndex,
+          currentIndex: widget.bottomSelectedIndex,
           type: BottomNavigationBarType.fixed,
           items: List.generate(bottomMenuList.length, (index) {
             return BottomNavigationBarItem(
@@ -93,7 +93,7 @@ class CustomBottomBar_arabicState extends State<CustomBottomBar_arabic> {
                     imagePath: bottomMenuList[index].icon,
                     height: 24.adaptSize,
                     width: 24.adaptSize,
-                    color: selectedIndex == index
+                    color: widget.bottomSelectedIndex == index
                         ? theme.colorScheme.primary
                         : appTheme.gray50001,
                   ),
@@ -136,7 +136,7 @@ class CustomBottomBar_arabicState extends State<CustomBottomBar_arabic> {
           }),
           // onTap: (index) => widget.bottomTapped(index),
           onTap: (index) {
-            selectedIndex = index;
+            widget.bottomSelectedIndex = index;
             widget.bottomTapped(index);
             widget.onChanged?.call(bottomMenuList[index].type);
             setState(() {});

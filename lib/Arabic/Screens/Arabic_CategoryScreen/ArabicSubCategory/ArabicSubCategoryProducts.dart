@@ -174,8 +174,10 @@ class _ArabicSubCategoryProductsScreenState
                                             .Single_ProductApiHit(
                                                 arabicMainCatId,
                                                 arabicProductId);
-                                        Get.to(
-                                            ArabicMensSingleShirtViewScreen());
+
+                                        print(
+                                            "${arabicMainCatId}, ${arabicProductId}");
+                                        Get.to(ArabicMensSingleViewScreen());
                                       },
                                       height: 190.adaptSize,
                                       width: 190.adaptSize,
@@ -338,13 +340,13 @@ class _ArabicSubCategoryProductsScreenState
                                               .productByCategory?[index]
                                               .mainCategoryId
                                               .toString();
-                                      String? arproductId =
-                                          _productsByCatIdListControllerarabic
-                                              .userlist
-                                              .value
-                                              .productByCategory?[index]
-                                              .id
-                                              ?.toString();
+                                      // String? arproductId =
+                                      //     _productsByCatIdListControllerarabic
+                                      //         .userlist
+                                      //         .value
+                                      //         .productByCategory?[index]
+                                      //         .id
+                                      //         ?.toString();
 
                                       print(arabicMainCatId.toString());
                                     },

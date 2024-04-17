@@ -4,7 +4,7 @@ import 'package:mohally/models/OrderDetailsModel/orderDetailsModel.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OrderDetailsController extends GetxController {
+class ArabicOrderDetailsController extends GetxController {
   final _api = AuthRepository();
   final loading = false.obs;
   final statusOfApi = ''.obs;
@@ -27,17 +27,18 @@ class OrderDetailsController extends GetxController {
     // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
-    Map data = {"order_id": Orderdetailsid, "language_type": "English"};
+    Map data = {"order_id": Orderdetailsid, "language_type": "Arabic"};
 
     final sp = await SharedPreferences.getInstance();
     String token = sp.getString('token').toString();
     var header = {'Authorization': "Bearer $token"};
 
-    _api.OrderDetails(data, header).then((value) {
+    _api.arabicOrderDetails(data, header).then((value) {
       loading.value = false;
       print(data);
-      setUserList(value);
       setRxRequestStatus(Status.COMPLETED);
+
+      setUserList(value);
     }).onError((error, stackTrace) {
       print('$error');
       loading.value = false;

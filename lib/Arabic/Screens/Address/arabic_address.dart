@@ -8,8 +8,11 @@ import 'package:mohally/Arabic/Screens/Address/arabic_edit_address.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_tabbar.dart';
 import 'package:mohally/core/app_export.dart';
 import 'package:mohally/data/response/status.dart';
-import 'package:mohally/presentation/tab_screen/tab_bar.dart';
+// import 'package:mohally/presentation/tab_screen/tab_bar.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 import 'package:mohally/widgets/custom_elevated_button.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 String? arabicaddressId;
 RxString arabicaddressname = "".obs;
@@ -48,41 +51,65 @@ class _addresses_arabicState extends State<addresses_arabic> {
         );
       } else {
         return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                "عنوان",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Almarai',
-                ),
-              ),
+            appBar: CustomAppBar(
+              leadingWidth: 80,
               leading: Padding(
                 padding: const EdgeInsets.only(
-                  top: 15,
+                  top: 5,
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                      width: Get.width * .07,
-                      height: Get.height * .03,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color.fromARGB(90, 158, 158, 158)),
-                      child: Icon(
-                        Icons.arrow_back,
-                      )),
-                ),
+                child: CustomIconButton(
+                    onTap: () {
+                      Get.back();
+                      // Get.offAll(TabScreen(index: 0));
+                    },
+                    height: 40.adaptSize,
+                    width: 40.adaptSize,
+                    decoration: IconButtonStyleHelper.fillGrayTL20,
+                    child: Center(
+                        child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ))),
+              ),
+              title: AppbarSubtitle(
+                text: "عنوان",
+                // margin: EdgeInsets.only(left: 10),
               ),
             ),
             body: useraddressview.userList.value.userAddress == null ||
                     useraddressview.userList.value.userAddress?.length == 0
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Default_address_view_arabic(),
-                      Center(child: _buildSaveAddressButton(context)),
+                      Image.asset('assets/images/emptyaddress.png'),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      Text(
+                        'لم تتم إضافة عنوان بعد!',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: 'Almarai'),
+                      ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      Text(
+                        'انقر فوق الزر "إضافة عنوان جديد" أدناه\n لإضافة عنوان الشحن الأول الخاص بك',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w200,
+                            fontFamily: 'Almarai'),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: Get.height * .03,
+                      ),
+                      _buildSaveAddressButton(context),
                     ],
                   )
                 : Directionality(

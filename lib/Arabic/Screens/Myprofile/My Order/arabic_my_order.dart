@@ -4,6 +4,9 @@ import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myord
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabic_myorder_cancelled.dart';
 import 'package:mohally/Arabic/Screens/Myprofile/My%20Order/widgets/arabuc_myorder_delievered.dart';
 import 'package:mohally/core/app_export.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 class MyOrdersTab_arabic extends StatefulWidget {
   const MyOrdersTab_arabic({Key? key})
@@ -31,56 +34,56 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "طلباتي",
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Almarai',
-            ),
-          ),
+        appBar: CustomAppBar(
+          leadingWidth: 80,
           leading: Padding(
             padding: const EdgeInsets.only(
-              top: 15,
+              top: 5,
             ),
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                  width: Get.width * .07,
-                  height: Get.height * .03,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color.fromARGB(90, 158, 158, 158)),
-                  child: Icon(
-                    Icons.arrow_back,
-                  )),
-            ),
+            child: CustomIconButton(
+                onTap: () {
+                  Get.back();
+                  // Get.offAll(TabScreen(index: 0));
+                },
+                height: 40.adaptSize,
+                width: 40.adaptSize,
+                decoration: IconButtonStyleHelper.fillGrayTL20,
+                child: Center(
+                    child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ))),
+          ),
+          title: AppbarSubtitle(
+            text: "طلباتي",
+            // margin: EdgeInsets.only(left: 10),
           ),
         ),
         body: Directionality(
           textDirection: TextDirection.rtl,
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 22.v),
-                _buildTabview(context),
-                SizedBox(
-                  height: 658.v,
-                  child: TabBarView(
-                    controller: tabviewController,
-                    children: [
-                      MyOrdersPage_arabic_delieverd(),
-                      MyOrders_arabic_processing(),
-                      MyOrdersTwoPage_cancelled_arabic(),
-                    ],
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 22.v),
+                  _buildTabview(context),
+                  Container(
+                    height: Get.height * .8,
+                    child: TabBarView(
+                      physics: NeverScrollableScrollPhysics(),
+                      controller: tabviewController,
+                      children: [
+                        MyOrdersPage_arabic_delieverd(),
+                        MyOrders_arabic_processing(),
+                        MyOrdersTwoPage_cancelled_arabic(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -93,45 +96,51 @@ class MyOrdersTab_arabicState extends State<MyOrdersTab_arabic>
   /// Section Widget
   Widget _buildTabview(BuildContext context) {
     return Container(
-      height: 40.v,
-      width: 500.h,
-      margin: EdgeInsets.only(right: 20.h),
+      height: Get.height * .04,
+      width: Get.width,
+      // margin: EdgeInsets.only(left: 20.h),
       child: TabBar(
         controller: tabviewController,
         // labelPadding: EdgeInsets.only(left: 5,right: 5),
         labelColor: appTheme.whiteA70002,
         labelStyle: TextStyle(
-          fontSize: 14.fSize,
+          fontSize: 12,
           fontFamily: 'Almarai',
           fontWeight: FontWeight.w500,
         ),
 
         unselectedLabelColor: appTheme.gray90001,
         unselectedLabelStyle: TextStyle(
-          fontSize: 14.fSize,
+          fontSize: 12,
           fontFamily: 'Almarai',
           fontWeight: FontWeight.w400,
         ),
         indicator: BoxDecoration(
           color: theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(
-            12.h,
+            30.h,
           ),
         ),
         tabs: [
           Tab(
-            child: Text(
-              "       تم التوصيل",
+            child: Center(
+              child: Text(
+                "تم التوصيل",
+              ),
             ),
           ),
           Tab(
-            child: Text(
-              "      يعالج         ",
+            child: Center(
+              child: Text(
+                "يعالج",
+              ),
             ),
           ),
           Tab(
-            child: Text(
-              "     ألغيت      ",
+            child: Center(
+              child: Text(
+                "ألغيت",
+              ),
             ),
           ),
         ],

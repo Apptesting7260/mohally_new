@@ -650,4 +650,14 @@ class AuthRepository {
     print(response);
     return OrderDetailsModel.fromJson(response);
   }
+
+  Future<OrderDetailsModel> arabicOrderDetails(
+      var data, Map<String, String> header) async {
+    dynamic response = await _apiService.postApi(
+      data,
+      AppUrl.orderDetails,
+    );
+    print(response);
+    return OrderDetailsModel.fromJson(response);
+  }
 }

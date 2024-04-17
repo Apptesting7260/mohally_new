@@ -24,8 +24,9 @@ class ArabicHomeView_controller extends GetxController {
     Map data = {"page_no": "1", "per_page": "100", "language_type": "Arabic"};
     var header = {'Authorization': "Bearer $token"};
     _api.arabichomepageapi(data, header).then((value) {
-      setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
+
+      setRxRequestStatus(Status.COMPLETED);
       print('printing valueeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       print(value);
       loading.value = false;

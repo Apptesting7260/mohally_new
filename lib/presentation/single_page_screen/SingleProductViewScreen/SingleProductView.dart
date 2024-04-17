@@ -31,8 +31,6 @@ class SingleProductView extends StatefulWidget {
 }
 
 class _SingleProductViewState extends State<SingleProductView> {
-  EnglishSingleProductViewController _singleproductviewController =
-      EnglishSingleProductViewController();
   bool SeeAllImage = false;
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
@@ -374,11 +372,11 @@ class _SingleProductViewState extends State<SingleProductView> {
                                             onTap: () {
                                               if (colorId != null &&
                                                   sizeid != null) {
-                                                int totalQuantity = int.tryParse(
-                                                        _productpricechangebyattributecontroller
-                                                            .totalQuantity
-                                                            .value) ??
-                                                    0;
+                                                // int totalQuantity = int.tryParse(
+                                                //         _productpricechangebyattributecontroller
+                                                //             .totalQuantity
+                                                //             .value) ??
+                                                //     0;
                                                 if (quantity > 1)
                                                   setState(() {
                                                     quantity--;

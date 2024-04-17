@@ -1,10 +1,11 @@
 import 'package:mohally/Arabic/Arabic_controllers/arabic_ProductPrceChnageByAttribute.dart';
+import 'package:mohally/Arabic/Arabic_controllers/arabic_addtocartController.dart';
 import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/ArabicHomeScreen.dart';
-import 'package:mohally/Arabic/Screens/Arabic_HomeScreen/arabic_searchHome_histroy_page.dart';
 import 'package:get/get.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_add_remove_wishlist_controller.dart';
 import 'package:mohally/Arabic/Arabic_controllers/arabic_singleproductviewController.dart';
 import 'package:mohally/Arabic/Screens/ReviewScreen/arabic_review.dart';
+import 'package:mohally/core/utils/Utils_2.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
@@ -17,23 +18,29 @@ String? ARsizeid;
 String? ARcolorId;
 String? ARcolor;
 String? ARsize1;
+RxInt arabicquantity = 1.obs;
+RxString updatedprice = ''.obs;
 
-class ArabicMensSingleShirtViewScreen extends StatefulWidget {
-  const ArabicMensSingleShirtViewScreen({Key? key})
+class ArabicMensSingleViewScreen extends StatefulWidget {
+  const ArabicMensSingleViewScreen({Key? key})
       : super(
           key: key,
         );
 
   @override
-  State<ArabicMensSingleShirtViewScreen> createState() =>
-      _ArabicMensSingleShirtViewScreenState();
+  State<ArabicMensSingleViewScreen> createState() =>
+      _ArabicMensSingleViewScreenState();
 }
 
-class _ArabicMensSingleShirtViewScreenState
-    extends State<ArabicMensSingleShirtViewScreen> {
+class _ArabicMensSingleViewScreenState
+    extends State<ArabicMensSingleViewScreen> {
+  arabic_addtocart_controller AddToCartcontrollerin =
+      arabic_addtocart_controller();
   ArabicProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ArabicProductPriceChngeByAttribute();
   bool SeeAllImage = false;
+  // int _currentIndex = 0;
+  // PageController _pageController = PageController();
 
   RxString selectedcolored = "".obs;
   RxInt selectedcolorIndex = (-1).obs;
@@ -48,6 +55,8 @@ class _ArabicMensSingleShirtViewScreenState
   List<bool> tappedList = List.generate(200, (index) => false);
 
   List<bool> isButtonTappedList = List.generate(100, (index) => false);
+  int _currentIndex = 0;
+  PageController _pageController = PageController();
 
   bool LikeisActive = false;
   int counter = 1;
@@ -213,7 +222,7 @@ class _ArabicMensSingleShirtViewScreenState
                           SizedBox(height: 14.v),
 
                           Container(
-                            height: Get.height * .1,
+                            height: Get.height * .04,
                             child: ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               itemCount: 1,
@@ -279,163 +288,174 @@ class _ArabicMensSingleShirtViewScreenState
                               },
                             ),
                           ),
-                          // SizedBox(height: 32.v),
-                          // _buildColors(context),
-                          SizedBox(height: 27.v),
-                          // _buildListRectangle(context),
-                          // _buildSize(context),
 
-                          // Container(
-                          //   height: Get.height * .06,
-                          //   child: ListView.builder(
-                          //     physics: NeverScrollableScrollPhysics(),
-                          //     itemCount: 1,
-                          //     itemBuilder: (BuildContext context, int index) {
-                          //       if (color == null && size1 == null) {
-                          //         return Text('');
-                          //       } else {
-                          //         return Obx(
-                          //           () => InkWell(
-                          //             onTap: () {
-                          //               if (color != null && size1 != null) {
-                          //                 if (colorId == null) {
-                          //                   Utils.snackBar(context, 'Failed',
-                          //                       'Please Select Color');
-                          //                 } else if (sizeid == null) {
-                          //                   Utils.snackBar(context, 'Failed',
-                          //                       'Please Select Size');
-                          //                 } else {
-                          //                   arabicpid = productviewcontroller
-                          //                       .userlist
-                          //                       .value
-                          //                       .productView
-                          //                       ?.id
-                          //                       .toString();
-                          //                   arabicproductColor =
-                          //                       colorId.toString();
-                          //                   // quantity = counter;
-                          //                   arabicproductSize =
-                          //                       sizeid.toString();
-                          //                   _productpricechangebyattributecontroller
-                          //                       .ProductPriceChangeByAttribute(
-                          //                           context);
-                          //                 }
-                          //               }
-                          //             },
-                          //             child: Padding(
-                          //               padding: const EdgeInsets.fromLTRB(
-                          //                   110, 0, 110, 0),
-                          //               child: Center(
-                          //                 child: Container(
-                          //                   height: Get.height * .05,
-                          //                   decoration: BoxDecoration(
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(35),
-                          //                       border: Border.all(
-                          //                         color: Color(0xffff8300),
-                          //                         width: 2,
-                          //                       ),
-                          //                       color: Color(0xffff8300)),
-                          //                   child: _productpricechangebyattributecontroller
-                          //                               .loading.value ==
-                          //                           false
-                          //                       ? Center(
-                          //                           child: Text(
-                          //                             "التحقق من الجمع",
-                          //                             style: TextStyle(
-                          //                                 fontSize: 14,
-                          //                                 color: Colors.white),
-                          //                           ),
-                          //                         )
-                          //                       : Center(
-                          //                           child:
-                          //                               CircularProgressIndicator(
-                          //                           color: Colors.white,
-                          //                         )),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         );
-                          //       }
-                          //     },
-                          //   ),
-                          // ),
-                          // SizedBox(height: 30.v),
-                          // Padding(
-                          //   padding: EdgeInsets.only(right: 15.h),
-                          //   child: Row(
-                          //     children: [
-                          //       Padding(
-                          //         padding: EdgeInsets.only(
-                          //           top: 13.v,
-                          //           bottom: 9.v,
-                          //         ),
-                          //         child: Text(
-                          //           "كمية",
-                          //           style: theme.textTheme.titleMedium,
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(right: 20),
-                          //         child: Container(
-                          //           width: 100.h,
-                          //           height: Get.height * .05,
-                          //           margin: EdgeInsets.only(left: 14.h),
-                          //           padding:
-                          //               EdgeInsets.symmetric(vertical: 10.v),
-                          //           decoration:
-                          //               AppDecoration.fillPrimary.copyWith(
-                          //             borderRadius:
-                          //                 BorderRadiusStyle.circleBorder30,
-                          //           ),
-                          //           child: Row(
-                          //             mainAxisAlignment:
-                          //                 MainAxisAlignment.spaceAround,
-                          //             children: [
-                          //               CustomImageView(
-                          //                 onTap: () {
-                          //                   setState(() {
-                          //                     // Increment the counter when "+" is pressed
-                          //                     counter++;
-                          //                   });
-                          //                 },
-                          //                 imagePath: ImageConstant
-                          //                     .imgGroup239412WhiteA70002,
-                          //                 height: 13.adaptSize,
-                          //                 width: 13.adaptSize,
-                          //                 margin: EdgeInsets.only(
-                          //                   top: 2.v,
-                          //                   bottom: 3.v,
-                          //                 ),
-                          //               ),
-                          //               Text(
-                          //                 counter.toString(),
-                          //                 style: CustomTextStyles
-                          //                     .titleLargeWhiteA7000220,
-                          //               ),
-                          //               CustomImageView(
-                          //                 onTap: () {
-                          //                   setState(() {
-                          //                     // Decrement the counter when "-" is pressed
-                          //                     if (counter > 1) {
-                          //                       counter--;
-                          //                     }
-                          //                   });
-                          //                 },
-                          //                 imagePath: ImageConstant.imgLine1,
-                          //                 height: 13.adaptSize,
-                          //                 width: 13.adaptSize,
-                          //                 margin: EdgeInsets.symmetric(
-                          //                     vertical: 9.v),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          if (productviewcontroller.userlist.value.productView
+                                      ?.productType ==
+                                  "variable" &&
+                              productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details!
+                                      .color
+                                      ?.length !=
+                                  0)
+                            _buildColors(context),
+
+                          if (productviewcontroller.userlist.value.productView
+                                      ?.productType ==
+                                  "variable" &&
+                              productviewcontroller.userlist.value.productView
+                                      ?.productDetails?.details!.size?.length !=
+                                  0)
+                            _buildsize(context),
+                          if (productviewcontroller.userlist.value.productView
+                                      ?.productType ==
+                                  "variable" &&
+                              productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details!
+                                      .capacity
+                                      ?.length !=
+                                  0)
+                            _buildcapacity(context),
+                          if (productviewcontroller.userlist.value.productView
+                                      ?.productType ==
+                                  "variable" &&
+                              productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details!
+                                      .model
+                                      ?.length !=
+                                  0)
+                            _buildmodel(context),
+                          if (productviewcontroller.userlist.value.productView
+                                      ?.productType ==
+                                  "variable" &&
+                              productviewcontroller.userlist.value.productView
+                                      ?.productDetails?.details!.item?.length !=
+                                  0)
+                            _builditem(context),
+
+                          // _buildListRectangle(context),
+
+                          if (productviewcontroller
+                                  .userlist.value.productView?.productType ==
+                              "variable")
+                            Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: Get.height * .02,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Qty",
+                                          style: theme.textTheme.titleMedium),
+                                      SizedBox(
+                                        width: Get.width * .03,
+                                      ),
+                                      Container(
+                                        width: Get.width * .3,
+                                        height: Get.height * .05,
+                                        decoration: AppDecoration.fillPrimary
+                                            .copyWith(
+                                                color: Color(0xffff8300),
+                                                borderRadius: BorderRadiusStyle
+                                                    .circleBorder30,
+                                                border: Border.all(
+                                                    color: Color(0xffff8300))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (colorId != null &&
+                                                    sizeid != null) {
+                                                  int totalQuantity = int.tryParse(
+                                                          _productpricechangebyattributecontroller
+                                                              .totalQuantity
+                                                              .value) ??
+                                                      0;
+                                                  if (arabicquantity <
+                                                      totalQuantity)
+                                                    setState(() {
+                                                      arabicquantity++;
+                                                    });
+                                                  print(arabicquantity);
+                                                } else {
+                                                  Utils.snackBar(
+                                                      context,
+                                                      'Failed',
+                                                      'Please Select Color ');
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Text(
+                                                arabicquantity.toString(),
+                                                style: theme
+                                                    .textTheme.bodyMedium
+                                                    ?.copyWith(
+                                                        color: Colors.white,
+                                                        fontSize: 20),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (colorId != null &&
+                                                    sizeid != null) {
+                                                  // int totalQuantity = int.tryParse(
+                                                  //         _productpricechangebyattributecontroller
+                                                  //             .totalQuantity
+                                                  //             .value) ??
+                                                  //     0;
+                                                  if (arabicquantity > 1)
+                                                    setState(() {
+                                                      arabicquantity--;
+                                                    });
+                                                  print(arabicquantity);
+                                                } else {
+                                                  Utils.snackBar(
+                                                      context,
+                                                      'Failed',
+                                                      'Please Select Color ');
+                                                }
+                                              },
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: Get.height * .02,
+                                  ),
+                                ],
+                              ),
+                            ),
+
                           SizedBox(height: 30.v),
                           Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -462,13 +482,15 @@ class _ArabicMensSingleShirtViewScreenState
                           _buildRowDescription(context),
                           SizedBox(height: 35.v),
                           _buildRowReturnOne(context),
-
                           SizedBox(height: 29.v),
-
                           _buildShoppingSecurity(context),
-                          _buildReview(context),
+                          // if (productviewcontroller.userlist.value
+                          //         .productReview!.productReviewDetails !=
+                          //     [])
+                          //   _buildReview(context),
+                          SizedBox(height: 29.v),
                           Padding(
-                            padding: EdgeInsets.only(right: 15.h),
+                            padding: EdgeInsets.only(right: 20.h),
                             child: Text("تفاصيل المنتجات",
                                 style: TextStyle(
                                     fontSize: 18,
@@ -483,30 +505,32 @@ class _ArabicMensSingleShirtViewScreenState
                           // var materialsubTags = productviewcontroller.userlist
                           //     .value.productView?.productCatgories?.subtags;
                           //   return
-                          ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: productviewcontroller
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productCatgories
+                                      ?.tags
+                                      ?.item
+                                      ?.length ??
+                                  0,
+                              itemBuilder: (context, index) {
+                                var materialTags = productviewcontroller
                                     .userlist
                                     .value
                                     .productView
                                     ?.productCatgories
                                     ?.tags
-                                    ?.item
-                                    ?.length ??
-                                0,
-                            itemBuilder: (context, index) {
-                              var materialTags = productviewcontroller
-                                  .userlist
-                                  .value
-                                  .productView
-                                  ?.productCatgories
-                                  ?.tags
-                                  ?.item;
-
-                              return Padding(
-                                padding: EdgeInsets.only(right: 15.h),
-                                child: Column(
+                                    ?.item;
+                                var tagValue =
+                                    (materialTags?[index].value as List)
+                                        .join(', ');
+                                return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -515,7 +539,7 @@ class _ArabicMensSingleShirtViewScreenState
                                         children: [
                                           TextSpan(
                                             text:
-                                                "${materialTags?[index].key}:",
+                                                "${materialTags?[index].key}:  ",
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400,
@@ -523,8 +547,7 @@ class _ArabicMensSingleShirtViewScreenState
                                                 color: Colors.grey),
                                           ),
                                           TextSpan(
-                                            text:
-                                                "${materialTags?[index].value}",
+                                            text: "$tagValue",
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400,
@@ -539,54 +562,69 @@ class _ArabicMensSingleShirtViewScreenState
                                       height: Get.height * .02,
                                     )
                                   ],
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
 
                           SizedBox(height: 30.v),
-                          // CustomImageView(
-                          //   imagePath:
-                          //       "${productviewcontroller.userlist.value.productView?.imageUrl.toString()}",
-                          //   height: Get.height * .4,
-                          //   width: 335.h,
-                          //   alignment: Alignment.center,
-                          // ),
-                          // SizedBox(height: 5.v),
-                          // if (SeeAllImage) _buildGridRectangle(context),
 
-                          // SizedBox(height: 18.v),
+                          if (productviewcontroller
+                                  .userlist.value.productView?.productType ==
+                              "simple")
+                            Container(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 30.v),
+                                  CustomImageView(
+                                    imagePath:
+                                        "${productviewcontroller.userlist.value.productView?.imageUrl.toString()}",
+                                    height: Get.height * .4,
+                                    width: 335.h,
+                                    alignment: Alignment.center,
+                                  ),
+                                  SizedBox(height: 5.v),
+                                  if (SeeAllImage) _buildGridRectangle(context),
+                                  SizedBox(height: 18.v),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        SeeAllImage = !SeeAllImage;
+                                      });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "See All",
+                                          style: CustomTextStyles
+                                              .titleMediumPrimaryMedium,
+                                        ),
+                                        Icon(
+                                          SeeAllImage
+                                              ? Icons.keyboard_arrow_up
+                                              : Icons.keyboard_arrow_down,
+                                          size: 20,
+                                          color: Color(0xffff8300),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       SeeAllImage = !SeeAllImage;
-                          //     });
-                          //   },
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Text(
-                          //         "اظهار الكل",
-                          //         style:
-                          //             CustomTextStyles.titleMediumPrimaryMedium,
-                          //       ),
-                          //       Icon(
-                          //         SeeAllImage
-                          //             ? Icons.keyboard_arrow_up
-                          //             : Icons.keyboard_arrow_down,
-                          //         size: 20,
-                          //         color: Color(0xffff8300),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-
-                          // SizedBox(height: Get.height * .08),
-                          // _buildAddToCart(context),
-                          SizedBox(height: 37.v),
+                          SizedBox(height: 17.v),
+                          if (productviewcontroller
+                                  .userlist.value.productView!.productType ==
+                              "variable")
+                            _buildAddToCartVariable(context)
+                          else
+                            _buildAddToCartSimple(context),
+                          // SizedBox(height: 37.v),
                           // _buildListRecommended(context),
-                          // SizedBox(height: 15.v),
+                          SizedBox(height: 15.v),
                           _buildHomePageSection(context),
                           SizedBox(height: 15.v),
                         ],
@@ -634,11 +672,11 @@ class _ArabicMensSingleShirtViewScreenState
 
   /// Section Widget
   Widget _buildButtonOneHundredTen(
-      BuildContext contextint, int selectedIndex, int totalImages) {
+      BuildContext context, int totalImages, int selectedIndex) {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: Container(
             height: 20.v,
             width: 41.h,
@@ -658,7 +696,7 @@ class _ArabicMensSingleShirtViewScreenState
     );
   }
 
-  /// Section Widget
+  // /// Section Widget
   Widget _buildStackSixtyNine(BuildContext context) {
     return Container(
       height: 502.v,
@@ -670,25 +708,95 @@ class _ArabicMensSingleShirtViewScreenState
       child: Stack(
         alignment: Alignment.center,
         children: [
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            // Remove the physics property or set it to ScrollPhysics()
-            // physics: ScrollPhysics(),
-            itemCount: productviewcontroller
-                    .userlist.value.productView?.galleryUrl?.length ??
-                0,
-            itemBuilder: (BuildContext context, int index) {
-              return CustomImageView(
-                fit: BoxFit.fill,
-                imagePath: selectedImageUrl.isNotEmpty
-                    ? selectedImageUrl
-                    : "${productviewcontroller.userlist.value.productView?.galleryUrl?[index] ?? ''}",
-                height: 502.v,
-                width: Get.width,
-                alignment: Alignment.center,
-              );
-            },
-          ),
+          if (productviewcontroller.userlist.value.productView!.productType ==
+              "variable")
+            Aselectedcolored.value.isNotEmpty
+                ? PageView.builder(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productviewcontroller
+                            .userlist
+                            .value
+                            .productView!
+                            .productDetails
+                            ?.details
+                            ?.color?[0]
+                            .gallery
+                            ?.length ??
+                        0,
+                    itemBuilder: (BuildContext context, int index) {
+                      List<String>? colorGallery = productviewcontroller
+                          .userlist
+                          .value
+                          .productView!
+                          .productDetails
+                          ?.details
+                          ?.color?[AselectedcolorIndex.value]
+                          .gallery;
+                      String imageUrl = colorGallery?[index] ?? '';
+                      return CustomImageView(
+                        fit: BoxFit.fill,
+                        imagePath:
+                            // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+                            "$imageUrl",
+                        // "${productviewcontroller.userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
+                        height: 500.v,
+                        width: Get.width,
+                        alignment: Alignment.center,
+                      );
+                    },
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                  )
+                : PageView.builder(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CustomImageView(
+                        fit: BoxFit.fill,
+                        imagePath:
+                            "${productviewcontroller.userlist.value.productView?.imageUrl}",
+                        height: 500.v,
+                        width: Get.width,
+                        alignment: Alignment.center,
+                      );
+                    },
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                  )
+          else
+            PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: productviewcontroller
+                      .userlist.value.productView?.galleryUrl?.length ??
+                  0,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomImageView(
+                  fit: BoxFit.fill,
+                  imagePath:
+                      // selectedImageUrl.isNotEmpty
+                      //     ? selectedImageUrl
+
+                      "${productviewcontroller.userlist.value.productView?.galleryUrl?[index] ?? ''}",
+                  height: 500.v,
+                  width: Get.width,
+                  alignment: Alignment.center,
+                );
+              },
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
           Align(
             alignment: Alignment.center,
             child: Column(
@@ -714,7 +822,7 @@ class _ArabicMensSingleShirtViewScreenState
                                 ))),
                         GestureDetector(
                           onTap: () {
-                            Get.to(SearchHistoryArabic());
+                            // Get.to(SearchHistoryArabic());
                           },
                           child: Container(
                               margin: EdgeInsets.only(
@@ -731,13 +839,39 @@ class _ArabicMensSingleShirtViewScreenState
                       ],
                     )),
                 SizedBox(height: 371.v),
-                // _buildButtonOneHundredTen(
-                //     context,
-                //     selectedImageIndex,
-                //     productviewcontroller.userlist.value
-                //             .productView?.galleryUrl?.length ??
-                //         0),
-                SizedBox(height: 30.v),
+                if (productviewcontroller
+                        .userlist.value.productView!.productType ==
+                    "variable")
+                  Aselectedcolored.value.isNotEmpty
+                      ? _buildButtonOneHundredTen(
+                          context,
+                          productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView!
+                                  .productDetails
+                                  ?.details
+                                  ?.color?[0]
+                                  .gallery
+                                  ?.length ??
+                              0,
+                          _currentIndex, // Pass the current index
+                        )
+                      : _buildButtonOneHundredTen(
+                          context,
+                          1,
+                          _currentIndex, // Pass the current index
+                        )
+                else
+                  _buildButtonOneHundredTen(
+                    context,
+
+                    productviewcontroller
+                            .userlist.value.productView?.galleryUrl?.length ??
+                        0,
+                    _currentIndex, // Pass the current index
+                  ),
+                SizedBox(height: 10.v),
                 Padding(
                   padding: const EdgeInsets.only(top: 7),
                   child: Container(
@@ -793,7 +927,237 @@ class _ArabicMensSingleShirtViewScreenState
     );
   }
 
-  /// Section Widget
+  // /// Section Widget
+  // Widget _buildStackSixtyNine(BuildContext context) {
+  //   return Container(
+  //     height: 514.v,
+  //     // height: Get.height * 0.59,
+  //     width: double.maxFinite,
+  //     decoration: AppDecoration.fillGray10003,
+  //     // color: Colors.red,
+  //     child: Stack(
+  //       alignment: Alignment.center,
+  //       children: [
+  //         if (productviewcontroller.userlist.value.productView!.productType ==
+  //             "variable")
+  //           Aselectedcolored.value.isNotEmpty
+  //               ? PageView.builder(
+  //                   controller: _pageController,
+  //                   scrollDirection: Axis.horizontal,
+  //                   itemCount: productviewcontroller
+  //                           .userlist
+  //                           .value
+  //                           .productView!
+  //                           .productDetails
+  //                           ?.details
+  //                           ?.color?[0]
+  //                           .gallery
+  //                           ?.length ??
+  //                       0,
+  //                   itemBuilder: (BuildContext context, int index) {
+  //                     List<String>? colorGallery = productviewcontroller
+  //                         .userlist
+  //                         .value
+  //                         .productView!
+  //                         .productDetails
+  //                         ?.details
+  //                         ?.color?[AselectedcolorIndex.value]
+  //                         .gallery;
+  //                     String imageUrl = colorGallery?[index] ?? '';
+  //                     return CustomImageView(
+  //                       fit: BoxFit.fill,
+  //                       imagePath:
+  //                           // "https://urlsdemo.net/mohally/admin-assets/product-image/171215021071440.webp",
+  //                           "$imageUrl",
+  //                       // "${productviewcontroller.userlist.value.productView!.productDetails?.details?.color?[index].gallery ?? ''}",
+  //                       height: 500.v,
+  //                       width: Get.width,
+  //                       alignment: Alignment.center,
+  //                     );
+  //                   },
+  //                   onPageChanged: (index) {
+  //                     setState(() {
+  //                       _currentIndex = index;
+  //                     });
+  //                   },
+  //                 )
+  //               :
+  // PageView.builder(
+  //                   controller: _pageController,
+  //                   scrollDirection: Axis.horizontal,
+  //                   itemCount: 1,
+  //                   itemBuilder: (BuildContext context, int index) {
+  //                     return CustomImageView(
+  //                       fit: BoxFit.fill,
+  //                       imagePath:
+  //                           "${productviewcontroller.userlist.value.productView?.imageUrl}",
+  //                       height: 500.v,
+  //                       width: Get.width,
+  //                       alignment: Alignment.center,
+  //                     );
+  //                   },
+  //                   onPageChanged: (index) {
+  //                     setState(() {
+  //                       _currentIndex = index;
+  //                     });
+  //                   },
+  //                 )
+  //         else
+  //           PageView.builder(
+  //             controller: _pageController,
+  //             scrollDirection: Axis.horizontal,
+  //             itemCount: productviewcontroller
+  //                     .userlist.value.productView?.galleryUrl?.length ??
+  //                 0,
+  //             itemBuilder: (BuildContext context, int index) {
+  //               return CustomImageView(
+  //                 fit: BoxFit.fill,
+  //                 imagePath:
+  //                     // selectedImageUrl.isNotEmpty
+  //                     //     ? selectedImageUrl
+
+  //                     "${productviewcontroller.userlist.value.productView?.galleryUrl?[index] ?? ''}",
+  //                 height: 500.v,
+  //                 width: Get.width,
+  //                 alignment: Alignment.center,
+  //               );
+  //             },
+  //             onPageChanged: (index) {
+  //               setState(() {
+  //                 _currentIndex = index;
+  //               });
+  //             },
+  //           ),
+  //         Align(
+  //           alignment: Alignment.center,
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Padding(
+  //                   padding:
+  //                       const EdgeInsets.only(top: 10, right: 10, left: 10),
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                     children: [
+  //                       Container(
+  //                           width: Get.width * .09,
+  //                           height: Get.height * .05,
+  //                           decoration: BoxDecoration(
+  //                               shape: BoxShape.circle, color: Colors.white),
+  //                           child: GestureDetector(
+  //                               onTap: () {
+  //                                 Get.back();
+  //                               },
+  //                               child: Icon(
+  //                                 Icons.arrow_back,
+  //                               ))),
+  //                       InkWell(
+  //                         onTap: () {
+  //                           // Get.to(SearchScreen());
+  //                         },
+  //                         child: Container(
+  //                             margin: EdgeInsets.only(
+  //                               left: 20.h,
+  //                             ),
+  //                             width: Get.width * .09,
+  //                             height: Get.height * .05,
+  //                             decoration: BoxDecoration(
+  //                                 shape: BoxShape.circle, color: Colors.white),
+  //                             child: Image.asset(
+  //                               'assets/images/search.png',
+  //                             )),
+  //                       ),
+  //                     ],
+  //                   )),
+  //               SizedBox(height: 371.v),
+  // if (productviewcontroller
+  //         .userlist.value.productView!.productType ==
+  //     "variable")
+  //   Aselectedcolored.value.isNotEmpty
+  //       ? _buildButtonOneHundredTen(
+  //           context,
+  //           productviewcontroller
+  //                   .userlist
+  //                   .value
+  //                   .productView!
+  //                   .productDetails
+  //                   ?.details
+  //                   ?.color?[0]
+  //                   .gallery
+  //                   ?.length ??
+  //               0,
+  //           _currentIndex, // Pass the current index
+  //         )
+  //       : _buildButtonOneHundredTen(
+  //           context,
+  //           1,
+  //           _currentIndex, // Pass the current index
+  //         )
+  // else
+  //   _buildButtonOneHundredTen(
+  //     context,
+
+  //     productviewcontroller
+  //             .userlist.value.productView?.galleryUrl?.length ??
+  //         0,
+  //     _currentIndex, // Pass the current index
+  //   ),
+  //               SizedBox(height: 10.v),
+  //               Padding(
+  //                 padding: const EdgeInsets.only(top: 7),
+  //                 child: Container(
+  //                   width: double.maxFinite,
+  //                   padding: EdgeInsets.symmetric(
+  //                     horizontal: 20.h,
+  //                     vertical: 10.v,
+  //                   ),
+  //                   decoration: AppDecoration.fillPrimary,
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CustomImageView(
+  //                         imagePath: ImageConstant.imgMaskGroup1,
+  //                         height: 16.adaptSize,
+  //                         width: 16.adaptSize,
+  //                         margin: EdgeInsets.only(top: 1.v),
+  //                       ),
+  //                       Padding(
+  //                         padding: EdgeInsets.only(
+  //                           left: 6.h,
+  //                           top: 3.v,
+  //                         ),
+  //                         child: Text("شحن مجاني لك",
+  //                             style: TextStyle(
+  //                                 fontSize: 12,
+  //                                 fontWeight: FontWeight.w600,
+  //                                 color: Colors.white,
+  //                                 fontFamily: 'Almarai')),
+  //                       ),
+  //                       Spacer(),
+  //                       Padding(
+  //                         padding: EdgeInsets.only(
+  //                           top: 1.v,
+  //                           bottom: 2.v,
+  //                         ),
+  //                         child: Text("عرض لفترة محدودة",
+  //                             style: TextStyle(
+  //                                 fontSize: 12,
+  //                                 fontWeight: FontWeight.w600,
+  //                                 color: Colors.white,
+  //                                 fontFamily: 'Almarai')),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _buildListRectangle(BuildContext context) {
     //
     return Align(
@@ -885,19 +1249,147 @@ class _ArabicMensSingleShirtViewScreenState
 
   Widget _buildsize(BuildContext context) {
     return Container(
-      height: Get.height * .1,
+      height: Get.height * .14,
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
-          var size = productviewcontroller
-              .userlist.value.productView?.productDetails?.details?.size
-              .toString();
-          if (size == null) {
-            return Text('');
-          }
+          size1 = productviewcontroller.userlist.value.productView
+              ?.productDetails?.details?.size?[index].value;
+
           return Column(
             children: [
+              SizedBox(
+                height: Get.height * .03,
+              ),
+              _buildRowSize(context),
+              SizedBox(height: 5.v),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 35.v,
+                    child: ListView.separated(
+                      // padding: EdgeInsets.only(left: 20.h),
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (
+                        context,
+                        index,
+                      ) {
+                        return SizedBox(
+                          width: 10.h,
+                        );
+                      },
+                      itemCount: productviewcontroller
+                              .userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details!
+                              .size
+                              ?.length ??
+                          0,
+                      itemBuilder: (context, index) {
+                        String Aselectedsizename = productviewcontroller
+                                .userlist
+                                .value
+                                .productView
+                                ?.productDetails
+                                ?.details
+                                ?.size?[index]
+                                .value ??
+                            "";
+
+                        return SizedBox(
+                          width: 70.h,
+                          child: GestureDetector(
+                            onTap: () {
+                              AselectedSizeIndex.value = index;
+                              sizeid = productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.size?[index]
+                                  .id
+                                  .toString();
+
+                              if (sizeid != null && colorId != null) {
+                                print(sizeid);
+                                arabicpid = productviewcontroller
+                                    .userlist.value.productView?.id
+                                    .toString();
+                                arabicproductColor = colorId.toString();
+                                // quantity = counter;
+                                arabicproductSize = sizeid.toString();
+                                print(arabicpid);
+                                print(arabicproductColor);
+                                print(arabicproductSize);
+
+                                _productpricechangebyattributecontroller
+                                    .ProductPriceChangeByAttribute(context);
+                                updatedprice.value =
+                                    _productpricechangebyattributecontroller
+                                        .userlist.value.data!.price
+                                        .toString();
+                              }
+                            },
+                            child: Obx(
+                              () => Center(
+                                child: Container(
+                                  width: 70.h,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(45, 158, 158, 158),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: AselectedSizeIndex.value == index
+                                          ? Border.all(color: Colors.black)
+                                          : Border.all(
+                                              color: Color.fromARGB(
+                                                  45, 158, 158, 158),
+                                            )),
+                                  padding: EdgeInsets.all(8),
+                                  child: Center(
+                                    child: Text(
+                                      '$Aselectedsizename',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildcapacity(BuildContext context) {
+    return Container(
+      height: Get.height * .14,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          size1 = productviewcontroller.userlist.value.productView
+              ?.productDetails?.details?.capacity?[index].value;
+
+          return Column(
+            children: [
+              SizedBox(
+                height: Get.height * .03,
+              ),
               Align(
                 alignment: Alignment.center,
                 child: Padding(
@@ -905,28 +1397,613 @@ class _ArabicMensSingleShirtViewScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "مقاس",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontFamily: 'Almarai'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 2.v),
-                        child: Text(
-                          "دليل المقاسات",
-                          style: theme.textTheme.titleMedium?.copyWith(
-                              fontFamily: 'Almarai', color: Colors.grey),
-                        ),
-                      ),
+                      Text("Capacity",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontSize: 20)),
+                      // Padding(
+                      //   padding: EdgeInsets.only(bottom: 2.v),
+                      //   child: Text("Size Guide",
+                      //       style: theme.textTheme.titleMedium
+                      //           ?.copyWith(color: Colors.grey, fontSize: 20)),
+                      // ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: Get.height * .02,
+              SizedBox(height: 5.v),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 35.v,
+                    child: ListView.separated(
+                      // padding: EdgeInsets.only(left: 20.h),
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (
+                        context,
+                        index,
+                      ) {
+                        return SizedBox(
+                          width: 10.h,
+                        );
+                      },
+                      itemCount: productviewcontroller
+                              .userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details!
+                              .capacity
+                              ?.length ??
+                          0,
+                      itemBuilder: (context, index) {
+                        String Aselectedsizename = productviewcontroller
+                                .userlist
+                                .value
+                                .productView
+                                ?.productDetails
+                                ?.details
+                                ?.capacity?[index]
+                                .value ??
+                            "";
+
+                        return SizedBox(
+                          width: 70.h,
+                          child: GestureDetector(
+                            onTap: () {
+                              AselectedSizeIndex.value = index;
+                              sizeid = productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.capacity?[index]
+                                  .id
+                                  .toString();
+
+                              if (sizeid != null && colorId != null) {
+                                print(sizeid);
+                                arabicpid = productviewcontroller
+                                    .userlist.value.productView?.id
+                                    .toString();
+                                arabicproductColor = colorId.toString();
+                                // quantity = counter;
+                                arabicproductSize = sizeid.toString();
+                                print(arabicpid);
+                                print(arabicproductColor);
+                                print(arabicproductSize);
+
+                                _productpricechangebyattributecontroller
+                                    .ProductPriceChangeByAttribute(context);
+                                updatedprice.value =
+                                    _productpricechangebyattributecontroller
+                                        .userlist.value.data!.price
+                                        .toString();
+                              }
+                            },
+                            child: Obx(
+                              () => Center(
+                                child: Container(
+                                  width: 70.h,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(45, 158, 158, 158),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: AselectedSizeIndex.value == index
+                                          ? Border.all(color: Colors.black)
+                                          : Border.all(
+                                              color: Color.fromARGB(
+                                                  45, 158, 158, 158),
+                                            )),
+                                  padding: EdgeInsets.all(8),
+                                  child: Center(
+                                    child: Text(
+                                      '$Aselectedsizename',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ),
-              // _buildListWidget(context)
             ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildmodel(BuildContext context) {
+    return Container(
+      height: Get.height * .14,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          size1 = productviewcontroller.userlist.value.productView
+              ?.productDetails?.details?.model?[index].value;
+
+          return Column(
+            children: [
+              SizedBox(
+                height: Get.height * .03,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Model",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontSize: 20)),
+                      // Padding(
+                      //   padding: EdgeInsets.only(bottom: 2.v),
+                      //   child: Text("Size Guide",
+                      //       style: theme.textTheme.titleMedium
+                      //           ?.copyWith(color: Colors.grey, fontSize: 20)),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 5.v),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 35.v,
+                    child: ListView.separated(
+                      // padding: EdgeInsets.only(left: 20.h),
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (
+                        context,
+                        index,
+                      ) {
+                        return SizedBox(
+                          width: 10.h,
+                        );
+                      },
+                      itemCount: productviewcontroller
+                              .userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details!
+                              .model
+                              ?.length ??
+                          0,
+                      itemBuilder: (context, index) {
+                        String Aselectedsizename = productviewcontroller
+                                .userlist
+                                .value
+                                .productView
+                                ?.productDetails
+                                ?.details
+                                ?.model?[index]
+                                .value ??
+                            "";
+
+                        return SizedBox(
+                          width: 70.h,
+                          child: GestureDetector(
+                            onTap: () {
+                              AselectedSizeIndex.value = index;
+                              sizeid = productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.model?[index]
+                                  .id
+                                  .toString();
+
+                              if (sizeid != null && colorId != null) {
+                                print(sizeid);
+                                arabicpid = productviewcontroller
+                                    .userlist.value.productView?.id
+                                    .toString();
+                                arabicproductColor = colorId.toString();
+                                // quantity = counter;
+                                arabicproductSize = sizeid.toString();
+                                print(arabicpid);
+                                print(arabicproductColor);
+                                print(arabicproductSize);
+
+                                _productpricechangebyattributecontroller
+                                    .ProductPriceChangeByAttribute(context);
+                                updatedprice.value =
+                                    _productpricechangebyattributecontroller
+                                        .userlist.value.data!.price
+                                        .toString();
+                              }
+                            },
+                            child: Obx(
+                              () => Center(
+                                child: Container(
+                                  width: 70.h,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(45, 158, 158, 158),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: AselectedSizeIndex.value == index
+                                          ? Border.all(color: Colors.black)
+                                          : Border.all(
+                                              color: Color.fromARGB(
+                                                  45, 158, 158, 158),
+                                            )),
+                                  padding: EdgeInsets.all(8),
+                                  child: Center(
+                                    child: Text(
+                                      '$Aselectedsizename',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _builditem(BuildContext context) {
+    return Container(
+      height: Get.height * .14,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          size1 = productviewcontroller.userlist.value.productView
+              ?.productDetails?.details?.item?[index].value;
+
+          return Column(
+            children: [
+              SizedBox(
+                height: Get.height * .03,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Items",
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontSize: 20)),
+                      // Padding(
+                      //   padding: EdgeInsets.only(bottom: 2.v),
+                      //   child: Text("Size Guide",
+                      //       style: theme.textTheme.titleMedium
+                      //           ?.copyWith(color: Colors.grey, fontSize: 20)),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 5.v),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 35.v,
+                    child: ListView.separated(
+                      // padding: EdgeInsets.only(left: 20.h),
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (
+                        context,
+                        index,
+                      ) {
+                        return SizedBox(
+                          width: 10.h,
+                        );
+                      },
+                      itemCount: productviewcontroller
+                              .userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details!
+                              .item
+                              ?.length ??
+                          0,
+                      itemBuilder: (context, index) {
+                        String Aselectedsizename = productviewcontroller
+                                .userlist
+                                .value
+                                .productView
+                                ?.productDetails
+                                ?.details
+                                ?.item?[index]
+                                .value ??
+                            "";
+
+                        return SizedBox(
+                          width: 70.h,
+                          child: GestureDetector(
+                            onTap: () {
+                              AselectedSizeIndex.value = index;
+                              sizeid = productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.item?[index]
+                                  .id
+                                  .toString();
+
+                              if (sizeid != null && colorId != null) {
+                                print(sizeid);
+                                arabicpid = productviewcontroller
+                                    .userlist.value.productView?.id
+                                    .toString();
+                                arabicproductColor = colorId.toString();
+                                // quantity = counter;
+                                arabicproductSize = sizeid.toString();
+                                print(arabicpid);
+                                print(arabicproductColor);
+                                print(arabicproductSize);
+
+                                _productpricechangebyattributecontroller
+                                    .ProductPriceChangeByAttribute(context);
+                                updatedprice.value =
+                                    _productpricechangebyattributecontroller
+                                        .userlist.value.data!.price
+                                        .toString();
+                              }
+                            },
+                            child: Obx(
+                              () => Center(
+                                child: Container(
+                                  width: 70.h,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(45, 158, 158, 158),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: AselectedSizeIndex.value == index
+                                          ? Border.all(color: Colors.black)
+                                          : Border.all(
+                                              color: Color.fromARGB(
+                                                  45, 158, 158, 158),
+                                            )),
+                                  padding: EdgeInsets.all(8),
+                                  child: Center(
+                                    child: Text(
+                                      '$Aselectedsizename',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildAddToCartVariable(BuildContext context) {
+    return Container(
+      height: Get.height * .1,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          bool inCart =
+              productviewcontroller.userlist.value.productView!.inCart;
+          return Obx(
+            () => InkWell(
+              onTap: () {
+                if (color != null && size1 != null) {
+                  if (colorId == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Color');
+                    }
+                  } else if (sizeid == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Size');
+                    }
+                  } else {
+                    if (!inCart) {
+                      Arabiccartproductid = productviewcontroller
+                          .userlist.value.productView?.id
+                          .toString();
+                      ArabicAddtocartColor = colorId.toString();
+                      ArabicAddtocartprice = productviewcontroller
+                          .userlist.value.productView?.price
+                          .toString();
+                      ArabicAddtocartquantity = arabicquantity.toString();
+                      ArabicAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      arabicquantity.value = 1;
+                      print("${colorId},${sizeid},${arabicquantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
+                  }
+                } else if (size1 != null) {
+                  if (sizeid == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Size');
+                    }
+                  } else {
+                    if (!inCart) {
+                      Arabiccartproductid = productviewcontroller
+                          .userlist.value.productView?.id
+                          .toString();
+                      ArabicAddtocartColor = colorId.toString();
+                      ArabicAddtocartprice = productviewcontroller
+                          .userlist.value.productView?.price
+                          .toString();
+                      ArabicAddtocartquantity = arabicquantity.toString();
+                      ArabicAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      arabicquantity.value = 1;
+                      print("${colorId},${sizeid},${arabicquantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
+                  }
+                } else if (color != null) {
+                  if (colorId == null) {
+                    if (!inCart) {
+                      Utils.snackBar(context, 'Failed', 'Please Select Color');
+                    }
+                  } else {
+                    if (!inCart) {
+                      Arabiccartproductid = productviewcontroller
+                          .userlist.value.productView?.id
+                          .toString();
+                      ArabicAddtocartColor = colorId.toString();
+                      ArabicAddtocartprice = productviewcontroller
+                          .userlist.value.productView?.price
+                          .toString();
+                      ArabicAddtocartquantity = arabicquantity.toString();
+                      ArabicAddtocartSize = sizeid.toString();
+                      AddToCartcontrollerin.addtocart_Apihit(context);
+                      colorId = null;
+                      sizeid = null;
+                      arabicquantity.value = 1;
+                      print("${colorId},${sizeid},${arabicquantity},");
+                    } else {
+                      Utils.snackBar(
+                          context, 'Failed', 'Product is already in the cart');
+                    }
+                  }
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
+                child: Container(
+                  height: Get.height * .06,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(35),
+                    border: Border.all(
+                      color: Color(0xffff8300),
+                      width: 2,
+                    ),
+                    color: Color(0xffff8300),
+                  ),
+                  child: AddToCartcontrollerin.loading.value == false
+                      ? Center(
+                          child: Text(
+                            inCart == false
+                                ? "أضف إلى السلة"
+                                : "بالفعل في سلة التسوق",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildAddToCartSimple(BuildContext context) {
+    return Container(
+      height: Get.height * .1,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          bool inCart =
+              productviewcontroller.userlist.value.productView!.inCart;
+          return Obx(
+            () => GestureDetector(
+              onTap: () {
+                print("ontappppppppp");
+                if (!inCart) {
+                  // Execute only if inCart is false
+                  Arabiccartproductid = productviewcontroller
+                      .userlist.value.productView?.id
+                      .toString();
+                  // ArabicAddtocartColor = "";
+                  ArabicAddtocartprice = productviewcontroller
+                      .userlist.value.productView?.price
+                      .toString();
+                  ArabicAddtocartquantity = "1";
+                  // ArabicAddtocartSize = "";
+                  AddToCartcontrollerin.addtocart_Apihit(context);
+                  // Update flag
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
+                child: Container(
+                  height: Get.height * .06,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(35),
+                    border: Border.all(
+                      color: Color(0xffff8300),
+                      width: 2,
+                    ),
+                    color: Color(0xffff8300),
+                  ),
+                  child: AddToCartcontrollerin.loading.value == false
+                      ? Center(
+                          child: Text(
+                            inCart == false
+                                ? "أضف إلى السلة"
+                                : "بالفعل في سلة التسوق",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
+            ),
           );
         },
       ),
@@ -1103,7 +2180,7 @@ class _ArabicMensSingleShirtViewScreenState
         width: 300,
         height: 119,
         child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: 3,
             itemBuilder: (context, index) {
@@ -1213,68 +2290,68 @@ class _ArabicMensSingleShirtViewScreenState
   Widget _buildRowReturnOne(BuildContext context) {
     return Column(
       children: [
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgReturn1,
-                  height: 25.adaptSize,
-                  width: 25.adaptSize,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 7.h),
-                  child: Text(
-                    "عودة مجانية",
-                    style: TextStyle(
+        InkWell(
+          onTap: () {
+            setState(() {
+              PrizeAdjustmentisExpanded = !PrizeAdjustmentisExpanded;
+            });
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgReturn1,
+                    height: 25.adaptSize,
+                    width: 25.adaptSize,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 7.h),
+                    child: Text(
+                      "عودة مجانية",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Almarai',
+                          color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(width: Get.width * .02),
+                  Container(
+                    height: 4.adaptSize,
+                    width: 4.adaptSize,
+                    margin: EdgeInsets.only(left: 8.h, top: 10.v, bottom: 8.h),
+                    decoration: BoxDecoration(
+                      color: appTheme.gray90001,
+                      borderRadius: BorderRadius.circular(
+                        2.h,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 4.h),
+                    child: Text(
+                      "تعديل السعر",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Almarai',
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Almarai',
-                        color: Colors.black),
-                  ),
-                ),
-                SizedBox(width: Get.width * .02),
-                Container(
-                  height: 4.adaptSize,
-                  width: 4.adaptSize,
-                  margin: EdgeInsets.only(left: 8.h, top: 10.v, bottom: 8.h),
-                  decoration: BoxDecoration(
-                    color: appTheme.gray90001,
-                    borderRadius: BorderRadius.circular(
-                      2.h,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 4.h),
-                  child: Text(
-                    "تعديل السعر",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Almarai',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      PrizeAdjustmentisExpanded = !PrizeAdjustmentisExpanded;
-                    });
-                  },
-                  child: Icon(
+                  Spacer(),
+                  Icon(
                     PrizeAdjustmentisExpanded
                         ? Icons.keyboard_arrow_down
                         : Icons.arrow_forward_ios,
-                    size: 10,
-                  ),
-                )
-              ],
-            )),
+                    size: PrizeAdjustmentisExpanded ? 20 : 10,
+                  )
+                ],
+              )),
+        ),
         if (PrizeAdjustmentisExpanded)
           _buildAdditionalInformation("خيارات الدفع الآمنة"),
         if (PrizeAdjustmentisExpanded)
@@ -1653,44 +2730,44 @@ class _ArabicMensSingleShirtViewScreenState
   Widget _buildShoppingSecurity(BuildContext context) {
     return Column(
       children: [
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgMaskGroup16x16,
-                  height: 25.adaptSize,
-                  width: 25.adaptSize,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 7.h),
-                  child: Text(
-                    "أمن التسوق",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Almarai',
-                        color: Colors.black),
+        InkWell(
+          onTap: () {
+            setState(() {
+              ShoppingSecurityisExpanded = !ShoppingSecurityisExpanded;
+            });
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgMaskGroup16x16,
+                    height: 25.adaptSize,
+                    width: 25.adaptSize,
                   ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      ShoppingSecurityisExpanded = !ShoppingSecurityisExpanded;
-                    });
-                  },
-                  child: Icon(
+                  Padding(
+                    padding: EdgeInsets.only(right: 7.h),
+                    child: Text(
+                      "أمن التسوق",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Almarai',
+                          color: Colors.black),
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
                     ShoppingSecurityisExpanded
                         ? Icons.keyboard_arrow_down
                         : Icons.arrow_forward_ios,
-                    size: 10,
-                  ),
-                )
-              ],
-            )),
+                    size: ShoppingSecurityisExpanded ? 20 : 10,
+                  )
+                ],
+              )),
+        ),
         if (ShoppingSecurityisExpanded)
           _buildAdditionalInformation("خيارات الدفع الآمنة"),
         if (ShoppingSecurityisExpanded)
@@ -1705,15 +2782,6 @@ class _ArabicMensSingleShirtViewScreenState
 
   /// Common widget
   Widget _buildReview(BuildContext context) {
-    if (productviewcontroller.userlist.value.productReview == null ||
-        productviewcontroller
-                .userlist.value.productReview!.productReviewDetails ==
-            null ||
-        productviewcontroller
-            .userlist.value.productReview!.productReviewDetails!.isEmpty) {
-      // Return an empty container or null if no reviews are available
-      return Text("");
-    }
     return Container(
       height: Get.height * .5,
       child: ListView.builder(
@@ -2047,9 +3115,9 @@ class _ArabicMensSingleShirtViewScreenState
                             arabicMainCatId = homeView_controller.userList.value
                                 .recommendedProduct![index].mainCategoryId!
                                 .toString();
-                            String? ProductId = homeView_controller
-                                .userList.value.recommendedProduct![index].id!
-                                .toString();
+                            // String? ProductId = homeView_controller
+                            //     .userList.value.recommendedProduct![index].id!
+                            //     .toString();
                           },
                           height: 190.adaptSize,
                           width: 190.adaptSize,
@@ -2196,9 +3264,9 @@ class _ArabicMensSingleShirtViewScreenState
                           arabicMainCatId = homeView_controller.userList.value
                               .recommendedProduct?[index].mainCategoryId
                               .toString();
-                          String? arproductId = homeView_controller
-                              .userList.value.recommendedProduct?[index].id
-                              ?.toString();
+                          // String? arproductId = homeView_controller
+                          //     .userList.value.recommendedProduct?[index].id
+                          //     ?.toString();
                         },
                         height: 30.adaptSize,
                         width: 30.adaptSize,
@@ -2218,259 +3286,197 @@ class _ArabicMensSingleShirtViewScreenState
     );
   }
 
-  // _buildColors(BuildContext context) {
-  //   return Container(
-  //     height: Get.height * .1,
-  //     child: ListView.builder(
-  //       physics: NeverScrollableScrollPhysics(),
-  //       itemCount: 1,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         color = productviewcontroller
-  //             .userlist.value.productView?.productDetails?.details?.color
-  //             .toString();
-  //         if (color == null) {
-  //           return Text('');
-  //         } else {
-  //           return Column(
-  //             children: [
-  //               // SizedBox(height: 11.v),
-  //               Padding(
-  //                 padding: const EdgeInsets.only(right: 20),
-  //                 child: Row(
-  //                   children: [
-  //                     RichText(
-  //                       text: TextSpan(
-  //                         children: [
-  //                           TextSpan(
-  //                             text: "لون: ",
-  //                             style: theme.textTheme.titleMedium?.copyWith(
-  //                               fontSize: 20,
-  //                             ),
-  //                           ),
-  //                           TextSpan(
-  //                             text: Aselectedcolored.value.isNotEmpty
-  //                                 ? Aselectedcolored.value
-  //                                 : productviewcontroller
-  //                                     .userlist
-  //                                     .value
-  //                                     .productView
-  //                                     ?.productDetails
-  //                                     ?.details
-  //                                     ?.color
-  //                                     .toString(),
-  //                             style: theme.textTheme.titleMedium?.copyWith(
-  //                               fontSize: 18,
-  //                               color: Colors.grey,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                       textAlign: TextAlign.left,
-  //                     )
-  //                   ],
-  //                 ),
-  //               ),
+  _buildColors(BuildContext context) {
+    return Container(
+      height: Get.height * .18,
+      child: ListView.builder(
+          itemCount: 1,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            color = productviewcontroller.userlist.value.productView
+                ?.productDetails?.details?.color?[index].value
+                .toString();
 
-  //               SizedBox(height: 11.v),
+            return Column(
+              children: [
+                // SizedBox(height: 11.v),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "الألوان : ",
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontSize: 20,
+                              ),
+                            ),
+                            TextSpan(
+                              text: Aselectedcolored.value.isNotEmpty
+                                  ? Aselectedcolored.value
+                                  : "",
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                  fontSize: 15,
+                                  color: Color.fromARGB(255, 158, 158, 158),
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
 
-  //               Padding(
-  //                 padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
-  //                 child: Align(
-  //                   alignment: Alignment.centerRight,
-  //                   child: SizedBox(
-  //                     height: 35.v,
-  //                     child: ListView.separated(
-  //                       physics: NeverScrollableScrollPhysics(),
-  //                       // padding: EdgeInsets.only(left: 20.h),
-  //                       scrollDirection: Axis.horizontal,
-  //                       separatorBuilder: (
-  //                         context,
-  //                         index,
-  //                       ) {
-  //                         return SizedBox(
-  //                           width: 10.h,
-  //                         );
-  //                       },
-  //                       itemCount: productviewcontroller.userlist.value
-  //                               .productView?.productDetails?.details!.length ??
-  //                           0,
-  //                       itemBuilder: (context, index) {
-  //                         String Aselectedcolorname = productviewcontroller
-  //                                 .userlist
-  //                                 .value
-  //                                 .productView
-  //                                 ?.productDetails
-  //                                 ?.details?[index]
-  //                                 .Color ??
-  //                             "";
+                SizedBox(height: 11.v),
 
-  //                         return SizedBox(
-  //                           width: 70.h,
-  //                           child: GestureDetector(
-  //                             onTap: () {
-  //                               // setState(() {
-  //                               Aselectedcolored.value = Aselectedcolorname;
-  //                               AselectedcolorIndex.value = index;
-  //                               colorId = productviewcontroller
-  //                                   .userlist
-  //                                   .value
-  //                                   .productView
-  //                                   ?.productDetails
-  //                                   ?.details?[index]
-  //                                   .ColorId
-  //                                   .toString();
-  //                               // selectedIndex = index;
-  //                               // selectedColor = selectedcolor;
-  //                               // });
-  //                               print(selectedcolorIndex);
-  //                             },
-  //                             child: Obx(
-  //                               () => Center(
-  //                                 child: Container(
-  //                                   width: 70.h,
-  //                                   decoration: BoxDecoration(
-  //                                     color: AselectedcolorIndex.value == index
-  //                                         ? Color(0xffff8300)
-  //                                         : Color.fromARGB(111, 158, 158, 158),
-  //                                     borderRadius: BorderRadius.circular(
-  //                                         20), // Adjust the border radius as needed
-  //                                   ),
-  //                                   padding: EdgeInsets.all(
-  //                                       8), // Adjust the padding as needed
-  //                                   child: Center(
-  //                                     child: Text(
-  //                                       '$Aselectedcolorname',
-  //                                       style: TextStyle(
-  //                                         color:
-  //                                             AselectedcolorIndex.value == index
-  //                                                 ? Colors.white
-  //                                                 : Colors.black,
-  //                                       ),
-  //                                     ),
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         );
-  //                       },
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           );
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      height: Get.height * .13,
+                      child: ListView.separated(
+                        // padding: EdgeInsets.only(left: 20.h),
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (
+                          context,
+                          index,
+                        ) {
+                          return SizedBox(
+                            width: 10.h,
+                          );
+                        },
+                        itemCount: productviewcontroller
+                                .userlist
+                                .value
+                                .productView
+                                ?.productDetails
+                                ?.details!
+                                .color
+                                ?.length ??
+                            0,
+                        itemBuilder: (context, index) {
+                          String Aselectedcolorname = productviewcontroller
+                                  .userlist
+                                  .value
+                                  .productView
+                                  ?.productDetails
+                                  ?.details
+                                  ?.color?[index]
+                                  .value ??
+                              "";
+                          String imageUrl = productviewcontroller
+                              .userlist
+                              .value
+                              .productView
+                              ?.productDetails
+                              ?.details
+                              ?.color?[index]
+                              .featureImage;
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    Aselectedcolored.value = Aselectedcolorname;
+                                    AselectedcolorIndex.value = index;
+                                    selectedImageUrl = imageUrl;
+                                    selectedImageIndex = index;
+                                    print(
+                                        "${Aselectedcolored.value},${AselectedcolorIndex.value}");
+                                  });
 
-  // Widget _buildSize(BuildContext context) {
-  //   return Container(
-  //     height: Get.height * .15,
-  //     child: ListView.builder(
-  //       physics: NeverScrollableScrollPhysics(),
-  //       itemCount: 1,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         size1 = productviewcontroller
-  //             .userlist.value.productView?.productDetails?.details?[index].Size;
+                                  colorId = productviewcontroller
+                                      .userlist
+                                      .value
+                                      .productView
+                                      ?.productDetails
+                                      ?.details
+                                      ?.color?[index]
+                                      .id
+                                      .toString();
 
-  //         if (size1 == null) {
-  //           return Text('');
-  //         }
-  //         return Column(
-  //           children: [
-  //             SizedBox(height: 27.v),
-  //             _buildRowSize(context),
-  //             SizedBox(height: 11.v),
-  //             Padding(
-  //               padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
-  //               child: Align(
-  //                 alignment: Alignment.centerRight,
-  //                 child: SizedBox(
-  //                   height: 35.v,
-  //                   child: ListView.separated(
-  //                     physics: NeverScrollableScrollPhysics(),
-  //                     // padding: EdgeInsets.only(left: 20.h),
-  //                     scrollDirection: Axis.horizontal,
-  //                     separatorBuilder: (
-  //                       context,
-  //                       index,
-  //                     ) {
-  //                       return SizedBox(
-  //                         width: 10.h,
-  //                       );
-  //                     },
-  //                     itemCount: productviewcontroller.userlist.value
-  //                             .productView?.productDetails?.details!.length ??
-  //                         0,
-  //                     itemBuilder: (context, index) {
-  //                       String Aselectedsizename = productviewcontroller
-  //                               .userlist
-  //                               .value
-  //                               .productView
-  //                               ?.productDetails
-  //                               ?.details?[index]
-  //                               .Size ??
-  //                           "";
+                                  if (sizeid != null && colorId != null) {
+                                    print(sizeid);
+                                    arabicpid = productviewcontroller
+                                        .userlist.value.productView?.id
+                                        .toString();
+                                    arabicproductColor = colorId.toString();
+                                    // quantity = counter;
+                                    arabicproductSize = sizeid.toString();
+                                    print(arabicpid);
+                                    print(arabicproductColor);
+                                    print(arabicproductSize);
 
-  //                       return SizedBox(
-  //                         width: 70.h,
-  //                         child: GestureDetector(
-  //                           onTap: () {
-  //                             AselectedSizeIndex.value = index;
-  //                             sizeid = productviewcontroller
-  //                                 .userlist
-  //                                 .value
-  //                                 .productView
-  //                                 ?.productDetails
-  //                                 ?.details?[index]
-  //                                 .SizeId
-  //                                 .toString();
-  //                             // print(selectedSizeIndex);
-  //                           },
-  //                           child: Center(
-  //                             child: Obx(
-  //                               () => Container(
-  //                                 width: 70.h,
-  //                                 decoration: BoxDecoration(
-  //                                   color: AselectedSizeIndex.value == index
-  //                                       ? Color(0xffff8300)
-  //                                       : const Color.fromARGB(
-  //                                           111, 158, 158, 158),
-  //                                   borderRadius: BorderRadius.circular(
-  //                                       20), // Adjust the border radius as needed
-  //                                 ),
-  //                                 padding: EdgeInsets.all(
-  //                                     8), // Adjust the padding as needed
-  //                                 child: Center(
-  //                                   child: Text(
-  //                                     '$Aselectedsizename',
-  //                                     style: TextStyle(
-  //                                       color: AselectedSizeIndex.value == index
-  //                                           ? Colors.white
-  //                                           : Colors.black,
-  //                                     ),
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                         //),
-  //                       );
-  //                     },
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+                                    _productpricechangebyattributecontroller
+                                        .ProductPriceChangeByAttribute(context);
+                                    updatedprice.value =
+                                        _productpricechangebyattributecontroller
+                                            .userlist.value.data!.totalQuantity
+                                            .toString();
+                                  }
+
+                                  print(selectedSizeIndex);
+                                },
+                                child: Obx(
+                                  () => Container(
+                                      height: 100,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                          border: AselectedcolorIndex.value ==
+                                                  index
+                                              ? Border.all(
+                                                  color: Colors.black, width: 3)
+                                              : Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 80,
+                                            width: 70,
+                                            child: Center(
+                                              child: CustomImageView(
+                                                fit: BoxFit.cover,
+                                                imagePath: "$imageUrl",
+                                                height: 80.adaptSize,
+                                                width: 70.adaptSize,
+                                                radius: BorderRadius.circular(
+                                                  6.h,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              '$Aselectedcolorname',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+    );
+  }
 
   // Widget _buildAddToCart(BuildContext context) {
   //   return Container(
@@ -3206,16 +4212,16 @@ class _ArabicMensSingleShirtViewScreenState
   //                           //                   Utils.snackBar(context, 'Failed',
   //                           //                       'Please Select Size');
   //                           //                 } else {
-  //                           //                   arabicpid = productviewcontroller
+  //                           //                   arabicarabicpid = productviewcontroller
   //                           //                       .userlist
   //                           //                       .value
   //                           //                       .productView
   //                           //                       ?.id
   //                           //                       .toString();
-  //                           //                   arabicproductColor =
+  //                           //                   arabicarabicproductColor =
   //                           //                       ARcolorId.toString();
   //                           //                   // quantity = counter;
-  //                           //                   arabicproductSize =
+  //                           //                   arabicarabicproductSize =
   //                           //                       ARsizeid.toString();
   //                           //                   _productpricechangebyattributecontroller
   //                           //                       .ProductPriceChangeByAttribute(

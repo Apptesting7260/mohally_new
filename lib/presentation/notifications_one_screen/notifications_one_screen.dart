@@ -1,10 +1,8 @@
 import 'package:get/get.dart';
 import 'package:mohally/widgets/custom_icon_button.dart';
 
-import '../notifications_one_screen/widgets/notificationsone_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mohally/core/app_export.dart';
-import 'package:mohally/widgets/app_bar/appbar_leading_iconbutton_two.dart';
 import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
 

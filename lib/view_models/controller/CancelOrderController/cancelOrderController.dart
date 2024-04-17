@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/CancelOrderModel/cancelordermodel.dart';
-import 'package:mohally/presentation/my_orders_tab_container_screen/my_orders_tab_container_screen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +27,7 @@ class CancelOrderController extends GetxController {
     loading.value = true;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     Map data = {"order_id": Orderid};

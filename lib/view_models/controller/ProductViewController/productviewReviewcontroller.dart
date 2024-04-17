@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mohally/data/response/status.dart';
 import 'package:mohally/models/ProductViewReviewModel/productviewreviewmodel.dart';
-import 'package:mohally/presentation/reviews_screen/reviews_screen.dart';
 import 'package:mohally/repository/Auth_Repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +24,7 @@ class ViewReviewController extends GetxController {
     loading.value = true;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lang = prefs.getString('selectedLanguage').toString();
+    // String lang = prefs.getString('selectedLanguage').toString();
     print("${prefs.getString('selectedLanguage').toString()}==========lang");
 
     Map data = {"product_id": productId};

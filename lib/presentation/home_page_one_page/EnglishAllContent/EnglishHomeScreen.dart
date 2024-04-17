@@ -64,8 +64,6 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
       CategoriesByNameControllerEnglish();
   int selectedTabIndex = 0;
   PageController _pageController = PageController();
-  EnglishSingleProductViewController _singleproductviewController =
-      EnglishSingleProductViewController();
   int _currentIndex = 0;
   ProductPriceChngeByAttribute _productpricechangebyattributecontroller =
       ProductPriceChngeByAttribute();
@@ -2177,11 +2175,11 @@ class EnglishHomeScreenState extends State<EnglishHomeScreen>
                                             onTap: () {
                                               if (colorId != null &&
                                                   sizeid != null) {
-                                                int totalQuantity = int.tryParse(
-                                                        _productpricechangebyattributecontroller
-                                                            .totalQuantity
-                                                            .value) ??
-                                                    0;
+                                                // int totalQuantity = int.tryParse(
+                                                //         _productpricechangebyattributecontroller
+                                                //             .totalQuantity
+                                                //             .value) ??
+                                                //     0;
                                                 if (quantity > 1)
                                                   setState(() {
                                                     quantity--;

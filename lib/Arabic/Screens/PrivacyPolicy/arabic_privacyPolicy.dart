@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mohally/theme/theme_helper.dart';
+import 'package:mohally/core/app_export.dart';
+import 'package:mohally/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mohally/widgets/app_bar/custom_app_bar.dart';
+import 'package:mohally/widgets/custom_icon_button.dart';
 
 class PrivacyPolicy_arabic extends StatefulWidget {
   const PrivacyPolicy_arabic({Key? key})
@@ -43,37 +46,31 @@ class _PrivacyPolicy_arabicState extends State<PrivacyPolicy_arabic> {
 
   @override
   Widget build(BuildContext context) {
-    // final height = MediaQuery.of(context).size.height;
-    // final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'سياسة الخصوصية',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Almarai',
-              ),
-            ),
+          appBar: CustomAppBar(
+            leadingWidth: 80,
             leading: Padding(
               padding: const EdgeInsets.only(
-                top: 15,
+                top: 5,
               ),
-              child: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                    width: Get.width * .07,
-                    height: Get.height * .03,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color.fromARGB(90, 158, 158, 158)),
-                    child: Icon(
-                      Icons.arrow_back,
-                    )),
-              ),
+              child: CustomIconButton(
+                  onTap: () {
+                    Get.back();
+                    // Get.offAll(TabScreen(index: 0));
+                  },
+                  height: 40.adaptSize,
+                  width: 40.adaptSize,
+                  decoration: IconButtonStyleHelper.fillGrayTL20,
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ))),
+            ),
+            title: AppbarSubtitle(
+              text: "سياسة الخصوصية",
+              // margin: EdgeInsets.only(left: 10),
             ),
           ),
           body: htmlresponse == null

@@ -101,8 +101,6 @@ class _CartPageState extends State<CartPage> {
       Englishuseraddressviewcontroller();
 
   CouponCodeController _couponCodeController = CouponCodeController();
-  CartProductQtyIncrementCartcontroller _qtyupdatecontroller =
-      CartProductQtyIncrementCartcontroller();
 
   EnglishViewCart _viewcartcontroller = EnglishViewCart();
 
@@ -124,8 +122,8 @@ class _CartPageState extends State<CartPage> {
     }
   }
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  // RefreshController _refreshController =
+  //     RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
@@ -3104,12 +3102,12 @@ class _CartPageState extends State<CartPage> {
                                   mainCatId = homeView_controller.userList.value
                                       .recommendedProduct?[index].mainCategoryId
                                       .toString();
-                                  String? productId = homeView_controller
-                                      .userList
-                                      .value
-                                      .recommendedProduct?[index]
-                                      .id
-                                      ?.toString();
+                                  // String? productId = homeView_controller
+                                  //     .userList
+                                  //     .value
+                                  //     .recommendedProduct?[index]
+                                  //     .id
+                                  //     ?.toString();
 
                                   print(mainCatId.toString());
                                 },
