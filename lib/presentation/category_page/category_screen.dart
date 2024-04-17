@@ -35,15 +35,16 @@ import 'package:mohally/widgets/custom_image_view.dart';
 import 'package:mohally/widgets/custom_search_view.dart';
 import 'package:vertical_tabs_flutter/vertical_tabs.dart';
 
-int selectedTabIndex = 0;
+///commented from here because it give issue in scroll controller. I declare it below
+//int selectedTabIndex = 0;
 
 class CategoryScreen extends StatefulWidget {
   // final int initialPage;
   final bool showAppBar;
-  final int selectedTabIndex;
+  int selectedTabIndex;
   final bool FromHomeToCat;
 
-  const CategoryScreen(
+  CategoryScreen(
       {Key? key,
       this.showAppBar = false,
       this.selectedTabIndex = 0,
@@ -65,6 +66,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
   File imgFile = File("");
 
   final imgPicker = ImagePicker();
+
+  /// scroll controller added
+  ScrollController scrollController = ScrollController();
+  int selectedTabIndex = 0;
+  ///
 
   void openCamera(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
@@ -103,6 +109,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void dispose() {
     pagecontroller.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -123,6 +130,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
             return GeneralExceptionWidget(onPress: () {});
           }
         case Status.COMPLETED:
+
+        /// scroll controller for automatic scroll
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            double offset = (widget.FromHomeToCat
+                ? widget.selectedTabIndex
+                : selectedTabIndex) *
+                Get.height * 0.08;
+            scrollController.animateTo(offset,
+                duration: Duration(milliseconds: 500), curve: Curves.bounceInOut);
+          });
+          ///
+
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: widget.showAppBar
@@ -280,6 +299,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         ? Get.height * .77
                                         : Get.height * .67,
                                     child: ListView.builder(
+                                      controller: scrollController,
                                       itemCount: homeView_controller
                                           .userList.value.categoryData!.length,
                                       itemBuilder:
@@ -287,7 +307,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         return GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              selectedTabIndex = index;
+                                              //selectedTabIndex = index;
+                                              widget.selectedTabIndex = index;
                                               categoryId = homeView_controller
                                                   .userList
                                                   .value
@@ -299,7 +320,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   .CategoryByNameApiHit(
                                                       categoryId);
                                               pagecontroller.animateToPage(
-                                                  selectedTabIndex,
+                                                  //selectedTabIndex,
+                                                  widget.selectedTabIndex,
                                                   duration: Duration(
                                                       milliseconds: 500),
                                                   curve: Curves.ease);
@@ -313,8 +335,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   // width: 120,
                                                   height: Get.height * 0.08,
                                                   width: Get.width * 0.34,
-                                                  color: selectedTabIndex ==
-                                                          index
+                                                  color:
+                                                  // selectedTabIndex ==
+                                                  //         index
+                                                  widget.selectedTabIndex ==
+                                                      index
                                                       ? Colors.white
                                                       : Color.fromARGB(
                                                           36, 158, 158, 158),
@@ -326,8 +351,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                             Get.height * 0.08,
                                                         width: 4,
                                                         color:
-                                                            selectedTabIndex ==
-                                                                    index
+                                                            // selectedTabIndex ==
+                                                            //         index
+                                                        widget.selectedTabIndex ==
+                                                            index
                                                                 ? Color(
                                                                     0xffFF8300)
                                                                 : null,
@@ -343,8 +370,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                           child: Text(
                                                             "${homeView_controller.userList.value.categoryData?[index].categoryName.toString()}",
                                                             style: TextStyle(
-                                                              color: selectedTabIndex ==
-                                                                      index
+                                                              color:
+                                                              // selectedTabIndex ==
+                                                              //         index
+                                                              widget.selectedTabIndex ==
+                                                                  index
                                                                   ? Colors
                                                                       .orange
                                                                   : Color(
@@ -432,8 +462,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     //     .toString();
 
                                     setState(() {
+                                      // widget.FromHomeToCat
+                                      //     ? selectedTabIndex
+                                      //     : selectedTabIndex = index;
                                       widget.FromHomeToCat
-                                          ? selectedTabIndex
+                                          ?  widget.selectedTabIndex
                                           : selectedTabIndex = index;
                                       _categoryByName.CategoryByNameApiHit(
                                           categoryId);
